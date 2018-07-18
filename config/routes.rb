@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users
-  get 'pages/home'
-  get 'pages/about'
-  get 'pages/contact'
+  resources :orders
+  resources :contracts
+  devise_for :users, path: '', path_names:{sign_in: 'login', sign_out: 'logout' , sign_up: 'signup'}
+  get 'aboutme', to: 'pages#about'
+  get 'contact', to: 'pages#contact'
   resources :books
   resources :posts
   root to: "pages#home"

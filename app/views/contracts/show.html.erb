@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Meeting time:</strong>
+  <%= @contract.meeting_time %>
+</p>
+
+<p>
+  <strong>Meeting address first:</strong>
+  <%= @contract.meeting_address_first %>
+</p>
+
+<p>
+  <strong>Meeting address second:</strong>
+  <%= @contract.meeting_address_second %>
+</p>
+
+<p>
+  <strong>Final method:</strong>
+  <%= @contract.final_method %>
+</p>
+
+<p>
+  <strong>Final price:</strong>
+  <%= @contract.final_price %>
+</p>
+
+<p>
+  <strong>Expiration time:</strong>
+  <%= @contract.expiration_time %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @contract.status %>
+</p>
+
+<%= link_to 'Edit', edit_contract_path(@contract) %> |
+<%= link_to 'Back', contracts_path %>
