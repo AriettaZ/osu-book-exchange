@@ -1,10 +1,10 @@
-<%= form_with(model: blog, local: true) do |form| %>
-  <% if blog.errors.any? %>
+<%= form_with(model: post, local: true) do |form| %>
+  <% if post.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(blog.errors.count, "error") %> prohibited this blog from being saved:</h2>
+      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
 
       <ul>
-      <% blog.errors.full_messages.each do |message| %>
+      <% post.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -12,13 +12,36 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.label :book %>
+    <%= form.text_field :book %>
   </div>
 
   <div class="field">
-    <%= form.label :body %>
-    <%= form.text_area :body %>
+    <%= form.label :type %>
+    <%= form.text_area :type %>
+  </div>
+  <div class="field">
+    <%= form.label :course_number %>
+    <%= form.text_field :course_number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.text_area :price %>
+  </div>
+  <div class="field">
+    <%= form.label :condition %>
+    <%= form.text_field :condition %>
+  </div>
+
+  <div class="field">
+    <%= form.label :payment_method %>
+    <%= form.text_area :payment_method %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
   </div>
 
   <div class="actions">
