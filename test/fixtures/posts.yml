@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type: 1
+  course_number: MyText
+  price: 
+  condition: MyText
+  payment_method: 1
+  description: MyText
+  status: 1
+
+two:
+  type: 1
+  course_number: MyText
+  price: 
+  condition: MyText
+  payment_method: 1
+  description: MyText
+  status: 1

@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Posts</h1>
+<div class="">
+  <% @posts.each do |post| %>
+      <div><%= post.title %></div>
+      <div><%= post.body %></div>
+      <div><%= link_to post.status,  toggle_status_post_path(post) %></div>
+      <div><%= link_to 'Show', post %></div>
+      <div><%= link_to 'Edit', edit_post_path(post) %></div>
+      <div><%= link_to 'Delete Post', post, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+  <% end %>
+</div>
+
+<br>
+
+<%= link_to 'New Post', new_post_path %>

@@ -10,6 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2018_07_17_233905) do
+
+  create_table "books", force: :cascade do |t|
+    t.text "isbn10"
+    t.text "isbn13"
+    t.text "edition"
+    t.text "title"
+    t.text "cover_image"
+    t.decimal "amazon_price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.integer "type"
+    t.text "course_number"
+    t.decimal "price"
+    t.text "condition"
+    t.integer "payment_method"
+    t.text "description"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end
