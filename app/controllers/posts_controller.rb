@@ -10,7 +10,7 @@ end
 # GET /posts/1
 # GET /posts/1.json
 def show
-  @page_title=@post.title
+  # @page_title=@post.title
 end
 
 # GET /posts/new

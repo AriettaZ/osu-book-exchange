@@ -1,14 +1,13 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @post.title %>
-</p>
-
-<p>
-  <strong>Body:</strong>
-  <%= @post.body %>
-</p>
+<div>Book: <%= post.book.title %></div>
+<div>Type: <%= post.type %></div>
+<div>Course: <%= post.course_number %></div>
+<div>Price: <%= post.price %></div>
+<div>condition: <%= post.condition %></div>
+<div>Post Date: <%= post.price %></div>
+<div>Payment Method: <%= post.payment_method %></div>
+<div>Description: <%= post.description %></div>
 
 <%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Back', posts_path %>

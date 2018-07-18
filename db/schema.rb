@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_18_025007) do
+ActiveRecord::Schema.define(version: 2018_07_18_055900) do
 
   create_table "books", force: :cascade do |t|
     t.text "isbn10"
@@ -95,7 +95,9 @@ ActiveRecord::Schema.define(version: 2018_07_18_025007) do
     t.datetime "updated_at", null: false
     t.integer "book_id"
     t.integer "user_id"
+    t.string "slug"
     t.index ["book_id"], name: "index_posts_on_book_id"
+    t.index ["slug"], name: "index_posts_on_slug", unique: true
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -115,8 +117,10 @@ ActiveRecord::Schema.define(version: 2018_07_18_025007) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "name"
+    t.string "slug"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["slug"], name: "index_users_on_slug", unique: true
   end
 
 end
