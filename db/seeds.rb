@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 5.times { |index|
-  Post.create(type: 0, course_number: "CSE3901", price: index+100, condition: 0, payment_method: 0, description: "a brand new book", status: 0)
+  Post.create(post_type: 0, course_number: "cse3901", price: index+100, condition: "new", payment_method: 0, description: "a brand new book", status: 0)
 }
 
 5.times { |index|
