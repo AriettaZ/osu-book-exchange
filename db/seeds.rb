@@ -13,7 +13,7 @@
   user.name = "Brutus #{index+1}"
   user.phone= "8888888888"
   user.password = 'valid_password'
-user.password_confirmation = 'valid_password'
+  user.password_confirmation = 'valid_password'
   user.save!
 }
 
