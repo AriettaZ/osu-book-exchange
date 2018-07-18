@@ -5,3 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+5.times { |index|
+  Post.create(type: 0, course_number: "CSE3901", price: index+100, condition: 0, payment_method: 0, description: "a brand new book", status: 0)
+}
+
+5.times { |index|
+  Book.create(isbn10: "#{index + 1}", isbn13: "#{987654321 - index}", edition: "#{index} th", title: "hello #{index*2}", cover_image: "hello", amazon_price: index + 22.5)
+}
