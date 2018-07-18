@@ -7,7 +7,7 @@ class CreatePosts < ActiveRecord::Migration[5.2]
       t.text :condition
       t.integer :payment_method
       t.text :description
-      t.integer :status
+      t.integer :status, default: 0
 
       t.timestamps
     end

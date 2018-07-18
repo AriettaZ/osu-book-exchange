@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_18_004438) do
+ActiveRecord::Schema.define(version: 2018_07_18_015925) do
 
   create_table "books", force: :cascade do |t|
     t.text "isbn10"
@@ -23,14 +23,62 @@ ActiveRecord::Schema.define(version: 2018_07_18_004438) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "contracts", force: :cascade do |t|
+    t.datetime "meeting_time"
+    t.text "meeting_address_first"
+    t.text "meeting_address_second"
+    t.integer "final_payment_method"
+    t.decimal "final_price"
+    t.datetime "expiration_time"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "seller_id"
+    t.integer "buyer_id"
+    t.integer "unsigned_user_id"
+    t.integer "post_id"
+    t.index ["buyer_id"], name: "index_contracts_on_buyer_id"
+    t.index ["post_id"], name: "index_contracts_on_post_id"
+    t.index ["seller_id"], name: "index_contracts_on_seller_id"
+    t.index ["unsigned_user_id"], name: "index_contracts_on_unsigned_user_id"
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.string "actual_product_image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "post_id"
+    t.index ["post_id"], name: "index_images_on_post_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "post_id"
+    t.integer "sender_id"
+    t.integer "receiver_id"
+    t.index ["post_id"], name: "index_messages_on_post_id"
+    t.index ["receiver_id"], name: "index_messages_on_receiver_id"
+    t.index ["sender_id"], name: "index_messages_on_sender_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "contract_id"
+    t.index ["contract_id"], name: "index_orders_on_contract_id"
+  end
+
   create_table "posts", force: :cascade do |t|
-    t.integer "type"
+    t.integer "post_type"
     t.text "course_number"
     t.decimal "price"
-    t.text "condition"
+    t.integer "condition", default: 0
     t.integer "payment_method"
     t.text "description"
-    t.integer "status"
+    t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "book_id"
