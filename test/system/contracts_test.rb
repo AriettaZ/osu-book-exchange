@@ -15,7 +15,7 @@ class ContractsTest < ApplicationSystemTestCase
     click_on "New Contract"
 
     fill_in "Expiration Time", with: @contract.expiration_time
-    fill_in "Final Method", with: @contract.final_method
+    fill_in "Final Method", with: @contract.final_payment_method
     fill_in "Final Price", with: @contract.final_price
     fill_in "Meeting Address First", with: @contract.meeting_address_first
     fill_in "Meeting Address Second", with: @contract.meeting_address_second
@@ -32,7 +32,7 @@ class ContractsTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "Expiration Time", with: @contract.expiration_time
-    fill_in "Final Method", with: @contract.final_method
+    fill_in "Final Method", with: @contract.final_payment_method
     fill_in "Final Price", with: @contract.final_price
     fill_in "Meeting Address First", with: @contract.meeting_address_first
     fill_in "Meeting Address Second", with: @contract.meeting_address_second

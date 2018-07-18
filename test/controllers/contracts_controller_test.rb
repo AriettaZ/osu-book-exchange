@@ -17,7 +17,7 @@ class ContractsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create contract" do
     assert_difference('Contract.count') do
-      post contracts_url, params: { contract: { expiration_time: @contract.expiration_time, final_method: @contract.final_method, final_price: @contract.final_price, meeting_address_first: @contract.meeting_address_first, meeting_address_second: @contract.meeting_address_second, meeting_time: @contract.meeting_time, status: @contract.status } }
+      post contracts_url, params: { contract: { expiration_time: @contract.expiration_time, final_payment_method: @contract.final_payment_method, final_price: @contract.final_price, meeting_address_first: @contract.meeting_address_first, meeting_address_second: @contract.meeting_address_second, meeting_time: @contract.meeting_time, status: @contract.status } }
     end
 
     assert_redirected_to contract_url(Contract.last)
@@ -34,7 +34,7 @@ class ContractsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update contract" do
-    patch contract_url(@contract), params: { contract: { expiration_time: @contract.expiration_time, final_method: @contract.final_method, final_price: @contract.final_price, meeting_address_first: @contract.meeting_address_first, meeting_address_second: @contract.meeting_address_second, meeting_time: @contract.meeting_time, status: @contract.status } }
+    patch contract_url(@contract), params: { contract: { expiration_time: @contract.expiration_time, final_payment_method: @contract.final_payment_method, final_price: @contract.final_price, meeting_address_first: @contract.meeting_address_first, meeting_address_second: @contract.meeting_address_second, meeting_time: @contract.meeting_time, status: @contract.status } }
     assert_redirected_to contract_url(@contract)
   end
 

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :orders
   resources :contracts
   get 'about', to: 'pages#about'
+  get 'about-magic', to: 'pages#aboutme'
   get 'contact', to: 'pages#contact'
   resources :books
   resources :posts, except: [:show]
