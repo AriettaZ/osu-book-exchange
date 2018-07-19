@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'dashboard/myorder'
+  get 'dashboard/myrequest'
+  get 'dashboard/myoffer'
+  get 'dashboard/account_information'
+  get 'dashboard/messages'
+  get 'dashboard/bookmarks'
   devise_for :users, path: '', path_names:{sign_in: 'login', sign_out: 'logout' , sign_up: 'signup'}
   resources :orders
   resources :contracts
