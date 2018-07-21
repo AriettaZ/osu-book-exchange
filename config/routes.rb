@@ -15,5 +15,6 @@ Rails.application.routes.draw do
   resources :posts, except: [:show]
   get 'post/:id', to: 'posts#show', as: 'post_show'
   root to: "pages#home"
+  resources :messages, except: [:edit, :update, :destroy]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
