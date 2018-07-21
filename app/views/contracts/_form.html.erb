@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= form.label :meeting_time %>
-    <%= form.datetime_field :meeting_time, min: DateTime.now%>
+    <%= form.datetime_field :meeting_time, min: DateTime.now.strftime("%Y-%m-%d %H:%M")%>
   </div>
 
   <div class="field">
@@ -38,7 +38,7 @@
 
   <div class="field">
     <%= form.label :expiration_time %>
-    <%= form.datetime_field :expiration_time, min: Time.now %>
+    <%= form.datetime_field :expiration_time, min: DateTime.now.strftime("%Y-%m-%d %H:%M") %>
   </div>
 
   <%= form.hidden_field :post_id %>

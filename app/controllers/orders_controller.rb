@@ -10,9 +10,6 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
-    @contract = Contract.find(@order.contract_id)
-    @post = Post.find(@contract.post_id)
-    @book = Book.find(@post.book_id)
   end
 
   # GET /orders/new

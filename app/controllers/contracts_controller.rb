@@ -14,12 +14,14 @@ class ContractsController < ApplicationController
 
   # GET /contracts/new
   def new
-    if !current_user.is_a?(GuestUser)
+    # if !current_user.is_a?(GuestUser)
+    if current_user.has_roles?(:user)
       @contract = Contract.new
       @contract.post_id = params[:post_id]
       @sender_id = params[:sender_id]
       @receiver_id = params[:receiver_id]
-
+    elsif current_user.has_roles?(:site_admin)
+      @contract = Contract.new
     # Redirect to log in page if not logged in yet
     else
       redirect_to new_user_session_path
