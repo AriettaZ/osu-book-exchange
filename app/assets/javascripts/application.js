@@ -15,4 +15,8 @@
 //= require turbolinks
 //= require_tree .
 //= require dropzone.js
-//= require datetime_picker_input 
+//= require moment
+//= require jquery3
+//= require bootstrap-datetimepicker
+//= require popper
+//= require bootstrap-sprockets

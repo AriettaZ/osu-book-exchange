@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-  access user: [:edit,:update], site_admin: :all
+  access user: [:edit,:update,:show], site_admin: :all
   # GET /orders
   # GET /orders.json
   def index
@@ -10,9 +10,6 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
-    @contract = Contract.find(@order.contract_id)
-    @post = Post.find(@contract.post_id)
-    @book = Book.find(@post.book_id)
   end
 
   # GET /orders/new

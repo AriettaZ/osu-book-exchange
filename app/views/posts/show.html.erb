@@ -17,11 +17,19 @@
 <div>Description: <%= @post.description %></div>
 
 <h2>Actual Product Pictures</h2>
-<% Image.where(post_id: @post.id).each do |image| %>
-<%= image_tag image.actual_product_image%>
+
+<% @images.each do |p| %>
+  <%= image_tag p.actual_product_image_url %>
+  <%= link_to "Edit Attachment", edit_image_path(p) %>
 <% end %>
 
 <div><%= link_to 'Contact Seller', current_user.is_a?(GuestUser)? new_user_session_path : new_message_path(post_id: @post.id) %>
+<!--
+<% Image.where(post_id: @post.id).each do |image| %>
+<%= image_tag image.actual_product_image_url.html_safe %>
+<%= link_to "Edit Attachment", edit_image_path(image) %>
+<% end %> -->
+
 <%= link_to 'Edit', edit_post_path(@post) if current_user.id==@post.user_id %>
 <% if current_user.id != @post.user_id %></div>
   <div><%= link_to 'Start a Contract', new_contract_path(post_id: @post.id, sender_id: current_user.id, receiver_id: @post.user_id) %></div>

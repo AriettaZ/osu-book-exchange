@@ -15,12 +15,12 @@ module ApplicationHelper
     end
   end
 
-  def dashboard_helper
-    if !current_user.is_a?(GuestUser)
-      (link_to "My Dashboard", dashboard_main_path)
-    else
-      # No link
-    end
-  end
+  # def dashboard_helper
+  #   if !current_user.is_a?(GuestUser)
+  #     (link_to "My Dashboard", dashboard_main_path)
+  #   else
+  #     # No link
+  #   end
+  # end
 
 end

@@ -1,4 +1,4 @@
-<%= form_with(model: post, local: true, class: "dropzone") do |form| %>
+<%= form_with(model: post, local: true) do |form| %>
   <% if post.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
@@ -43,11 +43,22 @@
     <%= form.label :description %>
     <%= form.text_area :description %>
   </div>
-  <form action="" method="post" enctype="multipart/form-data" class="dropzone" id="my-awesome-dropzone">
-      <div class="fallback">
+<!--
+  <%= form_with(url: new_image_path, local: true, class: "dropzone", id:"my-awesome-dropzone" )do |f| %>
+  <div class="fallback">
     <input name="file" type="file" multiple />
   </div>
-</form>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  <% end %> -->
+
+  <%= form.fields_for :images do |image| %>
+  <div class="field">
+    <%= image.label :actual_product_image %><br>
+    <%= image.file_field :actual_product_image, :multiple => true, name: "images[actual_product_image][]" %>
+  </div>
+<% end %>
 
   <div class="actions">
     <%= form.submit %>
