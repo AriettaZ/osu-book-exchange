@@ -10,11 +10,15 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
+    @contract = Contract.find(@order.contract_id)
+    @post = Post.find(@contract.post_id)
+    @book = Book.find(@post.book_id)
   end
 
   # GET /orders/new
   def new
     @order = Order.new
+    @order.contract_id = params[:contract_id]
   end
 
   # GET /orders/1/edit
@@ -69,6 +73,6 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:status)
+      params.require(:order).permit(:status, :contract_id)
     end
 end
