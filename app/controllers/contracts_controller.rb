@@ -1,6 +1,6 @@
 class ContractsController < ApplicationController
   before_action :set_contract, only: [:show, :edit, :update, :destroy]
-
+  access user: [:show, :new, :edit, :create, :update, :destory], site_admin: :all
   # GET /contracts
   # GET /contracts.json
   def index

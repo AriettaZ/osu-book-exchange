@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_18_063035) do
+ActiveRecord::Schema.define(version: 2018_07_21_184004) do
 
   create_table "books", force: :cascade do |t|
     t.text "isbn10"
@@ -21,8 +21,6 @@ ActiveRecord::Schema.define(version: 2018_07_18_063035) do
     t.decimal "amazon_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "slug"
-    t.index ["slug"], name: "index_books_on_slug", unique: true
   end
 
   create_table "contracts", force: :cascade do |t|
@@ -43,18 +41,6 @@ ActiveRecord::Schema.define(version: 2018_07_18_063035) do
     t.index ["post_id"], name: "index_contracts_on_post_id"
     t.index ["seller_id"], name: "index_contracts_on_seller_id"
     t.index ["unsigned_user_id"], name: "index_contracts_on_unsigned_user_id"
-  end
-
-  create_table "friendly_id_slugs", force: :cascade do |t|
-    t.string "slug", null: false
-    t.integer "sluggable_id", null: false
-    t.string "sluggable_type", limit: 50
-    t.string "scope"
-    t.datetime "created_at"
-    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
-    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
-    t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
-    t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
   create_table "images", force: :cascade do |t|
@@ -97,9 +83,7 @@ ActiveRecord::Schema.define(version: 2018_07_18_063035) do
     t.datetime "updated_at", null: false
     t.integer "book_id"
     t.integer "user_id"
-    t.string "slug"
     t.index ["book_id"], name: "index_posts_on_book_id"
-    t.index ["slug"], name: "index_posts_on_slug", unique: true
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -119,10 +103,9 @@ ActiveRecord::Schema.define(version: 2018_07_18_063035) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "name"
-    t.string "slug"
+    t.string "roles"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["slug"], name: "index_users_on_slug", unique: true
   end
 
 end
