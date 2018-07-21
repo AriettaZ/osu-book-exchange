@@ -70,8 +70,10 @@ gem 'sunspot_solr' # optional pre-packaged Solr distribution for use in developm
 
 gem 'petergate', '~> 1.7'
 gem 'friendly_id', '~> 5.1.0', :require => 'friendly_id'
-gem 'bootstrap', '~> 4.0.0.alpha'
+gem 'bootstrap', '~> 4.1.1'
+gem 'sprockets-rails'
 gem 'dropzonejs-rails'
 gem 'carrierwave'
 gem 'momentjs-rails', '>= 2.9.0'
+gem 'jquery-rails'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
