@@ -6,7 +6,7 @@ class MessagesController < ApplicationController
   #before_action :authenticate_user!
 
   def list
-
+    
   end
 
   def show
@@ -15,28 +15,43 @@ class MessagesController < ApplicationController
   end
 
   def new
-    @message = Message.new
-    if current_user.is_a?(GuestUser)
+    if !current_user.is_a?(GuestUser)
       @message = Message.new
-      flash.now[:success] = "Message sent."
+      #flash[:success] = params
     else
       flash[:failure] = "You have to sign in to send a message."
-      redirect_to root_url
+      redirect_to new_user_session_url
     end
   end
 
   def create
-    @message = Message.new(message_param)
-    #@message.
-    #@message.post_id
-    #@message.receiver_id
+    # if !Post.find_by_id(params[:post_id])
+    #   render "messages/new" and return
+    # end
+
+    @message = Message.new(content: params[:message][:content],
+                           sender_id: current_user.id,
+                           post_id: Post.find(params[:post_id]).id,
+                           receiver_id: Post.find(params[:post_id]).user.id
+              )
+    # flash.now[:success] = @message.inspect
+    if @message.save
+      flash[:success] = "Message sent for post id: " + params[:post_id].to_s
+      redirect_to posts_url
+    else
+      # Show saving errors.
+      @message.errors.each do |type, text|
+        flash.now[:success] = type.to_s.capitalize + " " + text
+      end
+      render "messages/new"
+    end
 
   end
 
   private
-  def message_param
-    params.require(:message).permit(:content)
-  end
+  # def message_param
+  #   params.require(:message).permit(:content)
+  # end
 
 
 end
