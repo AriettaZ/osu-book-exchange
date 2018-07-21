@@ -72,5 +72,10 @@ gem 'petergate', '~> 1.7'
 gem 'friendly_id', '~> 5.1.0', :require => 'friendly_id'
 gem 'bootstrap', '~> 4.0.0.alpha'
 gem 'dropzonejs-rails'
+<<<<<<< HEAD
 
 gem 'datetime_picker_input' 
+||||||| merged common ancestors
+=======
+gem 'carrierwave'
+>>>>>>> f5118291082249fba80103c72df65faf9c337c66

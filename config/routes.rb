@@ -13,7 +13,12 @@ Rails.application.routes.draw do
   get 'contact', to: 'pages#contact'
   resources :books
   resources :posts
+<<<<<<< HEAD
   get 'search', to: 'search#search'
+||||||| merged common ancestors
+=======
+  resources :images
+>>>>>>> f5118291082249fba80103c72df65faf9c337c66
   root to: "pages#home"
   resources :messages, except: [:edit, :update, :destroy]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
