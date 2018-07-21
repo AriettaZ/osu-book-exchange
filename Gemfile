@@ -67,3 +67,10 @@ gem 'devise'
 
 gem 'sunspot_rails'
 gem 'sunspot_solr' # optional pre-packaged Solr distribution for use in development. Please find a section below explaining other options for running Solr in production
+
+gem 'petergate', '~> 1.7'
+gem 'friendly_id', '~> 5.1.0', :require => 'friendly_id'
+gem 'bootstrap', '~> 4.0.0.alpha'
+gem 'dropzonejs-rails'
+
+gem 'datetime_picker_input' 

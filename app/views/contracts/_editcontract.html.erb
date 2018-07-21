@@ -12,6 +12,15 @@
   <% end %>
 
   <div class="field">
+    <% form.input :when, as: :date_time_picker, input_html:
+      { data:
+        {
+          date_format: "YYYY.MM.DD hh:mm A",
+          date_day_view_header_format: 'MMM YYYY',
+          date_side_by_side: true,
+          date_min_date: Time.current.strftime('%Y-%m-%d')
+        }
+      }
     <%= form.label :meeting_time %>
     <%= form.datetime_field :meeting_time, min: DateTime.now%>
   </div>
@@ -42,26 +51,9 @@
   </div>
 
   <%= form.hidden_field :post_id %>
-  <% post = Post.find(@contract.post_id)%>
-  <% if post.post_type == "offer" %>
-    <%= form.hidden_field :seller_id, value: post.user_id %>
-    <% # If the person who starts this contract is not the person offering the book, then he is the buyer; otherwise, the receiver is the buyer %>
-    <% if @sender_id != post.user_id %>
-      <%= form.hidden_field :buyer_id, value: @sender_id %>
-    <% else %>
-      <%= form.hidden_field :buyer_id, value: @receiver_id %>
-    <% end %>
-  <% elsif post.post_type == "request" %>
-    <%= form.hidden_field :buyer_id, value: post.user_id %>
-
-    <% # If the current user is not the person requesting the book, then he is the seller; otherwise, the receiver is the seller %>
-    <% if @sender_id != post.user_id %>
-      <%= form.hidden_field :seller_id, value: @sender_id %>
-    <% else %>
-      <%= form.hidden_field :seller_id, value: @receiver_id %>
-    <% end %>
-  <% end %>
-  <%= form.hidden_field :unsigned_user_id, value: @receiver_id %>
+  <%= form.hidden_field :seller_id %>
+  <%= form.hidden_field :buyer_id %>
+  <%= form.hidden_field :unsigned_user_id %>
 
   <div class="actions">
     <%= form.submit %>

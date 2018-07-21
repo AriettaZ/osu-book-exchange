@@ -3,17 +3,23 @@
 <h1>Posts</h1>
 <div class="">
   <% @posts.each do |post| %>
-      <div>Book: <%= post.book.title %></div>
+      <%= link_to (image_tag post.book.cover_image unless post.book.cover_image.nil?), post %>
+      <h2><%= post.book.title %></h2>
       <div>Type: <%= post.post_type %></div>
-      <div>Course: <%= post.course_number %></div>
-      <div>Price: <%= post.price %></div>
+      <!-- <div>Course: <%= post.course_number %></div> -->
       <div>condition: <%= post.condition %></div>
-      <div>Post Date: <%= post.price %></div>
-      <div>Payment Method: <%= post.payment_method %></div>
+      <div>Price: <%= post.price %></div>
+      <div>Post Date: <%= post.created_at %></div>
+      <% if post.post_type=="offer" %>
+        <div>Seller: <%= User.find_by(id: post.user_id).name %></div>
+      <% else %>
+        <div>Buyer: <%= User.find_by(id: post.user_id).name %></div>
+      <% end %>
+      <!-- <div>Payment Method: <%= post.payment_method %></div> -->
       <div>Description: <%= post.description %></div>
-      <div><%= link_to 'Show', post_show_path(post) %></div>
-      <div><%= link_to 'Edit', edit_post_path(post) %></div>
-      <div><%= link_to 'Delete Post', post, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+      <div><%= link_to 'More Information', post %></div>
+      <!-- <div><%= link_to 'Edit', edit_post_path(post) %></div>
+      <div><%= link_to 'Delete Post', post, method: :delete, data: { confirm: 'Are you sure?' } %></div> -->
       <hr />
   <% end %>
   <%= @msg %>

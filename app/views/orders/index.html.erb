@@ -1,10 +1,16 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Orders</h1>
-
 <table>
   <thead>
     <tr>
+      <th>Meeting time</th>
+      <th>Meeting address</th>
+      <th>Final Payment method</th>
+      <th>Final price</th>
+      <th>Expiration time</th>
+      <th>Buyer</th>
+      <th>Seller</th>
       <th>Status</th>
       <th colspan="3"></th>
     </tr>
@@ -12,7 +18,15 @@
 
   <tbody>
     <% @orders.each do |order| %>
+      <% contract = Contract.find(order.contract_id) %>
       <tr>
+        <td><%= contract.meeting_time.strftime("%Y-%m-%d %H:%M") %></td>
+        <td><%= contract.meeting_address_first %><br/> <%= contract.meeting_address_second %></td>
+        <td><%= contract.final_payment_method %></td>
+        <td> $<%= contract.final_price %></td>
+        <td><%= contract.expiration_time.strftime("%Y-%m-%d %H:%M") %></td>
+        <td><%= User.find(contract.buyer_id).name %></td>
+        <td><%= User.find(contract.seller_id).name %></td>
         <td><%= order.status %></td>
         <td><%= link_to 'Show', order %></td>
         <td><%= link_to 'Edit', edit_order_path(order) %></td>

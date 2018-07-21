@@ -1,9 +1,93 @@
 <p id="notice"><%= notice %></p>
 
+<%= image_tag @book.cover_image unless @book.cover_image.nil? %>
 <p>
-  <strong>Status:</strong>
+  <strong>Course Number:</strong>
+  <%= @post.course_number %>
+</p>
+
+<p>
+  <strong>Book Title:</strong>
+  <%= @book.title %>
+</p>
+
+<p>
+  <strong>Edition:</strong>
+  <%= @book.edition %>
+</p>
+
+<% if !@book.isbn10.nil? %>
+<p>
+  <strong>ISBN10:</strong>
+  <%= @book.isbn10 %>
+</p>
+<% end %>
+
+<% if !@book.isbn13.nil? %>
+<p>
+  <strong>ISBN13:</strong>
+  <%= @book.isbn13 %>
+</p>
+<% end %>
+
+<p>
+  <strong>Book Condition:</strong>
+  <%= @post.condition %>
+</p>
+
+<p>
+  <strong>Book Description:</strong>
+  <%= @post.description %>
+</p>
+
+<p>
+  <strong>Seller:</strong>
+  <%= User.find(@contract.seller_id).name %>
+</p>
+
+<p>
+  <strong>Buyer:</strong>
+  <%= User.find(@contract.buyer_id).name %>
+</p>
+
+<p>
+  <strong>Meeting time:</strong>
+  <%= @contract.meeting_time.strftime("%Y-%d-%m %H:%M:%S") %>
+</p>
+
+<p>
+  <strong>Meeting address:</strong>
+  <br/><%= @contract.meeting_address_first %>
+  <br/><%= @contract.meeting_address_second %>
+</p>
+
+<p>
+  <strong>Payment method:</strong>
+  <%= @contract.final_payment_method %>
+</p>
+
+<p>
+  <strong>Price: </strong>
+  $<%= @contract.final_price %>
+</p>
+
+<p>
+  <strong>Order Status:</strong>
   <%= @order.status %>
 </p>
 
-<%= link_to 'Edit', edit_order_path(@order) %> |
+<p>
+  <strong>Order Created At:</strong>
+  <%= @order.created_at.strftime("%Y-%d-%m %H:%M:%S") %>
+</p>
+
+
+<% if @order.status != "closed" %>
+  <% if current_user.id == @contract.buyer_id %>
+    <div> <%= link_to "Order Completed", order_path(@order, order: {status: :closed}), :method => :put, data: { confirm: 'Are you sure?' } %> </div>
+  <% end %>
+  <% if @order.status != "problematic" %>
+    <div> <%= link_to "Order Has Problems", order_path(@order, order: {status: :problematic}), :method => :put, data: { confirm: 'Are you sure?' } %> </div>
+  <% end %>
+<% end %>
 <%= link_to 'Back', orders_path %>

@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy, :toggle_status]
+  access all: [:show, :index], user: :all, site_admin: :all
 # GET /posts
 # GET /posts.json
 def index
@@ -70,7 +71,7 @@ end
 private
   # Use callbacks to share common setup or constraints between actions.
   def set_post
-    @post = Post.friendly.find(params[:id])
+    @post = Post.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
