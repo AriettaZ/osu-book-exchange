@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :books
   resources :posts, except: [:show]
   get 'post/:id', to: 'posts#show', as: 'post_show'
+  get 'search', to: 'search#search'
   root to: "pages#home"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

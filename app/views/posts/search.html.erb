@@ -1,6 +1,7 @@
+<h1>Search Result</h1>
 <p id="notice"><%= notice %></p>
+<h2><%= @msg %></h2>
 
-<h1>Posts</h1>
 <div class="">
   <% @posts.each do |post| %>
       <div>Book: <%= post.book.title %></div>
@@ -16,7 +17,6 @@
       <div><%= link_to 'Delete Post', post, method: :delete, data: { confirm: 'Are you sure?' } %></div>
       <hr />
   <% end %>
-  <%= @msg %>
 </div>
 
 <br>
