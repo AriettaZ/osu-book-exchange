@@ -16,16 +16,15 @@ class SearchController < ApplicationController
 	  # # @msg = "Book Title: "
 	  # @page_title="My Search Posts"
 
-	  books = book_search
+	  books = book_search params[:query], params[:edition]
 	  post_refine_search books.results
-
 
 	end
 
-	def book_search
+	def book_search query, edition
 		Book.search do 
 			# Match title or ISBN
-			fulltext params[:query] do 
+			fulltext query do 
 				if params[:search_for]=='Title' then
 					fields(:title) 
 				elsif params[:search_for]=='ISBN' then
@@ -34,8 +33,8 @@ class SearchController < ApplicationController
 			end
 
 			# Match edition
-			if(params[:edition]!="all") then
-				fulltext params[:edition]+" th" do
+			if edition!="all" then
+				fulltext edition+" th" do
 					fields(:edition) 
 				end
 			end
@@ -45,8 +44,13 @@ class SearchController < ApplicationController
 
 	def post_refine_search(books)
 		@posts = []
+		@editions = [['--edition--',:all]] if params[:edition]=="all"
+		@conditions = [['--condition--',:all]] if params[:condition]=="all"
 		books.each do
-	    	|book| 
+	    	|book|
+	    	if params[:edition]=="all" then
+	    		@editions.append(book.edition) unless @editions.include? book.edition
+	    	end
 	    	Post.search do 
 	    		# Match Book id
 	    		fulltext book.id do 
@@ -77,10 +81,24 @@ class SearchController < ApplicationController
 	    	end.results.each do
 	      		|post|
 	      		@posts.append(post)
+	      		if params[:condition]=="all" then
+		      		unless @conditions.include? post.condition then
+		      			if post.condition!="Unacceptable"
+		      				@conditions.append(post.condition)
+		      			else
+		      				@conditions.append(["Used - poor", post.condition])
+		      			end
+		      		end
+		      	end
 	    	end
 	  	end
 
-	  	@msg = "Find "+@posts.length.to_s+" Posts"
+	  	@post_type = params[:offer_request]
+	  	@search_for = params[:search_for]
+	  	@search_field = params[:query]
+	  	@condition = params[:condition]
+	  	@edition = params[:edition]
+	  	# @msg = "Find "+@posts.length.to_s+" Posts"
+	  	# @msg = params
 	end
-
 end
