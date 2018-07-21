@@ -15,4 +15,3 @@
 //= require turbolinks
 //= require_tree .
 //= require dropzone.js
-//= require datetime_picker_input 
