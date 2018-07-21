@@ -2,6 +2,7 @@ class Post < ApplicationRecord
   belongs_to :book
   belongs_to :user
   has_many :images
+  accepts_nested_attributes_for :images
   has_many :messages
   has_many :contracts
   enum post_type: {offer: 0, request: 1}
@@ -9,4 +10,14 @@ class Post < ApplicationRecord
   enum status: {draft: 0, active: 1, pending: 2, closed: 3}
   enum condition: {"New": 0, "Used - Like New": 1, "Used - Very Good": 2, "Used - Good":3,"Used - Acceptable":4,"Unacceptable":5}
 
+  searchable do
+    text :condition
+    text :description
+    text :post_type
+    text :payment_method
+    text :status
+    text :book_id
+
+    integer :price
+  end
 end

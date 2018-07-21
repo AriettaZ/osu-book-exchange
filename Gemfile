@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.0'
+ruby '~> 2.5.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0'
@@ -64,7 +64,12 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'friendly_id', '~> 5.1.0', :require => 'friendly_id'
 
 gem 'devise'
+
+gem 'sunspot_rails'
+gem 'sunspot_solr' # optional pre-packaged Solr distribution for use in development. Please find a section below explaining other options for running Solr in production
+
 gem 'petergate', '~> 1.7'
 gem 'friendly_id', '~> 5.1.0', :require => 'friendly_id'
 gem 'bootstrap', '~> 4.0.0.alpha'
 gem 'dropzonejs-rails'
+gem 'carrierwave'

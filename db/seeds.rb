@@ -14,7 +14,7 @@
   user.phone= "8888888888"
   user.password = 'valid_password'
   user.password_confirmation = 'valid_password'
-  user.role='user'
+  user.role=:user
   user.save!
 }
 
@@ -26,7 +26,7 @@
   user.phone= "8888888888"
   user.password = 'valid_password'
   user.password_confirmation = 'valid_password'
-  user.role='site_admin'
+  user.role=:site_admin
   user.save!
 }
 1.times { |index|
@@ -37,7 +37,7 @@
   user.phone= "8888888888"
   user.password = 'valid_password'
   user.password_confirmation = 'valid_password'
-  user.role='site_admin'
+  user.role=:site_admin
   user.save!
 }
 1.times { |index|
@@ -48,7 +48,7 @@
   user.phone= "8888888888"
   user.password = 'valid_password'
   user.password_confirmation = 'valid_password'
-  user.role='site_admin'
+  user.role=:site_admin
   user.save!
 }
 1.times { |index|
@@ -59,7 +59,7 @@
   user.phone= "8888888888"
   user.password = 'valid_password'
   user.password_confirmation = 'valid_password'
-  user.role='site_admin'
+  user.role=:site_admin
   user.save!
 }
 
@@ -71,7 +71,7 @@
   user.phone= "8888888888"
   user.password = 'valid_password'
   user.password_confirmation = 'valid_password'
-  user.role='user'
+  user.role=:user
   user.save!
 }
 
@@ -189,22 +189,22 @@
     unsigned_user_id: User.find(index+4).id,
     post_id: Post.find(10-index).id)
 }
-
+image_data= File.open(File.join(Rails.root, "/app/assets/images/6631528842598_.pic.jpg"))
 10.times { |index|
   Image.create!(
-    actual_product_image: "http://via.placeholder.com/300x100",
+    actual_product_image: image_data,
     post_id: Post.find(index+1).id)
 }
 
 10.times { |index|
   Image.create!(
-    actual_product_image: "http://via.placeholder.com/200x100",
+    actual_product_image: image_data,
     post_id: Post.find(index+1).id)
 }
 
 14.times { |index|
   Image.create!(
-    actual_product_image: "http://via.placeholder.com/200x100",
+    actual_product_image: image_data,
     post_id: Post.find_by(user_id:"#{1+index}").id)
 }
 

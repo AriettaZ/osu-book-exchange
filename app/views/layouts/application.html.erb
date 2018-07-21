@@ -13,6 +13,11 @@
   </head>
 
   <body>
+    <!-- Custom flash messages -->
+    <% flash.each do |message_type, message| %>
+      <div style="color:red"><%= message %></div>
+    <% end %>
+
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 
