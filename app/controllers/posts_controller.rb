@@ -78,4 +78,6 @@ private
   def post_params
     params.require(:post).permit(:course_number,:post_type,:price,:condition,:payment_method,:description,:status)
   end
+
+  
 end

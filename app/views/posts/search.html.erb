@@ -1,0 +1,24 @@
+<h1>Search Result</h1>
+<p id="notice"><%= notice %></p>
+<h2><%= @msg %></h2>
+
+<div class="">
+  <% @posts.each do |post| %>
+      <div>Book: <%= post.book.title %></div>
+      <div>Type: <%= post.post_type %></div>
+      <div>Course: <%= post.course_number %></div>
+      <div>Price: <%= post.price %></div>
+      <div>condition: <%= post.condition %></div>
+      <div>Post Date: <%= post.price %></div>
+      <div>Payment Method: <%= post.payment_method %></div>
+      <div>Description: <%= post.description %></div>
+      <div><%= link_to 'Show', post_show_path(post) %></div>
+      <div><%= link_to 'Edit', edit_post_path(post) %></div>
+      <div><%= link_to 'Delete Post', post, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+      <hr />
+  <% end %>
+</div>
+
+<br>
+
+<%= link_to 'New Post', new_post_path %>
