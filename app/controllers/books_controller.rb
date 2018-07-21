@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
     before_action :set_book, only: [:show, :edit, :update, :destroy]
-
+    access user: [:show,:index], site_admin: :all
     # GET /books
     # GET /books.json
     def index

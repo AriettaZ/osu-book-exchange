@@ -1,13 +1,29 @@
 <p id="notice"><%= notice %></p>
-
+<%= image_tag @post.book.cover_image unless @post.book.cover_image.nil? %>
 <div>Book: <%= @post.book.title %></div>
-<div>Type: <%= @post.post_type %></div>
+<div>Post Date: <%= @post.created_at %></div>
+<div>Seller: <%= User.find_by(id: @post.user_id).name %></div>
+
+<% if @post.post_type=="offer" %>
+  <h2>More Information from Seller</h2>
+<% else %>
+  <h2>More Information from Buyer</h2>
+<% end %>
 <div>Course: <%= @post.course_number %></div>
 <div>Price: <%= @post.price %></div>
+<div>Type: <%= @post.post_type %></div>
+<div>Payment Method: <%= @post.payment_method %>  <i class="fas fa-exclamation-circle">Learn more about payment method</i></div>
 <div>condition: <%= @post.condition %></div>
-<div>Post Date: <%= @post.price %></div>
-<div>Payment Method: <%= @post.payment_method %></div>
 <div>Description: <%= @post.description %></div>
-<hr>
-<%= link_to 'Edit', edit_post_path(@post) %> |
+
+<h2>Actual Product Pictures</h2>
+<% Image.where(post_id: @post.id).each do |image| %>
+<%= image_tag image.actual_product_image%>
+<% end %>
+
+<div><%= link_to 'Contact Seller', current_user.is_a?(GuestUser)? new_user_session_path : new_post_path %>
+<%= link_to 'Edit', edit_post_path(@post) if current_user.id==@post.user_id %>
+<%= (link_to 'Delete', @post, method: :delete, data: { confirm: 'Are you sure?' }) if current_user.id==@post.user_id %>
 <%= link_to 'Back', posts_path %>
+</div>
+<hr>

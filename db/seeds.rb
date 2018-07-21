@@ -14,6 +14,64 @@
   user.phone= "8888888888"
   user.password = 'valid_password'
   user.password_confirmation = 'valid_password'
+  user.role='user'
+  user.save!
+}
+
+1.times { |index|
+  user = User.new
+  user.email = "zhu.1444@osu.edu"
+  user.major= "CSE"
+  user.name = "Ariel Zhu"
+  user.phone= "8888888888"
+  user.password = 'valid_password'
+  user.password_confirmation = 'valid_password'
+  user.role='site_admin'
+  user.save!
+}
+1.times { |index|
+  user = User.new
+  user.email = "jacobs.951@osu.edu"
+  user.major= "CSE"
+  user.name = "Channing Jacobs"
+  user.phone= "8888888888"
+  user.password = 'valid_password'
+  user.password_confirmation = 'valid_password'
+  user.role='site_admin'
+  user.save!
+}
+1.times { |index|
+  user = User.new
+  user.email = "lin.2453@osu.edu"
+  user.major= "CSE"
+  user.name = "Mike Lin"
+  user.phone= "8888888888"
+  user.password = 'valid_password'
+  user.password_confirmation = 'valid_password'
+  user.role='site_admin'
+  user.save!
+}
+1.times { |index|
+  user = User.new
+  user.email = "chen.6627@osu.edu"
+  user.major= "CSE"
+  user.name = "Gail Chen"
+  user.phone= "8888888888"
+  user.password = 'valid_password'
+  user.password_confirmation = 'valid_password'
+  user.role='site_admin'
+  user.save!
+}
+
+1.times { |index|
+  user = User.new
+  user.email = "test@test"
+  user.major= "CSE"
+  user.name = "TEST"
+  user.phone= "8888888888"
+  user.password = 'valid_password'
+  user.password_confirmation = 'valid_password'
+  user.role='user'
   user.save!
 }
 
@@ -27,6 +85,68 @@
     amazon_price: index*5 + 22.5)
 }
 
+
+2.times { |index|
+  Post.create!(
+    post_type: 0,
+    course_number: "cse3901",
+    price: 100,
+    condition: 0,
+    payment_method: 0,
+    description: "a brand new book #{index}",
+    status: 0,
+    book_id: Book.find(index+1).id,
+    user_id: User.find_by(email: "chen.6627@osu.edu").id)
+}
+2.times { |index|
+  Post.create!(
+    post_type: 0,
+    course_number: "cse3901",
+    price: 100,
+    condition: 0,
+    payment_method: 0,
+    description: "a brand new book #{index}",
+    status: 0,
+    book_id: Book.find(index+1).id,
+    user_id: User.find_by(email: "test@test").id)
+}
+2.times { |index|
+  Post.create!(
+    post_type: 0,
+    course_number: "cse3901",
+    price: 100,
+    condition: 0,
+    payment_method: 0,
+    description: "a brand new book #{index}",
+    status: 0,
+    book_id: Book.find(index+1).id,
+    user_id: User.find_by(email: "jacobs.951@osu.edu").id)
+}
+
+2.times { |index|
+  Post.create!(
+    post_type: 0,
+    course_number: "cse3901",
+    price: 100,
+    condition: 0,
+    payment_method: 0,
+    description: "a brand new book #{index}",
+    status: 0,
+    book_id: Book.find(index+1).id,
+    user_id: User.find_by(email: "lin.2453@osu.edu").id)
+}
+2.times { |index|
+  Post.create!(
+    post_type: 0,
+    course_number: "cse3901",
+    price: 100,
+    condition: 0,
+    payment_method: 0,
+    description: "a brand new book #{index}",
+    status: 0,
+    book_id: Book.find(index+1).id,
+    user_id: User.find_by(email: "zhu.1444@osu.edu").id)
+}
 10.times { |index|
   Post.create!(
     post_type: 0,
@@ -74,6 +194,18 @@
   Image.create!(
     actual_product_image: "http://via.placeholder.com/300x100",
     post_id: Post.find(index+1).id)
+}
+
+10.times { |index|
+  Image.create!(
+    actual_product_image: "http://via.placeholder.com/200x100",
+    post_id: Post.find(index+1).id)
+}
+
+14.times { |index|
+  Image.create!(
+    actual_product_image: "http://via.placeholder.com/200x100",
+    post_id: Post.find_by(user_id:"#{1+index}").id)
 }
 
 10.times { |index|

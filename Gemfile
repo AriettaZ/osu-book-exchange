@@ -64,3 +64,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'friendly_id', '~> 5.1.0', :require => 'friendly_id'
 
 gem 'devise'
+gem 'petergate', '~> 1.7'
+gem 'friendly_id', '~> 5.1.0', :require => 'friendly_id'
+gem 'bootstrap', '~> 4.0.0.alpha'
+gem 'dropzonejs-rails'
