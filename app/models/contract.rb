@@ -6,4 +6,8 @@ class Contract < ApplicationRecord
   has_one :order
   enum status: {waiting: 0, confirmed: 1, declined: 2}
   enum final_payment_method: {inperson: 0, online: 1}
+  validates :meeting_address_first, presence: true
+  validates :final_price, presence: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }, numericality: { greater_than: 0, less_than: 10000 }
+  validates :meeting_time, presence: true
+  validates :expiration_time, presence: true
 end
