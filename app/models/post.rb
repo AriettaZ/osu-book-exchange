@@ -1,6 +1,4 @@
 class Post < ApplicationRecord
-  extend FriendlyId
-  friendly_id :book, use: :slugged
   belongs_to :book
   belongs_to :user
   has_many :images

@@ -4,16 +4,11 @@
     <title>MAGCProject6</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'dropzone/dropzone' %>
+    <!-- <%= javascript_include_tag  'dropzone.js' %> -->
   </head>
 
   <body>
@@ -22,15 +17,9 @@
 
     <%= render "shared/navigation", location: "top" %>
 
-    <% if current_user.is_a?(User) %>
-      <%= link_to "Dashboard", dashboard_account_information_path %>
-      <%= link_to "Logout", destroy_user_session_path, method: 'delete' %>
-    <% else %>
-      <%= link_to "Login", new_user_session_path %>
-      <%= link_to "Register", new_user_registration_path %>
-    <% end %>
+    <%= login_helper %>
     <%= yield %>
-
+    <%= source_helper %>
     <%= render "shared/footer" , location: "bottom"%>
   </body>
 </html>
