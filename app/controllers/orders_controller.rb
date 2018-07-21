@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-  access user: [:edit,:update], site_admin: :all
+  access user: [:edit,:update,:show], site_admin: :all
   # GET /orders
   # GET /orders.json
   def index

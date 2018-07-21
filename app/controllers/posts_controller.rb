@@ -12,11 +12,13 @@ end
 # GET /posts/1.json
 def show
   # @page_title=@post.title
+  @images = @post.images.all
 end
 
 # GET /posts/new
 def new
   @post = Post.new
+  @image = @post.images.build
 end
 
 # GET /posts/1/edit
@@ -30,6 +32,9 @@ def create
 
   respond_to do |format|
     if @post.save
+      params[:images]['actual_product_image'].each do |image|
+        @image = @post.images.create!(:actual_product_image => image)
+      end
       format.html { redirect_to @post, notice: 'Post was successfully created.' }
       format.json { render :show, status: :created, location: @post }
     else
@@ -76,6 +81,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def post_params
-    params.require(:post).permit(:course_number,:post_type,:price,:condition,:payment_method,:description,:status)
+    params.require(:post).permit(:course_number,:post_type,:price,:condition,:payment_method,:description,:status,images_attributes: [:id, :post_id, :actual_product_image])
   end
 end

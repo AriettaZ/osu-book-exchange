@@ -9,6 +9,7 @@ module CurrentUser
     guest.first_name="Guest"
     guest.last_name="User"
     guest.email="Guest@example.com"
+    guest.roles=[:guest]
     guest
   end
 end

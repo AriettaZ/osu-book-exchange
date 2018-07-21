@@ -2,6 +2,7 @@ class Post < ApplicationRecord
   belongs_to :book
   belongs_to :user
   has_many :images
+  accepts_nested_attributes_for :images
   has_many :messages
   has_many :contracts
   enum post_type: {offer: 0, request: 1}
