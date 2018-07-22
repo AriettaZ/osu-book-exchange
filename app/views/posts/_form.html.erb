@@ -11,32 +11,72 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :book %>
-    <%= form.text_field :book %>
-  </div>
+  <!-- <%= form.fields_for @post.build_book do |f| %>
+    <%= f.text_field :self_link %>
+  <% end %> -->
+  <%= form.fields_for :book do |f| %>
+    <!-- <%= form.label :book %>
+    <%= form.text_area :book %> -->
+      <label for="book_self_link">Find book</label>
+      <select title="Enter book name or isbn" class="selectpicker field" data-show-subtext="true" data-live-search="true" name="post[book][self_link]" id="post_book_self_link">
+      </select>
+  <% end %>
 
   <div class="field">
-    <%= form.label :post_type %>
-    <%= form.text_area :post_type %>
+    <label for="post_type">Post Type</label>
+    <select class="form-control" name="post[post_type]" id="post_post_type">
+      <option value="offer" selected>Sell this book</option>
+      <option value="request">Buy this book</option>
+    </select>
+    <!-- <%= form.label :post_type %>
+    <%= form.text_area :post_type %> -->
   </div>
   <div class="field">
     <%= form.label :course_number %>
     <%= form.text_field :course_number %>
   </div>
 
-  <div class="field">
+  <!-- <div class="field">
     <%= form.label :price %>
     <%= form.text_area :price %>
-  </div>
+  </div> -->
+
   <div class="field">
-    <%= form.label :condition %>
-    <%= form.text_field :condition %>
+   <label for="post_price">Price</label>
+   <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">$</span>
+      </div>
+      <input type="text" name="post[price]" id="post_price" class="form-control" aria-label="Amount (to the nearest dollar)">
+      <div class="input-group-append">
+        <span class="input-group-text">.00</span>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="field">
+    <label for="post_condition">Post Condition</label>
+    <select class="form-control" name="post[condition]" id="post_condition">
+      <option value="New">New</option>
+      <option value="Used - Like New">Used - Like New</option>
+      <option value="Used - Very Good">Used - Very Good</option>
+      <option value="Used - Good">Used - Good</option>
+      <option value="Used - Acceptable">Used - Acceptable</option>
+      <option value="Unacceptable">Unacceptable</option>
+    </select>
+    <!-- <%= form.label :condition %>
+    <%= form.text_field :condition %> -->
   </div>
 
   <div class="field">
-    <%= form.label :payment_method %>
-    <%= form.text_area :payment_method %>
+    <!-- <%= form.label :payment_method %>
+    <%= form.text_area :payment_method %> -->
+    <label for="post_condition">Post Condition</label>
+    <select class="form-control" name="post[payment_method]" id="post_payment_method">
+      <option value="inperson">In Person</option>
+      <option value="online">Online</option>
+    </select>
   </div>
 
   <div class="field">

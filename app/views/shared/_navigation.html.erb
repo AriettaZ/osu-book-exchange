@@ -12,11 +12,20 @@
         <a  class="nav-link"><%= link_to "Home", root_path %></a>
       </li>
       <li  class="nav-item">
-        <a  class="nav-link"><%= link_to "Posts", posts_path %></a>
+        <a  class="nav-link"><%= link_to "Search Posts", posts_path %></a>
+      </li>
+      <li  class="nav-item">
+        <a  class="nav-link"><%= link_to "Post Book", new_post_path %></a>
+      </li>
+      <li  class="nav-item">
+        <a  class="nav-link"><%= link_to "Request Book", new_post_path %></a>
       </li>
       <!-- Links for admin user -->
       <% if current_user.has_roles?(:site_admin) %>
       <li  class="nav-item">
+        <li  class="nav-item">
+          <a  class="nav-link"><%= link_to "Posts", posts_path %></a>
+        </li>
         <a  class="nav-link"><%= link_to "Orders", orders_path %></a>
       </li>
       <li  class="nav-item">

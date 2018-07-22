@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
-<%= image_tag @post.book.cover_image unless @post.book.cover_image.nil? %>
-<div>Book: <%= @post.book.title %></div>
-<div>Post Date: <%= @post.created_at %></div>
+<%= image_tag @post.book.cover_image unless @post.book.nil? %>
+<div>Book: <%= @post.book.title unless @post.book.nil? %></div>
+<div>Post Date: <%= distance_of_time_in_words(@post.created_at, Time.now) %> ago</div>
 <div>Seller: <%= User.find_by(id: @post.user_id).name %></div>
 
 <% if @post.post_type=="offer" %>

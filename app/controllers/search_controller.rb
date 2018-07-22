@@ -28,7 +28,7 @@ class SearchController < ApplicationController
 				if params[:search_for]=='Title' then
 					fields(:title) 
 				elsif params[:search_for]=='ISBN' then
-					fields(:isbn10, :isbn13)
+					fields(:ISBN_10, :ISBN_13)
 				end
 			end
 

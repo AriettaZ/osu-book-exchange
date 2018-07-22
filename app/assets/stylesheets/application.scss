@@ -14,10 +14,16 @@
  */
  @import 'bootstrap';
  @import 'bootstrap-datetimepicker';
+$magic-purple: #2C0A24;
+$magic-orange: #AE4524;
+$magic-white: #F8F8F8;
 
 body{
   width:80%;
-  margin:auto;
+  margin:auto !important;
   display:block;
-  color: black;
+  background:$magic-white;
+}
+.bootstrap-select .dropdown-menu{
+  max-width:1200px;
 }

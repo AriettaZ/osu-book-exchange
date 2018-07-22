@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'about', to: 'pages#about'
   get 'about-magic', to: 'pages#aboutme'
   get 'contact', to: 'pages#contact'
+  get 'search-book', to: 'books#search'
   resources :books
   resources :posts
   get 'search', to: 'search#search'

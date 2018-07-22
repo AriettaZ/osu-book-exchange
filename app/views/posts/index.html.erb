@@ -9,7 +9,7 @@
       <!-- <div>Course: <%= post.course_number %></div> -->
       <div>condition: <%= post.condition %></div>
       <div>Price: <%= post.price %></div>
-      <div>Post Date: <%= post.created_at %></div>
+      <div>Post Date: <%= distance_of_time_in_words(post.created_at, Time.now) %> ago</div>
       <% if post.post_type=="offer" %>
         <div>Seller: <%= User.find_by(id: post.user_id).name %></div>
       <% else %>
