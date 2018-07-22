@@ -9,17 +9,22 @@
 </form>
  -->
 <%= form_tag(search_path, :method=>"get") do %>
-	<%= label_tag(:query, "Search for:") %>
-	<%= text_field_tag(:query) %>
+	<!-- <%= label_tag(:query, "Search for:") %> -->
+	<%= search_field_tag(:query, @search_field || "")  %>
 	<br/>
 <!-- 	<%= check_box_tag(:title) %>
 	<%= label_tag("title") %>
 	<%= check_box_tag(:author) %>
 	<%= label_tag("author") %> -->
-	<%= select_tag(:search_for, options_for_select([['Title',:title],['ISBN',:isbn]])) %>
-	<%= select_tag(:offer_request, options_for_select([['--Post Type--',:both],['Offer',:offer],['Request',:request]])) %>
-	<%= select_tag(:edition, options_for_select([['--edition--',:all],['1st',1],['2nd',2],['3rd',3],['4th',4]])) %>
-	<%= select_tag(:condition, options_for_select([['--condition--',:all],['new',:New],['Like New',"Used - Like New".to_sym],['Very Good',"Used - Very Good".to_sym],['Acceptable',"Used - Acceptable".to_sym],['poor','Unacceptable'.to_sym]])) %>
+	<% default_editions = [['--edition--',:all]]
+	# 31.times do |time| default_edition.append(time) end
+	%>
+	<%= select_tag(:search_for, options_for_select([['Title'],['ISBN']], @search_for)) %>
+	<%= select_tag(:offer_request, options_for_select([['--Post Type--',:both],['Offer'],['Request']], @post_type)) %>
+	<!-- <%= select_tag(:edition, options_for_select(@editions || default_editions, @edition)) %> -->
+	<%= number_field_tag(:edition, @edition, within: 1..30) %>
+	<!-- [['--edition--',:all],['1',1],['2',2],['3',3],['4',4]],['5',5],['6',6],['7',7],['8',8],['9',9],['10',10] -->
+	<%= select_tag(:condition, options_for_select(@conditions || [['--condition--',:all],['New'],['Used - Like New'],['Used - Very Good'],['Used - Acceptable'],['Used - poor','Unacceptable']], @condition)) %>
 	<%= number_field_tag(:low_price, nil, min: 0, max:2000) %> to <%= number_field_tag(:high_price, nil, min: 0, max:2000) %>
 
 	<%= submit_tag("Search") %>
