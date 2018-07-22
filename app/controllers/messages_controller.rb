@@ -3,7 +3,7 @@
 # Sellers can see all messages for a post, organized by buyer
 # Buyers can only see messages for posts where they're messaging sellers
 class MessagesController < ApplicationController
-  #before_action :authenticate_user!
+  before_action :authenticate_user!
 
   def list
     
