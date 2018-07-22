@@ -12,10 +12,23 @@ class DashboardController < ApplicationController
   end
 
   def myorder
-    @orders = Contract.find_by(buyer_id: 3)
+    # try to use where later
+    @orders = []
+    Contract.where(buyer_id: current_user.id).find_each do |contract|
+      @orders << contract.order
+    end
+    # Contract.find_each do |contract|
+    #   if contract.buyer_id == current_user.id
+    #     @orders << contract.order
+    #   end
+    # end
   end
 
   def myrequest
+    @requests = []
+    Post.where(user_id: 10, type: "request").find_each do |request|
+      @requests << request
+    end
   end
 
   def myoffer
