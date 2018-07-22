@@ -1,0 +1,23 @@
+<h1>Dashboard#contacts</h1>
+
+<%= form_tag(dashboard_contacts_path, :method=>"get") do %>
+	<%= button_tag("Refresh") %>
+<% end %>
+
+<div class="">
+<h1><%= @msg %></h1>
+<% @contacts.each do |user, post| %>
+	<div>
+		Talking With: <%= user.name %>
+		<br/>
+		Post: <%= post.price %>
+		<br/>
+		<%= form_tag(dashboard_messages_path(), :method=>"get") do %>
+			<%= hidden_field_tag(:talk_to, user.id) %>
+			<%= submit_tag("Talk") %>
+		<% end %>
+		<br/><br/>
+	</div>
+<% end %>
+
+</div>

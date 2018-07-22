@@ -1,2 +1,32 @@
 <h1>Dashboard#messages</h1>
 <p>Find me in app/views/dashboard/messages.html.erb</p>
+
+<%= form_tag(dashboard_messages_path, :method=>"get") do %>
+	<%= hidden_field_tag(:talk_to, params[:talk_to]) %>
+	<%= submit_tag("Refresh") %>
+<% end %>
+
+<div class="">
+<h1><%= @msg %></h1>
+<% @messages.each do |message| %>
+		<!-- <div><%= message.inspect %></div> -->
+	<div>
+		Time: <%= message.created_at %>
+		<br/>
+		Content: <%= message.content %>
+		<br/>
+		Sender: <%= message.sender_id %>
+		<br/>
+		Receiver: <%= message.receiver_id %>
+		<br/><br/>
+	</div>
+<% end %>
+
+<p><%= @msg2 %></p>
+
+<%= form_for @message, url: dashboard_messages_path(talk_to: params[:talk_to]), :method=>"post" do |f| %>
+	<%= f.text_area :content, size: "60x12" %>
+	<%= f.submit("Send") %>
+<% end %>
+
+</div>
