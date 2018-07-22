@@ -14,18 +14,32 @@ class ContractsController < ApplicationController
 
   # GET /contracts/new
   def new
-    # if !current_user.is_a?(GuestUser)
-    if current_user.has_roles?(:user)
-      @contract = Contract.new
+    @contract = Contract.new
+    # if !params[:admin].present?
       @contract.post_id = params[:post_id]
-      @sender_id = params[:sender_id]
-      @receiver_id = params[:receiver_id]
-    elsif current_user.has_roles?(:site_admin)
-      @contract = Contract.new
-    # Redirect to log in page if not logged in yet
-    else
-      redirect_to new_user_session_path
-    end
+      sender_id = params[:sender_id]
+      receiver_id = params[:receiver_id]
+
+      post = Post.find(@contract.post_id)
+      if post.post_type == "offer"
+        @contract.seller_id = post.user_id
+        # If the person who starts this contract is not the person offering the book, then he is the buyer; otherwise, the receiver is the buyer %>
+        if sender_id != post.user_id
+          @contract.buyer_id = sender_id
+        else
+          @contract.buyer_id = receiver_id
+        end
+        
+      elsif post.post_type == "request"
+        @contract.buyer_id = post.user_id
+        # If the current user is not the person requesting the book, then he is the seller; otherwise, the receiver is the seller %>
+        if sender_id != post.user_id
+          @contract.seller_id = sender_id
+        else
+          @contract.seller_id = receiver_id
+        end
+      end
+      @contract.unsigned_user_id = receiver_id
   end
 
   # GET /contracts/1/edit
@@ -36,12 +50,12 @@ class ContractsController < ApplicationController
   # POST /contracts.json
   def create
     @contract = Contract.new(contract_params)
-
     respond_to do |format|
       if @contract.save
         format.html { redirect_to @contract, notice: 'Contract was successfully created.' }
         format.json { render :show, status: :created, location: @contract }
       else
+        # @user_create = params[:user_create]
         format.html { render :new }
         format.json { render json: @contract.errors, status: :unprocessable_entity }
       end
@@ -90,4 +104,8 @@ class ContractsController < ApplicationController
     def contract_params
       params.require(:contract).permit(:meeting_time, :meeting_address_first, :meeting_address_second, :final_payment_method, :final_price, :expiration_time, :status, :post_id, :seller_id, :buyer_id, :unsigned_user_id)
     end
+
+    # def user_create
+    #   params.require(:contract).permit(:user_create)
+    # end
 end

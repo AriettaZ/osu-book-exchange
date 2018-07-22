@@ -41,27 +41,25 @@
     <%= form.datetime_field :expiration_time, min: DateTime.now.strftime("%Y-%m-%d %H:%M") %>
   </div>
 
-  <%= form.hidden_field :post_id %>
-  <% post = Post.find(@contract.post_id)%>
-  <% if post.post_type == "offer" %>
-    <%= form.hidden_field :seller_id, value: post.user_id %>
-    <% # If the person who starts this contract is not the person offering the book, then he is the buyer; otherwise, the receiver is the buyer %>
-    <% if @sender_id != post.user_id %>
-      <%= form.hidden_field :buyer_id, value: @sender_id %>
-    <% else %>
-      <%= form.hidden_field :buyer_id, value: @receiver_id %>
-    <% end %>
-  <% elsif post.post_type == "request" %>
-    <%= form.hidden_field :buyer_id, value: post.user_id %>
+  <div class="field">
+    <%= form.label :post_id %>
+    <%= form.collection_select :post_id, Post.all, :id, :book_id %>
+  </div>
 
-    <% # If the current user is not the person requesting the book, then he is the seller; otherwise, the receiver is the seller %>
-    <% if @sender_id != post.user_id %>
-      <%= form.hidden_field :seller_id, value: @sender_id %>
-    <% else %>
-      <%= form.hidden_field :seller_id, value: @receiver_id %>
-    <% end %>
-  <% end %>
-  <%= form.hidden_field :unsigned_user_id, value: @receiver_id %>
+  <div class="field">
+    <%= form.label :buyer_id %>
+    <%= form.collection_select :buyer_id, User.all, :id, :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :seller_id %>
+    <%= form.collection_select :seller_id, User.all, :id, :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :unsigned_user_id %>
+    <%= form.collection_select :unsigned_user_id, User.all, :id, :email %>
+  </div>
 
   <div class="actions">
     <%= form.submit %>
