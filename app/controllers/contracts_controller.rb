@@ -10,52 +10,78 @@ class ContractsController < ApplicationController
   # GET /contracts/1
   # GET /contracts/1.json
   def show
+    if !current_user.has_roles?(:site_admin) && current_user.id != @contract.buyer_id && current_user.id != @contract.seller_id
+      flash[:notice] = "You don't have access to the contract page."
+      redirect_to root_path
+    end
   end
 
   # GET /contracts/new
   def new
     @contract = Contract.new
-    # if !params[:admin].present?
-      @contract.post_id = params[:post_id]
-      sender_id = params[:sender_id]
-      receiver_id = params[:receiver_id]
-
-      post = Post.find(@contract.post_id)
-      if post.post_type == "offer"
-        @contract.seller_id = post.user_id
-        # If the person who starts this contract is not the person offering the book, then he is the buyer; otherwise, the receiver is the buyer %>
-        if sender_id != post.user_id
-          @contract.buyer_id = sender_id
-        else
-          @contract.buyer_id = receiver_id
-        end
-        
-      elsif post.post_type == "request"
-        @contract.buyer_id = post.user_id
-        # If the current user is not the person requesting the book, then he is the seller; otherwise, the receiver is the seller %>
-        if sender_id != post.user_id
-          @contract.seller_id = sender_id
-        else
-          @contract.seller_id = receiver_id
-        end
+    if !current_user.is_a?(GuestUser)
+      if !params[:admin].present?
+        @contract.post_id = params[:post_id]
+        @sender_id = params[:sender_id]
+        @receiver_id = params[:receiver_id]
+        @createdby = "user"
+        set_users()
+      else
+        @createdby = "admin"
       end
-      @contract.unsigned_user_id = receiver_id
+    else
+      flash[:notice] = "You have to sign in to send a message."
+      redirect_to new_user_session_path
+    end
+  end
+
+  # Set the new contract's seller_id, buyer_id, unsigned_user_id
+  def set_users
+    post = Post.find(@contract.post_id)
+    if post.post_type == "offer"
+      @contract.seller_id = post.user_id
+      # If the person who starts this contract is not the person offering the book, then he is the buyer; otherwise, the receiver is the buyer %>
+      if @sender_id != post.user_id
+        @contract.buyer_id = @sender_id
+      else
+        @contract.buyer_id = @receiver_id
+      end
+
+    elsif post.post_type == "request"
+      @contract.buyer_id = post.user_id
+      # If the current user is not the person requesting the book, then he is the seller; otherwise, the receiver is the seller %>
+      if @sender_id != post.user_id
+        @contract.seller_id = @sender_id
+      else
+        @contract.seller_id = @receiver_id
+      end
+    end
+    @contract.unsigned_user_id = @receiver_id
   end
 
   # GET /contracts/1/edit
   def edit
+    if !params[:admin].present?
+      @createdby = "user"
+    else
+      @createdby = "admin"
+    end
   end
 
   # POST /contracts
   # POST /contracts.json
   def create
+    @createdby = params[:createdby]
     @contract = Contract.new(contract_params)
     respond_to do |format|
       if @contract.save
+        if @contract.status != "waiting"
+          @contract.unsigned_user_id = nil
+        end
+        @contract.save
         format.html { redirect_to @contract, notice: 'Contract was successfully created.' }
         format.json { render :show, status: :created, location: @contract }
       else
-        # @user_create = params[:user_create]
         format.html { render :new }
         format.json { render json: @contract.errors, status: :unprocessable_entity }
       end
@@ -68,10 +94,8 @@ class ContractsController < ApplicationController
     respond_to do |format|
       if @contract.update(contract_params)
         if @contract.status == "confirmed" && Order.find_by(contract_id: @contract.id) == nil
-          # format.html { redirect_to new_order_path(contract_id: @contract.id) }
           @order = Order.create(contract_id: @contract.id)
           format.html { redirect_to order_path(@order.id), notice: 'Order was successfully placed.' }
-          format.json { render 'orders/show', status: :ok, location: @order }
         else
           format.html { redirect_to @contract, notice: 'Contract was successfully updated.' }
           format.json { render :show, status: :ok, location: @contract }

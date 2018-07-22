@@ -162,12 +162,12 @@
 
 5.times { |index|
   Contract.create!(
-    meeting_time: DateTime.new(2018,2,3,4,5,index+10),
+    meeting_time: DateTime.new(2018,2,3,4,5),
     meeting_address_first: "address#{index}",
     meeting_address_second: "address#{index+100}",
     final_payment_method: 0,
     final_price: "#{index+200.1}",
-    expiration_time: DateTime.new(2018,2,3,4+index,5,index+10),
+    expiration_time: DateTime.new(2018,2,3,4+index,5),
     status: 0,
     seller_id: User.find(10-index).id,
     buyer_id: User.find(index+1).id,
@@ -177,16 +177,16 @@
 
 5.times { |index|
   Contract.create!(
-    meeting_time: DateTime.new(2018,2,3,4,5,index+10),
+    meeting_time: DateTime.new(2018,2,3,4,5),
     meeting_address_first: "address#{index}",
     meeting_address_second: "address#{index+100}",
     final_payment_method: 1,
     final_price: "#{index+200.1}",
-    expiration_time: DateTime.new(2018,2,3,4+index,5,index+10),
+    expiration_time: DateTime.new(2018,2,3,4+index,5),
     status: 1,
     seller_id: User.find(index+1).id,
     buyer_id: User.find(10-index).id,
-    unsigned_user_id: User.find(index+4).id,
+    unsigned_user_id: nil,
     post_id: Post.find(10-index).id)
 }
 image_data= File.open(File.join(Rails.root, "/app/assets/images/6631528842598_.pic.jpg"))
