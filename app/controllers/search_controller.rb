@@ -17,7 +17,7 @@ class SearchController < ApplicationController
 	  # # @msg = "Book Title: "
 	  # @page_title="My Search Posts"
 
-	  books = book_search
+	  books = book_search params[:query], params[:edition]
 	  post_refine_search books.results
 
 	end

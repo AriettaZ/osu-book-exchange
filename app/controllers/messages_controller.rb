@@ -7,9 +7,9 @@ class MessagesController < ApplicationController
 
   def list
     if !current_user.is_a?(GuestUser)
-        
+
     else
-      flash[:failure] = "You have to sign in to send a message."
+      flash[:failure] = "You have to sign in to list messages."
       redirect_to new_user_session_url
     end
   end
