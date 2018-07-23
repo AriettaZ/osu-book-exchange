@@ -12,7 +12,7 @@ class SearchController < ApplicationController
 				if params[:search_for]=='Title' then
 					fields(:title)
 				elsif params[:search_for]=='ISBN' then
-					fields(:isbn10, :isbn13)
+					fields(:ISBN_10, :ISBN_13)
 				end
 			end
 
@@ -82,6 +82,7 @@ class SearchController < ApplicationController
 	  	@search_field = params[:query]
 	  	@condition = params[:condition]
 	  	@edition = params[:edition]
-	  	# @msg = "Find "+@posts.length.to_s+" Posts"
+	  	@msg = "Find "+@posts.length.to_s+" Posts"
+	  	# @msg = params
 	end
 end
