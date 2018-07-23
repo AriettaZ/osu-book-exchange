@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'dashboard/main'
   get 'dashboard/myorder'
+  get 'dashboard/mycontract'
   get 'dashboard/myrequest'
   get 'dashboard/myoffer'
   get 'dashboard/update_account_info'

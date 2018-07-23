@@ -169,10 +169,13 @@
     final_price: "#{index+200.1}",
     expiration_time: DateTime.new(2018,2,3,4+index,5),
     status: 0,
-    seller_id: User.find(10-index).id,
+    seller_id: Post.find(index+1).user_id,
     buyer_id: User.find(index+1).id,
     unsigned_user_id: User.find(index+1).id,
     post_id: Post.find(index+1).id)
+  post = Post.find(index+1)
+  post.status = 2
+  post.save
 }
 
 3.times { |index|
@@ -184,13 +187,16 @@
     final_price: "#{index+200.1}",
     expiration_time: DateTime.new(2018,2,3,4+index,5),
     status: 1,
-    seller_id: User.find(index+1).id,
-    buyer_id: User.find(10-index).id,
+    seller_id: Post.find(index+6).user_id,
+    buyer_id: User.find(index+6).id,
     unsigned_user_id: nil,
-    post_id: Post.find(10-index).id)
+    post_id: Post.find(index+6).id)
   Order.create!(
       status: 0,
       contract_id: Contract.find(index+6).id)
+  post = Post.find(Post.find(index+6).id)
+  post.status = 3
+  post.save
 }
 
 image_data= File.open(File.join(Rails.root, "/app/assets/images/6631528842598_.pic.jpg"))

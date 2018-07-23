@@ -4,12 +4,13 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    @orders = Order.where.not(status: "deleted")
   end
 
   # GET /orders/1
   # GET /orders/1.json
   def show
+    @showFrom = params[:showFrom]
     contract = Contract.find(@order.contract_id)
     if !current_user.has_roles?(:site_admin) && current_user.id != contract.buyer_id && current_user.id != contract.seller_id
       flash[:notice] = "Sorry, you don't have access to this order."
@@ -31,7 +32,6 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
-
     respond_to do |format|
       if @order.save
         format.html { redirect_to @order, notice: 'Order was successfully created.' }

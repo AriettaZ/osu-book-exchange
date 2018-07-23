@@ -1,0 +1,113 @@
+<!-- <p id="notice"><%= notice %></p> -->
+<div class="showOrder">
+
+<p>
+  <strong>Created At:</strong>
+  <%= order.created_at.to_formatted_s(:long) %>
+</p>
+
+<% contract = Contract.find(order.contract_id)%>
+
+<% if contract == nil %>
+  <p>Sorry, the contract is deleted.</p>
+<% else %>
+<% post = Post.find(contract.post_id)%>
+<% book = Book.find(post.book_id)%>
+
+<%= image_tag book.cover_image unless book.cover_image.nil? %>
+
+<p>
+  <strong>Book Title:</strong>
+  <%=link_to book.title, post%>
+
+</p>
+
+<p>
+  <strong>Edition:</strong>
+  <%= book.edition %>
+</p>
+
+<% if !book.ISBN_10.nil? %>
+<p>
+  <strong>ISBN_10:</strong>
+  <%= book.ISBN_10 %>
+</p>
+<% end %>
+
+<% if !book.ISBN_13.nil? %>
+<p>
+  <strong>ISBN_13:</strong>
+  <%= book.ISBN_13 %>
+</p>
+<% end %>
+
+<p>
+  <strong>Condition:</strong>
+  <%= post.condition %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= post.description %>
+</p>
+
+<p>
+  <strong>Course Number:</strong>
+  <%= post.course_number %>
+</p>
+
+<p>
+  <strong>Seller:</strong>
+  <%= User.find(contract.seller_id).name %>
+</p>
+
+<p>
+  <strong>Buyer:</strong>
+  <%= User.find(contract.buyer_id).name %>
+</p>
+
+<p>
+  <strong>Meeting time:</strong>
+  <%= contract.meeting_time.to_formatted_s(:long) %>
+</p>
+
+<p>
+  <strong>Meeting address:</strong>
+  <br/><%= contract.meeting_address_first.humanize %>
+  <br/><%= contract.meeting_address_second.humanize %>
+</p>
+
+<p>
+  <strong>Payment method:</strong>
+  <%= contract.final_payment_method.humanize %>
+</p>
+
+<p>
+  <strong>Price: </strong>
+  $<%= contract.final_price %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= order.status.humanize %>
+</p>
+
+<% if current_user.id == contract.buyer_id %>
+  <% if order.status == "active" || order.status == "problematic" %>
+    <div> <%= link_to "Cancel the Order", order_path(order, order: {status: :canceled}), :method => :put, data: { confirm: 'Are you sure to cancel this order?' } %> </div>
+    <div> <%= link_to "Order Completed", order_path(order, order: {status: :closed}), :method => :put, data: { confirm: 'Are you sure?' } %> </div>
+  <% end %>
+<% end %>
+
+<!-- The seller/buyer can report problems at any time. -->
+<% if current_user.id == contract.buyer_id || current_user.id == contract.seller_id %>
+    <div> <%= link_to "Report Problems", order_path(order, order: {status: :problematic}), :method => :put, data: { confirm: 'Are you sure?' } %> </div>
+<% end %>
+
+<!-- Admin can edit the order. -->
+<% if current_user.has_roles?(:site_admin)%>
+  <%= link_to 'Edit', edit_order_path(order) %>
+<% end %>
+
+<% end %>
+</div>

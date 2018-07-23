@@ -4,9 +4,10 @@
 <table>
   <thead>
     <tr>
-      <th>Order#</th>
-      <th>Contract#</th>
-      <th>Order created at</th>
+      <th>Order</th>
+      <th>Created at</th>
+      <th>Contract</th>
+      <th>Book</th>
       <th>Meeting time</th>
       <!-- <th>Meeting address</th> -->
       <th>Payment method</th>
@@ -21,23 +22,27 @@
 
   <tbody>
     <% @orders.each do |order| %>
-      <% contract = Contract.find(order.contract_id) %>
-      <tr>
-        <td>#<%= order.id %></td>
-        <td>#<%= contract.id %></td>
-        <td><%= order.created_at.strftime("%Y-%m-%d %H:%M") %></td>
-        <td><%= contract.meeting_time.strftime("%Y-%m-%d %H:%M") %></td>
-        <!-- <td><%= contract.meeting_address_first %><br/> <%= contract.meeting_address_second %></td> -->
-        <td><%= contract.final_payment_method %></td>
-        <td> $<%= contract.final_price %></td>
-        <!-- <td><%= contract.expiration_time.strftime("%Y-%m-%d %H:%M") %></td> -->
-        <td><%= User.find(contract.buyer_id).name %></td>
-        <td><%= User.find(contract.seller_id).name %></td>
-        <td><%= order.status %></td>
-        <td><%= link_to 'Show', order %></td>
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <% contract = Contract.where(id: order.contract_id) %>
+      <% if !contract.empty?%>
+        <% contract = Contract.find(order.contract_id) %>
+        <tr>
+          <td>#<%= order.id %></td>
+          <td><%= order.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+          <td><%=link_to "##{contract.id}", Contract.find(contract.id)%></td>
+          <td><%=link_to Book.find(Post.find(contract.post_id).book_id).title, Post.find(contract.post_id)%></td>
+          <td><%= contract.meeting_time.strftime("%Y-%m-%d %H:%M") %></td>
+          <!-- <td><%= contract.meeting_address_first %><br/> <%= contract.meeting_address_second %></td> -->
+          <td><%= contract.final_payment_method %></td>
+          <td> $<%= contract.final_price %></td>
+          <!-- <td><%= contract.expiration_time.strftime("%Y-%m-%d %H:%M") %></td> -->
+          <td><%= User.find(contract.buyer_id).name %></td>
+          <td><%= User.find(contract.seller_id).name %></td>
+          <td><%= order.status %></td>
+          <td><%= link_to 'Show', order_path(order.id, showFrom: "order_index") %></td>
+          <td><%= link_to 'Edit', edit_order_path(order) %></td>
+          <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

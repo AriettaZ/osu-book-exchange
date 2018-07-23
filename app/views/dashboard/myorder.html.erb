@@ -1,6 +1,54 @@
-<h1>Dashboard#myorder</h1>
-<p>Find me in app/views/dashboard/myorder.html.erb</p>
-<p><%= @orders %></p>
 <hr>
 <%= render "links" %>
 <hr>
+<h1>My Orders</h1>
+
+<div class="select_list">
+  <input class="active" type="button" name="orders" value="In Process">
+  <input class="closed" type="button" name="orders" value="Completed">
+  <input class="problematic" type="button" name="orders" value="Problematic">
+  <input class="canceled" type="button" name="orders" value="Canceled">
+
+  <% order_statuses = [] %>
+  <% Order.statuses.each do |status| %>
+    <% order_statuses.append(status[0]) %>
+  <% end %>
+  <% order_statuses.each do |status|%>
+    <div class='<%=status%>'>
+      <% order_num = 0 %>
+      <% @orders.each do |order| %>
+        <% if order.status == status%>
+          <div class="data">
+            <% order_num += 1 %>
+            <h4>Order #<%= order.id %></h4>
+            <%= render "orders/showOrder", order: order %>
+          </div>
+        <% end %>
+      <% end %>
+      <% if order_num == 0 %>
+        <div class="nothing"> No order is <%=status%>.</div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<script>
+$(document).ready(function(){
+  $(".select_list").children("div").not(".active").hide();
+  $(":button").click(function(){
+    if ($(this).attr("class") == "active") {
+      $(".select_list").children("div").not(".active").hide();
+      $(".active").show();
+    } else if ($(this).attr("class") == "problematic") {
+      $(".select_list").children("div").not(".problematic").hide();
+      $(".problematic").show();
+    } else if ($(this).attr("class") == "closed") {
+      $(".select_list").children("div").not(".closed").hide();
+      $(".closed").show();
+    } else if ($(this).attr("class") == "canceled"){
+      $(".select_list").children("div").not(".canceled").hide();
+      $(".canceled").show();
+    }
+  });
+});
+</script>

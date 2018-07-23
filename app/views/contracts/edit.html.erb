@@ -1,6 +1,14 @@
 <h1>Editing Contract</h1>
 
-<%= render 'userContract', contract: @contract, createdby: @createdby %>
+<%= render 'newContract', contract: @contract, createdby: @createdby, editFrom: @editFrom %>
 
-<%= link_to 'Show', @contract %> |
-<%= link_to 'Back', contracts_path %>
+<!-- <%= link_to 'Show', @contract %> | -->
+
+<!-- <%= link_to 'Back', url_for(:back) %> -->
+<% if @editFrom == "index"%>
+  <%= link_to 'Back', contracts_path %>
+<% elsif @editFrom == "dashboard"%>
+  <%= link_to 'Back', dashboard_mycontract_path%>
+<% elsif @editFrom == "show"%>
+  <%= link_to 'Back', contract_path(@contract)%>
+<%end%>

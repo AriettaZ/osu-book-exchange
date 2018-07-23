@@ -5,7 +5,7 @@
 <table>
   <thead>
     <tr>
-      <th>Contract#</th>
+      <th>Contract</th>
       <th>Book</th>
       <th>Meeting time</th>
       <!-- <th>Meeting address</th> -->
@@ -36,8 +36,8 @@
             for <%= User.find(contract.unsigned_user_id).name %>
           <% end %>
         </td>
-        <td><%= link_to 'Show', contract %></td>
-        <td><%= link_to 'Edit', edit_contract_path(contract, admin: true) %></td>
+        <td><%= link_to 'Show', contract_path(contract.id, showFrom: "contract_index") %></td>
+        <td><%= link_to 'Edit', edit_contract_path(contract, admin: true, editFrom: "index") %></td>
         <td><%= link_to 'Destroy', contract, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
