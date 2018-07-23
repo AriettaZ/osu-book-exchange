@@ -27,3 +27,6 @@ body{
 .bootstrap-select .dropdown-menu{
   max-width:1200px;
 }
+select.form-control:not([size]):not([multiple]) {
+    height: calc(3rem + 2px);
+}

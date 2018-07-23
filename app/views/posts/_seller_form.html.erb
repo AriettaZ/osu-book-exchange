@@ -14,34 +14,37 @@
   <!-- <%= form.fields_for @post.build_book do |f| %>
     <%= f.text_field :self_link %>
   <% end %> -->
+
   <%= form.fields_for :book do |f| %>
     <!-- <%= form.label :book %>
     <%= form.text_area :book %> -->
       <label for="book_self_link">Find book</label>
-      <select title="Enter book name or isbn" class="selectpicker field" data-show-subtext="true" data-live-search="true" name="post[book][self_link]" id="post_book_self_link">
-      </select>
+      <div class="">
+        <select title="Enter book name" class="selectpicker field" data-show-subtext="true" data-live-search="true" name="post[book][self_link]" id="post_book_self_link">
+        </select>
+      </div>
   <% end %>
-
+  <br />
   <div class="field">
     <label for="post_type">Post Type</label>
-    <select class="form-control" name="post[post_type]" id="post_post_type">
-      <option value="offer" selected>Sell this book</option>
-      <option value="request">Buy this book</option>
-    </select>
+    <input type="text"  name="post[post_type]" id="post_post_type" class="form-control" placeholder="Price" value="offer" readonly/>
+
     <!-- <%= form.label :post_type %>
     <%= form.text_area :post_type %> -->
   </div>
+  <br />
   <div class="field">
-    <%= form.label :course_number %>
-    <%= form.text_field :course_number %>
+    <div class="input-group mb-3">
+      <label for="post_course_number">Course Number</label>
+      <textarea class="form-control" rows="1" id="post_course_number" name="post[course_number]"aria-label="Course Number" aria-describedby="Course Number"></textarea>
+    </div>
   </div>
-
   <!-- <div class="field">
     <%= form.label :price %>
     <%= form.text_area :price %>
   </div> -->
-
-  <div class="field">
+  <br />
+  <!-- <div class="field">
    <label for="post_price">Price</label>
    <div class="input-group mb-3">
       <div class="input-group-prepend">
@@ -52,8 +55,13 @@
         <span class="input-group-text">.00</span>
       </div>
     </div>
+  </div> -->
+<label for="post_price">Price</label>
+  <div class="input-group">
+    <span class="input-group-addon">$</span>
+      <input type="text"  name="post[price]" id="post_price" class="form-control" placeholder="Price"/>
   </div>
-
+  <br />
 
   <div class="field">
     <label for="post_condition">Post Condition</label>
@@ -68,7 +76,7 @@
     <!-- <%= form.label :condition %>
     <%= form.text_field :condition %> -->
   </div>
-
+  <br />
   <div class="field">
     <!-- <%= form.label :payment_method %>
     <%= form.text_area :payment_method %> -->
@@ -78,10 +86,12 @@
       <option value="online">Online</option>
     </select>
   </div>
-
+  <br />
   <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
+    <div class="input-group mb-3">
+      <label for="post_description">Description</label>
+      <textarea class="form-control" rows="5" id="post_description" name="post[description]"aria-label="Description" aria-describedby="Description"></textarea>
+    </div>
   </div>
 <!--
   <%= form_with(url: new_image_path, local: true, class: "dropzone", id:"my-awesome-dropzone" )do |f| %>
@@ -92,14 +102,9 @@
     <%= f.submit %>
   </div>
   <% end %> -->
-
-  <%= form.fields_for :images do |image| %>
-  <div class="field">
-    <%= image.label :actual_product_image %><br>
-    <%= image.file_field :actual_product_image, :multiple => true, name: "images[actual_product_image][]" %>
-  </div>
-<% end %>
-
+  <br />
+  <%= render 'image_input', post: @post, image: @image, form:form %>
+  <br />
   <div class="actions">
     <%= form.submit %>
   </div>

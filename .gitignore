@@ -28,4 +28,6 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
-/solr
+/solr/development/data*
+/.DS_Store
+/public/uploads*

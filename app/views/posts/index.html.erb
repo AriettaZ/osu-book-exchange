@@ -18,13 +18,9 @@
       <!-- <div>Payment Method: <%= post.payment_method %></div> -->
       <div>Description: <%= post.description %></div>
       <div><%= link_to 'More Information', post %></div>
-      <!-- <div><%= link_to 'Edit', edit_post_path(post) %></div>
-      <div><%= link_to 'Delete Post', post, method: :delete, data: { confirm: 'Are you sure?' } %></div> -->
       <hr />
   <% end %>
   <%= @msg %>
 </div>
 
 <br>
-
-<%= link_to 'New Post', new_post_path %>

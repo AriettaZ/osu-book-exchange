@@ -1,0 +1,6 @@
+<%= form.fields_for :images do |image| %>
+  <div class="field">
+    <%= image.label :actual_product_image %><br>
+    <%= image.file_field :actual_product_image, :multiple => true, name: "images[actual_product_image][]" %>
+  </div>
+<% end %>

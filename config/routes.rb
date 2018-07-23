@@ -14,7 +14,11 @@ Rails.application.routes.draw do
   get 'contact', to: 'pages#contact'
   get 'search-book', to: 'books#search'
   resources :books
-  resources :posts
+  get 'posts/new_offer', to: 'posts#new_offer', as: 'posts_new_offer'
+  get 'posts/new_request', to: 'posts#new_request', as: 'posts_new_request'
+  get 'post/:id/edit_offer', to: 'posts#edit_offer', as: 'post_edit_offer'
+  get 'post/:id/edit_request', to: 'posts#edit_request', as: 'post_edit_request'
+  resources :posts, except: [:new,:edit]
   get 'search', to: 'search#search'
   resources :images
   root to: "pages#home"

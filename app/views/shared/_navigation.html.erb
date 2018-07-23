@@ -15,10 +15,10 @@
         <a  class="nav-link"><%= link_to "Search Posts", posts_path %></a>
       </li>
       <li  class="nav-item">
-        <a  class="nav-link"><%= link_to "Post Book", new_post_path %></a>
+        <a  class="nav-link"><%= link_to "Post Book", posts_new_offer_path %></a>
       </li>
       <li  class="nav-item">
-        <a  class="nav-link"><%= link_to "Request Book", new_post_path %></a>
+        <a  class="nav-link"><%= link_to "Request Book", posts_new_request_path %></a>
       </li>
       <!-- Links for admin user -->
       <% if current_user.has_roles?(:site_admin) %>

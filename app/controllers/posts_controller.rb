@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy, :toggle_status]
+  before_action :set_post, only: [:show, :edit, :edit_offer, :edit_request, :update, :destroy, :toggle_status]
   access all: [:show, :index], user: :all, site_admin: :all
 # GET /posts
 # GET /posts.json
@@ -15,7 +15,6 @@ def show
   @images = @post.images.all
 end
 
-# GET /posts/new
 def new
   @post = current_user.posts.build
   # @book = Book.new
@@ -23,7 +22,28 @@ def new
   @image = @post.images.build
 end
 
-# GET /posts/1/edit
+# GET /posts/new
+def new_offer
+  @post = current_user.posts.build
+  # @book = Book.new
+  @book= @post.build_book
+  @image = @post.images.build
+end
+
+def new_request
+  @post = current_user.posts.build
+  # @book = Book.new
+  @book= @post.build_book
+end
+
+# GET /posts/1/seller_edit
+def edit_offer
+end
+# GET /posts/1/seller_edit
+def edit_request
+end
+
+# GET /posts/1/seller_edit
 def edit
 end
 
