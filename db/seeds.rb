@@ -219,3 +219,19 @@ image_data= File.open(File.join(Rails.root, "/app/assets/images/6631528842598_.p
     sender_id: Post.find(index+1).user_id,
     receiver_id: User.find(10-index).id)
 }
+
+10.times { |index|
+  if index < 5
+    Bookmark.create!(
+      user_id: User.find_by(name: "Channing Jacobs").id,
+      post_id: Post.first.id,
+      favorite: true
+    )
+  else
+    # Bookmark.create!(
+    #   user_id: User.find_by(name: Channing Jacobs),
+    #   post_id: Post.first,
+    #   favorite: false
+    # )
+  end
+}

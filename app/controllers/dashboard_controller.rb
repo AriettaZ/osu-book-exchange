@@ -1,5 +1,7 @@
 class DashboardController < ApplicationController
+  before_action :authenticate_user!
   require_relative '../helpers/contact'
+  
   # GET routes
   def main
     @user = current_user
@@ -153,7 +155,6 @@ class DashboardController < ApplicationController
   end
 
   def bookmarks
+    @bookmarks = current_user.bookmarks
   end
 end
-
-
