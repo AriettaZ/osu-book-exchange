@@ -12,7 +12,10 @@ class DashboardController < ApplicationController
   end
 
   def contacts
+
+    #This is a hash of "conversation partner id" as key and "message post id" as value
     contacts_id = {}
+    #Search for all messages by current_user.id as sender, store the conversation partner
     Message.where(sender_id: current_user.id).find_each do |message|
       unless contacts_id.key?(message.receiver_id) then
         unless contacts_id[message.receiver_id]==message.post_id then
@@ -21,6 +24,7 @@ class DashboardController < ApplicationController
       end
     end
 
+    #Search for all messages by current_user.id as receiver, store the conversation partner
     Message.where(receiver_id: current_user.id).find_each do |message|
       unless contacts_id.key?(message.sender_id) then
         unless contacts_id[message.sender_id]==message.post_id then
@@ -30,9 +34,11 @@ class DashboardController < ApplicationController
     end
 
     @contacts = {}
+    
     contacts_id.each do |user_id, post_id|
       @contacts[User.find_by_id(user_id)]=Post.find_by_id(post_id)
     end
+
     @talk_to = User.new
   end
 

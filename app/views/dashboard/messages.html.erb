@@ -28,14 +28,17 @@
 <script>
 	$(document).ready(function(){
 		// Refresh the page with Ajax every 5 seconds, append new messages
-		var refresh_msg = setInterval(function(){
+		var refresh_timer = setInterval(function(){
+			if(window.location.pathname!="/dashboard/messages"){
+				clearInterval(refresh_timer)
+			}
 			$.ajax({
 				url: window.location.href+"&last_msg_time="+$('.showed-message').last().find('.created-time').val(),
 
 			}).done(function(data){
 				$('.showed-message').last().after(data)
 			})
-		}, 5000)
+		},5000)
 
 		// Prevent Enter to submit the form
 		$('#user-chat-input').keydown(function(event){
