@@ -22,35 +22,36 @@
       </li>
       <!-- Links for admin user -->
       <% if current_user.has_roles?(:site_admin) %>
-      <li  class="nav-item">
         <li  class="nav-item">
           <a  class="nav-link"><%= link_to "Posts", posts_path %></a>
         </li>
+        <li  class="nav-item">
         <a  class="nav-link"><%= link_to "Orders", orders_path %></a>
-      </li>
-      <li  class="nav-item">
-        <a  class="nav-link"><%= link_to "Books", books_path %></a>
-      </li>
-      <li  class="nav-item">
-        <a  class="nav-link"><%= link_to "Contracts", contracts_path %></a>
-      </li>
-      <%  end %>
+        </li>
+        <li  class="nav-item">
+          <a  class="nav-link"><%= link_to "Books", books_path %></a>
+        </li>
+        <li  class="nav-item">
+          <a  class="nav-link"><%= link_to "Contracts", contracts_path %></a>
+        </li>
+        <%  end %>
 
-      <% if current_user.is_a?(GuestUser) %>
-      <li  class="nav-item">
-        <a  class="nav-link"><%= link_to "Login", new_user_session_path %></a>
-      </li>
-      <li  class="nav-item">
-        <a  class="nav-link"><%= link_to "Register", new_user_registration_path %></a>
-      </li>
-      <% else %>
-      <li  class="nav-item">
-        <a  class="nav-link"><%= link_to "Logout", destroy_user_session_path, method: 'delete' %></a>
-      </li>
-      <li  class="nav-item">
-        <a  class="nav-link"><%= link_to "Dashboard", dashboard_main_path %></a>
-      </li>
-      <% end %>
-    </ul>
-  </div><!--/navbar-colapse-->
-</nav><!--/navbar-->
+        <% if current_user.is_a?(GuestUser) %>
+        <li  class="nav-item">
+          <a  class="nav-link"><%= link_to "Login", new_user_session_path %></a>
+        </li>
+        <li  class="nav-item">
+          <a  class="nav-link"><%= link_to "Register", new_user_registration_path %></a>
+        </li>
+        <% else %>
+        <li  class="nav-item">
+          <a  class="nav-link"><%= link_to "Logout", destroy_user_session_path, method: 'delete' %></a>
+        </li>
+        <li  class="nav-item">
+          <a  class="nav-link"><%= link_to "Dashboard", dashboard_main_path %></a>
+        </li>
+        <% end %>
+      </ul>
+    </div><!--/navbar-colapse-->
+  </nav><!--/navbar-->
+`
