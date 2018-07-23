@@ -6,15 +6,17 @@
 
 <div class="">
 <h1><%= @msg %></h1>
-<% @contacts.each do |user, post| %>
+<% @contacts.each do |contact| %>
 	<div>
-		Talking With: <%= user.name %>
+		Talking With: <%= contact.partner.name %>
+		<br />
+		Post_id: <%= contact.post_id %>
 		<br/>
-		Post: <%= post.price %>
+		Last Talk Time: <%= contact.latest_message_time %>
 		<br/>
 		<%= form_tag(dashboard_messages_path(), :method=>"get") do %>
-			<%= hidden_field_tag(:talk_to, user.id) %>
-			<%= hidden_field_tag(:post_id, post.id) %>
+			<%= hidden_field_tag(:talk_to, contact.partner_id) %>
+			<%= hidden_field_tag(:post_id, contact.post_id) %>
 			<%= submit_tag("Talk") %>
 		<% end %>
 		<br/><br/>

@@ -1,4 +1,6 @@
 class DashboardController < ApplicationController
+  require_relative '../helpers/contact'
+
   def myorder
   end
 
@@ -12,32 +14,55 @@ class DashboardController < ApplicationController
   end
 
   def contacts
+    @contacts = []
 
-    #This is a hash of "conversation partner id" as key and "message post id" as value
-    contacts_id = {}
-    #Search for all messages by current_user.id as sender, store the conversation partner
+
     Message.where(sender_id: current_user.id).find_each do |message|
-      unless contacts_id.key?(message.receiver_id) then
-        unless contacts_id[message.receiver_id]==message.post_id then
-          contacts_id[message.receiver_id]=message.post_id
+      has_contact = false
+      @contacts.each do |contact|
+        # If find partner and post match
+        if contact.partner_id==message.receiver_id && contact.post_id==message.post_id then
+          # If message time earlier than this message time
+          if (contact.latest_message_time<=>message.created_at)<0 then
+            contact.latest_message_time = message.created_at
+          end
+
+          has_contact = true
         end
+      end
+
+      unless has_contact then
+        @contacts.append( Contact.new(message.receiver_id, User.find_by_id(message.receiver_id) , message.post_id, message.created_at) )
       end
     end
 
-    #Search for all messages by current_user.id as receiver, store the conversation partner
+
     Message.where(receiver_id: current_user.id).find_each do |message|
-      unless contacts_id.key?(message.sender_id) then
-        unless contacts_id[message.sender_id]==message.post_id then
-          contacts_id[message.sender_id]=message.post_id
+
+      has_contact = false
+
+      @contacts.each do |contact|
+        # If find partner and post match
+        if contact.partner_id==message.sender_id && contact.post_id==message.post_id then
+          # If message time earlier than this message time
+          if (contact.latest_message_time<=>message.created_at)<0 then
+            contact.latest_message_time = message.created_at
+          end
+
+          has_contact = true
         end
+      end
+
+      unless has_contact then
+        @contacts.append( Contact.new(message.sender_id, User.find_by_id(message.sender_id) , message.post_id, message.created_at) )
       end
     end
 
-    @contacts = {}
-    
-    contacts_id.each do |user_id, post_id|
-      @contacts[User.find_by_id(user_id)]=Post.find_by_id(post_id)
+
+    @contacts.sort! do |b, a|
+      a.latest_message_time <=> b.latest_message_time
     end
+
 
     @talk_to = User.new
   end
@@ -121,3 +146,5 @@ class DashboardController < ApplicationController
   def bookmarks
   end
 end
+
+
