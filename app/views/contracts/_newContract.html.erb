@@ -11,35 +11,48 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :meeting_time %>
-    <%= form.datetime_field :meeting_time, min: DateTime.now.strftime("%Y-%m-%d %H:%M")%>
+  <br />
+  <div class="row">
+    <div class="field col">
+      <%= form.label :meeting_time %>
+      <%= form.datetime_field :meeting_time, min: DateTime.now.strftime("%Y-%m-%d %H:%M") %>
+    </div>
+
+    <div class="field col">
+      <%= form.label :expiration_time %>
+      <%= form.datetime_field :expiration_time, min: DateTime.now.strftime("%Y-%m-%d %H:%M") %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :meeting_address_first %>
-    <%= form.text_area :meeting_address_first %>
+  <br />
+  <div class="row">
+    <div class="field col input-group mb-3">
+        <%= form.label :meeting_address_first %>
+        <%= form.text_area :meeting_address_first %>
+    </div>
+
+    <div class="field col input-group mb-3">
+      <%= form.label :meeting_address_second %>
+      <%= form.text_area :meeting_address_second  %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :meeting_address_second %>
-    <%= form.text_area :meeting_address_second %>
-  </div>
-
+  <br />
   <div class="field">
     <%= form.label :final_payment_method %>
     <%= form.select :final_payment_method, Contract.final_payment_methods.keys.to_a %>
   </div>
 
+  <br />
   <div class="field">
     <%= form.label :final_price %>
-    $<%= form.text_field :final_price %>
+    <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= form.text_field :final_price, placeholder: "Price" %>
+    </div>
   </div>
+  <br />
 
-  <div class="field">
-    <%= form.label :expiration_time %>
-    <%= form.datetime_field :expiration_time, min: DateTime.now.strftime("%Y-%m-%d %H:%M") %>
-  </div>
 
   <% if createdby == "user" %>
     <%= form.hidden_field :post_id %>
@@ -47,26 +60,28 @@
     <%= form.hidden_field :buyer_id %>
     <%= form.hidden_field :unsigned_user_id %>
   <% else %>
-    <div class="field">
+    <div class="row">
+    <div class="field col">
       <label for="contract_post_id">Post#</label>
       <%= form.collection_select :post_id, Post.where(status: "active"), :id, :id, prompt: "--select--"%>
     </div>
 
-    <div class="field">
+    <div class="field col">
       <%= form.label "Buyer ID" %>
-      <%= form.collection_select :buyer_id, User.all, :id, :id, prompt: "--select--" %>
+      <%= form.collection_select :buyer_id, User.all, :id, :id, prompt: "--select--", class: 'form-control' %>
     </div>
 
-    <div class="field">
+    <div class="field col">
       <%= form.label "Seller ID" %>
       <%= form.collection_select :seller_id, User.all, :id, :id, prompt: "--select--" %>
     </div>
 
-    <div class="field">
+    <div class="field col">
       <%= form.label "Unsigned User ID" %>
       <%= form.collection_select :unsigned_user_id, User.all, :id, :id, prompt: "--select--" %>
     </div>
-
+    </div>
+<br />
     <div class="field">
       <%= form.label :status %>
       <%= form.select :status, Contract.statuses.keys.to_a %>
@@ -75,7 +90,7 @@
 
 	<%= hidden_field_tag :createdby, createdby  %>
 	<%= hidden_field_tag :editFrom, editFrom  %>
-
+<br />
   <div class="actions">
     <%= form.submit %>
   </div>
