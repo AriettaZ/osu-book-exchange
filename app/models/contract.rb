@@ -10,4 +10,5 @@ class Contract < ApplicationRecord
   validates :final_price, presence: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }, numericality: { greater_than: 0, less_than: 10000 }
   validates :meeting_time, presence: true
   validates :expiration_time, presence: true
+  validates :final_price, numericality: { less_than: 10000 }
 end

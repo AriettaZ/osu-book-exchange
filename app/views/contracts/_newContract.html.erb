@@ -49,22 +49,22 @@
   <% else %>
     <div class="field">
       <label for="contract_post_id">Post#</label>
-      <%= form.collection_select :post_id, Post.where(status: "active"), :id, :id %>
+      <%= form.collection_select :post_id, Post.where(status: "active"), :id, :id, prompt: "--select--"%>
     </div>
 
     <div class="field">
-      <%= form.label :buyer_id %>
-      <%= form.collection_select :buyer_id, User.all, :id, :email %>
+      <%= form.label "Buyer ID" %>
+      <%= form.collection_select :buyer_id, User.all, :id, :id, prompt: "--select--" %>
     </div>
 
     <div class="field">
-      <%= form.label :seller_id %>
-      <%= form.collection_select :seller_id, User.all, :id, :email %>
+      <%= form.label "Seller ID" %>
+      <%= form.collection_select :seller_id, User.all, :id, :id, prompt: "--select--" %>
     </div>
 
     <div class="field">
-      <%= form.label :unsigned_user_id %>
-      <%= form.collection_select :unsigned_user_id, User.all, :id, :email %>
+      <%= form.label "Unsigned User ID" %>
+      <%= form.collection_select :unsigned_user_id, User.all, :id, :id, prompt: "--select--" %>
     </div>
 
     <div class="field">

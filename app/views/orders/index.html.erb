@@ -33,7 +33,7 @@
           <td><%= contract.meeting_time.strftime("%Y-%m-%d %H:%M") %></td>
           <!-- <td><%= contract.meeting_address_first %><br/> <%= contract.meeting_address_second %></td> -->
           <td><%= contract.final_payment_method %></td>
-          <td> $<%= contract.final_price %></td>
+          <td> <%= number_to_currency(contract.final_price) %></td>
           <!-- <td><%= contract.expiration_time.strftime("%Y-%m-%d %H:%M") %></td> -->
           <td><%= User.find(contract.buyer_id).name %></td>
           <td><%= User.find(contract.seller_id).name %></td>
