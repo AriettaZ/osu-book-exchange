@@ -4,7 +4,7 @@ class Book < ApplicationRecord
   searchable do
   	text :title
   	text :edition
-  	text :isbn13
-  	text :isbn10
+  	text :ISBN_13
+  	text :ISBN_10
   end
 end

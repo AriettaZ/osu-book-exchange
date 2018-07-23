@@ -10,17 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_21_184004) do
+ActiveRecord::Schema.define(version: 2018_07_22_194958) do
 
   create_table "books", force: :cascade do |t|
-    t.text "isbn10"
-    t.text "isbn13"
+    t.text "ISBN_10"
+    t.text "ISBN_13"
     t.text "edition"
     t.text "title"
     t.text "cover_image"
     t.decimal "amazon_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "self_link"
+    t.decimal "list_price"
   end
 
   create_table "contracts", force: :cascade do |t|
