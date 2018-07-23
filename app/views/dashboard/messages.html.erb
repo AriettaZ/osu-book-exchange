@@ -1,17 +1,10 @@
-<h1>Dashboard#messages</h1>
-<p>Find me in app/views/dashboard/messages.html.erb</p>
-
-<%= form_tag(dashboard_messages_path, :method=>"get") do %>
-	<%= hidden_field_tag(:talk_to, params[:talk_to]) %>
-	<%= submit_tag("Refresh") %>
-<% end %>
-
-<button id="ajax_refresh">Ajax Refresh</button>
+<h1>Chat with <%= @talk_to_name %></h1>
 
 <div class="">
-<h1><%= @msg %></h1>
+<h2><%= @msg %></h2>
+
+<!-- Show all messages -->
 <% @messages.each do |message| %>
-		<!-- <div><%= message.inspect %></div> -->
 	<div class="showed-message">
 		<%= hidden_field_tag nil ,message.created_at.to_s(:db), class: "created-time" %>
 		Time: <%= message.created_at %>
@@ -29,30 +22,22 @@
 
 <form>
 	<input type="text" name="" id="user-chat-input" placeholder="Enter your message here."/>
-	<!-- <button type="submit" id="user-chat-submit">Send</button> -->
 	<div id="user-chat-submit">Send</div>
 </form>
 
 <script>
 	$(document).ready(function(){
-		$("#ajax_refresh").click(function(){
+		// Refresh the page with Ajax every 5 seconds, append new messages
+		var refresh_msg = setInterval(function(){
 			$.ajax({
 				url: window.location.href+"&last_msg_time="+$('.showed-message').last().find('.created-time').val(),
 
 			}).done(function(data){
 				$('.showed-message').last().after(data)
 			})
-		})
+		}, 5000)
 
-		// setInterval(function(){
-		// 	$.ajax({
-		// 		url: window.location.href+"&last_msg_time="+$('.showed-message').last().find('.created-time').val(),
-
-		// 	}).done(function(data){
-		// 		$('.showed-message').last().after(data)
-		// 	})
-		// }, 5000)
-
+		// Prevent Enter to submit the form
 		$('#user-chat-input').keydown(function(event){
 			if(event.which==13){
 				event.preventDefault();
@@ -60,9 +45,10 @@
 			}
 		})
 
+		// Submit message using Ajax
 		$('#user-chat-submit').click(function(){
 			if($('#user-chat-input').val().length>=1){
-
+				// Use ajax to post the message
 				$.ajax({
 					method: "POST",
 					type: "POST",
@@ -79,6 +65,7 @@
 					$('#user-chat-input').val("")
 					$('#user-chat-input').focus()
 				})
+
 			}else{
 				$('#user-chat-input').attr("placeholder", "Can't send Blank message.")
 			}
@@ -87,12 +74,6 @@
 	})
 </script>
 
-
-
-
-<%= form_for @message, url: dashboard_messages_path(talk_to: params[:talk_to], post_id: params[:post_id]), method: "post" do |f| %>
-	<%= f.text_area :content, size: "60x12" %>
-	<%= f.submit("Send") %>
-<% end %>
+<%= link_to "back to contact", dashboard_contacts_path %>
 
 </div>

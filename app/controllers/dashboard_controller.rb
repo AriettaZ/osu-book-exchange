@@ -52,7 +52,8 @@ class DashboardController < ApplicationController
       @messages.sort_by! do |message|
         message.created_at
       end
-      @msg = params
+      # @msg = params
+      @talk_to_name = User.find_by_id(params[:talk_to]).name
       @message = Message.new
     end
 
@@ -87,7 +88,7 @@ class DashboardController < ApplicationController
       @message.errors.each do |type, text|
         flash.now[:success] = type.to_s.capitalize + " " + text
       end
-      redirect_to dashboard_messages_path(talk_to: params[:talk_to], post_id: "999")
+      redirect_to dashboard_messages_path(talk_to: params[:talk_to], post_id: params[:post_id])
     end
 
   end
