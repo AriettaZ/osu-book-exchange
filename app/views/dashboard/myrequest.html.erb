@@ -1,2 +1,10 @@
 <h1>Dashboard#myrequest</h1>
 <p>Find me in app/views/dashboard/myrequest.html.erb</p>
+<table>
+  <tr>
+    <th>Requests</th>
+      <%= @requests.inspect %>
+  </tr>
+</table>
+<%= render "links" %>
+<hr>
