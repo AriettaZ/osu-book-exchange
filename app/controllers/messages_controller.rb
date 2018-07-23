@@ -6,13 +6,18 @@ class MessagesController < ApplicationController
   before_action :authenticate_user!
 
   def list
-    
+    if !current_user.is_a?(GuestUser)
+
+    else
+      flash[:failure] = "You have to sign in to list messages."
+      redirect_to new_user_session_url
+    end
   end
 
-  def show
-    # Show may not be used
-    @message = Message.find_by(params[:id])
-  end
+  # def show
+  #   # Show may not be used
+  #   @message = Message.find_by(params[:id])
+  # end
 
   def new
     if !current_user.is_a?(GuestUser)

@@ -4,11 +4,14 @@
 <table>
   <thead>
     <tr>
+      <th>Order#</th>
+      <th>Contract#</th>
+      <th>Order created at</th>
       <th>Meeting time</th>
-      <th>Meeting address</th>
-      <th>Final Payment method</th>
-      <th>Final price</th>
-      <th>Expiration time</th>
+      <!-- <th>Meeting address</th> -->
+      <th>Payment method</th>
+      <th>Price</th>
+      <!-- <th>Expiration time</th> -->
       <th>Buyer</th>
       <th>Seller</th>
       <th>Status</th>
@@ -20,11 +23,14 @@
     <% @orders.each do |order| %>
       <% contract = Contract.find(order.contract_id) %>
       <tr>
+        <td>#<%= order.id %></td>
+        <td>#<%= contract.id %></td>
+        <td><%= order.created_at.strftime("%Y-%m-%d %H:%M") %></td>
         <td><%= contract.meeting_time.strftime("%Y-%m-%d %H:%M") %></td>
-        <td><%= contract.meeting_address_first %><br/> <%= contract.meeting_address_second %></td>
+        <!-- <td><%= contract.meeting_address_first %><br/> <%= contract.meeting_address_second %></td> -->
         <td><%= contract.final_payment_method %></td>
         <td> $<%= contract.final_price %></td>
-        <td><%= contract.expiration_time.strftime("%Y-%m-%d %H:%M") %></td>
+        <!-- <td><%= contract.expiration_time.strftime("%Y-%m-%d %H:%M") %></td> -->
         <td><%= User.find(contract.buyer_id).name %></td>
         <td><%= User.find(contract.seller_id).name %></td>
         <td><%= order.status %></td>
