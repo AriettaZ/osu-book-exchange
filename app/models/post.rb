@@ -1,7 +1,9 @@
 class Post < ApplicationRecord
-  belongs_to :book
+  belongs_to :book, optional: true
+  accepts_nested_attributes_for :book
   belongs_to :user
   has_many :images
+  has_many :bookmarks
   accepts_nested_attributes_for :images
   has_many :messages
   has_many :contracts

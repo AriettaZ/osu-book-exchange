@@ -20,3 +20,5 @@
 //= require bootstrap-datetimepicker
 //= require popper
 //= require bootstrap-sprockets
+$(document).ready(function(){
+})

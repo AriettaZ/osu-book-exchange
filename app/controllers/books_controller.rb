@@ -1,6 +1,15 @@
 class BooksController < ApplicationController
     before_action :set_book, only: [:show, :edit, :update, :destroy]
-    access user: [:show,:index], site_admin: :all
+    access user: [:show,:index, :new, :create, :update], site_admin: :all
+
+   def search
+     ## make your API Call on this action
+     # base_url="https://www.googleapis.com/books/v1/volumes?"
+     # response = HTTParty.get(base_url, :body => {:q => @keyword.gsub(" ","%20")}).to_json
+     # @response_hash = JSON.parse(response)
+     render :layout => false
+   end
+
     # GET /books
     # GET /books.json
     def index
@@ -24,17 +33,21 @@ class BooksController < ApplicationController
     # POST /books
     # POST /books.json
     def create
+      puts book_params
+      # if !(Book.find_by_ISBN_13(book_params['ISBN_13']) || Book.find_by_ISBN_13(book_params['ISBN_10']))
       @book = Book.new(book_params)
-
+      # end
       respond_to do |format|
         if @book.save
-          format.html { redirect_to @book, notice: 'Book was successfully created.' }
+          format.html {redirect_back fallback_location: new_post_url, locals: {selected_book: @book} }
           format.json { render :show, status: :created, location: @book }
         else
-          format.html { render :new }
+          format.html { redirect_back fallback_location: new_post_url, locals: {selected_book: @book} }
           format.json { render json: @book.errors, status: :unprocessable_entity }
         end
       end
+    rescue ActionController::ParameterMissing
+      redirect_back fallback_location: new_post_url, flash: { alert: "Please attach an image." }
     end
 
     # PATCH/PUT /books/1
@@ -64,12 +77,13 @@ class BooksController < ApplicationController
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_book
-        @book = Book.friendly.find(params[:id])
+        @book = Book.find(params[:id])
       end
 
       # Never trust parameters from the scary internet, only allow the white list through.
       def book_params
-        params.require(:book).permit(:ISBN_10,:ISBN_13,:edition,:title,:cover_image,:amazon_price)
+        params.require(:book).permit(:ISBN_10,:ISBN_13,:edition,:title,:cover_image,:amazon_price,:self_link)
+
       end
 
 end

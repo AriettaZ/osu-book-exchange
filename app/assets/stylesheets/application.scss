@@ -14,10 +14,99 @@
  */
  @import 'bootstrap';
  @import 'bootstrap-datetimepicker';
+$magic-purple: #2C0A24;
+$magic-orange: #AE4524;
+$magic-white: #F8F8F8;
 
 body{
-  width:80%;
-  margin:auto;
+  top:0;
+  margin: 0;
   display:block;
+  background:$magic-white;
+}
+.bootstrap-select .dropdown-menu{
+  max-width:1200px;
+}
+select.form-control:not([size]):not([multiple]) {
+  height: calc(3rem + 2px);
+}
+.actual_product_image{
+  max-width: 400px;
+}
+.carousel-indicators li{
+  margin: 1em 1em !important;
+}
+.carousel-item img{
+  // max-width: 38em;
+}
+#carouselExampleIndicators{
+  width:60%;
+  margin: auto;
+}
+html,
+body {
+  height: 100%;
+}
+
+div.main{
+  width:80%;
+  margin:auto !important;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+form.new_user{
+  width:40%;
+  margin:auto;
+}
+
+nav.navbar{
+  width: 100%;
+  background-color: $magic-purple;
+  color:$magic-white;
+  a:hover{
+    color: $magic-orange;
+  }
+}
+.navbar-light .navbar-nav .nav-link, .navbar-light .navbar-brand{
+  color:$magic-white;
+}
+a{
   color: black;
+  text-decoration: none;
+}
+
+.navbar-collapse.collapse#navbarSupportedContent{
+  display: inline-block !important;
+}
+.navbar-nav .nav-item .nav-link{
+  padding:15px;
 }

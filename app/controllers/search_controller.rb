@@ -1,25 +1,8 @@
 class SearchController < ApplicationController
 
 	def search
-
-	  # books = Book.search{fulltext params[:query]}.results
-	  # # @msg=[]
-	  # # @posts = Post.search{fulltext params[:query] }.results
-	  # @posts = []
-	  # books.each do
-	  #   |book|
-	  #   Post.search{fulltext book.id do fields(:book_id) end}.results.each do
-	  #     |post|
-	  #     @posts.append(post)
-	  #   end
-	  # end
-	  # # @msg = "This is message: "+params[:query]
-	  # # @msg = "Book Title: "
-	  # @page_title="My Search Posts"
-
 	  books = book_search params[:query], params[:edition]
 	  post_refine_search books.results
-
 	end
 
 	def book_search query, edition

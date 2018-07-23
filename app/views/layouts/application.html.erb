@@ -8,22 +8,71 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag    'dropzone/dropzone' %>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <!-- <%= javascript_include_tag  'dropzone.js' %> -->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+      <!-- <%= javascript_include_tag  'dropzone.js' %> -->
   </head>
 
   <body>
     <!-- Custom flash messages -->
-    <% flash.each do |message_type, message| %>
+    <!-- <% flash.each do |message_type, message| %>
       <div style="color:red"><%= message %></div>
+    <% end %> -->
+    <% if flash[:notice] -%>
+      <div class="alert alert-warning" role="alert"><%= notice %></div>
     <% end %>
-
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <% if flash[:alert] -%>
+      <div class="alert alert-danger" role="alert"><%= alert %></div>
+    <% end %>
+    <!-- <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p> -->
 
     <%= render "shared/navigation", location: "top" %>
+    <div class="main">
     <%= yield %>
     <%= source_helper %>
+    </div>
     <%= render "shared/footer" , location: "bottom"%>
   </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+  <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript">
+  $(document).ready(function(){
+     $('#contract_index_table').DataTable();
+     $('#order_index_table').DataTable();
+     $('#book_index_table').DataTable();
+     $('#post_index_table').DataTable();
+      $('.selectpicker').selectpicker();
+      $(".carousel-inner div:first-child").first().addClass( "active" )
+      $(".carousel-indicators li:first-child").first().addClass( "active" )
+        $(".input-block-level").bind("keyup", function() {
+
+          $(".input-block-level").addClass("loading"); // show the spinner
+          // var form = $("#live-search-form"); // grab the form wrapping the search bar.
+
+          var url = "https://www.googleapis.com/books/v1/volumes?" // live_search action.
+          // alert(url)
+          var formData ={}; // grab the data in the form
+          formData['q']=$(".input-block-level").val()
+          console.log(formData)
+          $.get(url, formData, function(data){ // perform an AJAX get
+            $(".input-block-level").removeClass("loading"); // hide the spinner
+            $("#post_book_self_link").empty();
+            $.each(data['items'], function( index, value ) {
+           // $('#live-search-form').append($('<a href="#">'+value['volumeInfo']['title']);
+              if (typeof value['volumeInfo']['industryIdentifiers'] != 'undefined'){
+                $('#post_book_self_link').append($('<option value="'+ value['selfLink']+'" data-subtext="'+value['volumeInfo']['industryIdentifiers'][0]['type']+': '+value['volumeInfo']['industryIdentifiers'][0]['identifier']+'">'+value['volumeInfo']['title']+'</option>'));
+                console.log( index + ": " + value['volumeInfo']['title'] );
+              }
+             });
+           }).done(function(){
+                 $('.selectpicker').selectpicker('refresh');
+          });
+
+      });
+      });
+  </script>
 </html>
