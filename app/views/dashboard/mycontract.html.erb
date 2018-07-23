@@ -1,0 +1,97 @@
+<hr>
+<%= render "links" %>
+<hr>
+<h1>My Contracts</h1>
+
+<div class="select_list">
+  <input class="unsigned" type="button" name="orders" value="Unsigned">
+  <input class="waiting" type="button" name="orders" value="Waiting">
+  <input class="confirmed" type="button" name="orders" value="Confirmed">
+  <input class="declined" type="button" name="orders" value="Declined">
+
+  <div class="unsigned">
+    <% unsigned_num = 0 %>
+    <% @contracts.each do |contract| %>
+      <% if contract.status == "waiting" && contract.unsigned_user_id == current_user.id %>
+        <div class="data">
+          <% unsigned_num += 1 %>
+          <h4>Contract #<%= contract.id %></h4>
+          <%= render "contracts/showContract", contract: contract, editFrom: "dashboard" %>
+        </div>
+      <% end %>
+    <% end %>
+    <% if unsigned_num == 0 %>
+      <div class="nothing"> No contract needs to be signed.</div>
+    <% end %>
+  </div>
+
+  <div class="waiting">
+    <% waiting_num = 0 %>
+    <% @contracts.each do |contract| %>
+      <% if contract.status == "waiting" && contract.unsigned_user_id != current_user.id %>
+        <div class="data">
+          <% waiting_num += 1 %>
+          <h4>Contract #<%= contract.id %></h4>
+          <%= render "contracts/showContract", contract: contract, editFrom: "dashboard" %>
+        </div>
+      <% end %>
+    <% end %>
+    <% if waiting_num == 0 %>
+      <div class="nothing"> No contract to be waited.</div>
+    <% end %>
+  </div>
+
+  <div class="confirmed">
+    <% confirmed_num = 0 %>
+    <% @contracts.each do |contract| %>
+      <% if contract.status == "confirmed" %>
+        <div class="data">
+          <% confirmed_num += 1 %>
+          <h4>Contract #<%= contract.id %></h4>
+          <%= render "contracts/showContract", contract: contract, editFrom: "dashboard", showFrom: "mycontract" %>
+        </div>
+      <% end %>
+    <% end %>
+    <% if confirmed_num == 0 %>
+      <div class="nothing"> No contract is confirmed.</div>
+    <% end %>
+  </div>
+
+  <div class="declined">
+    <% declined_num = 0 %>
+    <% @contracts.each do |contract| %>
+      <% if contract.status == "declined" %>
+        <div class="data">
+          <% declined_num += 1 %>
+          <h4>Contract #<%= contract.id %></h4>
+          <%= render "contracts/showContract", contract: contract, editFrom: "dashboard" %>
+        </div>
+      <% end %>
+    <% end %>
+    <% if declined_num == 0 %>
+      <div class="nothing"> No contract is declined.</div>
+    <% end %>
+  </div>
+
+</div>
+
+<script>
+$(document).ready(function(){
+  $(".select_list").children("div").not(".unsigned").hide();
+  $(":button").click(function(){
+    if ($(this).attr("class") == "unsigned") {
+      $(".select_list").children("div").not(".unsigned").hide();
+      $(".unsigned").show();
+    } else if ($(this).attr("class") == "waiting") {
+      $(".select_list").children("div").not(".waiting").hide();
+      $(".waiting").show();
+    } else if ($(this).attr("class") == "confirmed") {
+      $(".select_list").children("div").not(".confirmed").hide();
+      $(".confirmed").show();
+    } else if ($(this).attr("class") == "declined"){
+      $(".select_list").children("div").not(".declined").hide();
+      $(".declined").show();
+    }
+  });
+});
+</script>

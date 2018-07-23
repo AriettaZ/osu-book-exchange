@@ -4,15 +4,16 @@ class ContractsController < ApplicationController
   # GET /contracts
   # GET /contracts.json
   def index
-    @contracts = Contract.all
+    @contracts = Contract.where.not(status: "deleted")
   end
 
   # GET /contracts/1
   # GET /contracts/1.json
   def show
+    @showFrom = params[:showFrom]
     if !(current_user.has_roles?(:site_admin) || current_user.id == @contract.buyer_id || current_user.id == @contract.seller_id)
       flash[:notice] = "Sorry, you don't have access to this contract."
-      redirect_to root_path
+      redirect_to dashboard_mycontract_path
     end
   end
 
@@ -30,7 +31,7 @@ class ContractsController < ApplicationController
         @createdby = "admin"
       end
     else
-      flash[:notice] = "You have to sign in to send a message."
+      flash[:notice] = "You have to sign in to start a contract."
       redirect_to new_user_session_path
     end
   end
@@ -61,6 +62,7 @@ class ContractsController < ApplicationController
 
   # GET /contracts/1/edit
   def edit
+    @editFrom = params[:editFrom]
     # Contract can only be edited when it is waiting for someone to confirm or decline
     if @contract.status == "waiting"
       if !params[:admin].present?
@@ -68,6 +70,8 @@ class ContractsController < ApplicationController
       else
         @createdby = "admin"
       end
+
+    # elsif !current_user.has_roles?(:site_admin)
     else
       flash[:notice] = "Sorry, this contract cannot be edited because it is #{@contract.status} already."
       redirect_to contracts_path(@contracts)
@@ -91,7 +95,10 @@ class ContractsController < ApplicationController
         elsif @contract.status == "confirmed"
           post.status = 3
           @contract.unsigned_user_id = nil
-
+          post.save
+          @contract.save
+          @order = Order.create(contract_id: @contract.id)
+          format.html { redirect_to order_path(@order), notice: 'Order was successfully placed.' }
         # If contract is declined, then post is active(1)
         elsif @contract.status == "declined"
           post.status = 1
@@ -111,6 +118,7 @@ class ContractsController < ApplicationController
   # PATCH/PUT /contracts/1
   # PATCH/PUT /contracts/1.json
   def update
+    @editFrom = params[:editFrom]
     post = Post.find(@contract.post_id)
     respond_to do |format|
       if @contract.update(contract_params)
