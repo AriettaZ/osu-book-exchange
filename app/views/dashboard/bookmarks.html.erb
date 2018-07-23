@@ -1,4 +1,9 @@
 <h1>Dashboard#bookmarks</h1>
 <p>Find me in app/views/dashboard/bookmarks.html.erb</p>
+<p> Favorites are purple </p>
+<% @bookmarks.each do |bookmark|%>
+  <p <% if bookmark.favorite == true %><%= "style=color:purple"%><% end %>> <%= bookmark.post %> </p>
+  <%= link_to (image_tag bookmark.post.book.cover_image unless bookmark.post.book.cover_image.nil?), bookmark.post  %>
+<% end %>
 <%= render "links" %>
 <hr>

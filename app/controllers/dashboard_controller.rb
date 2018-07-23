@@ -26,5 +26,6 @@ class DashboardController < ApplicationController
   # end
 
   def bookmarks
+    @bookmarks = current_user.bookmarks
   end
 end
