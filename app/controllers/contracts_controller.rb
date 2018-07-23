@@ -10,8 +10,8 @@ class ContractsController < ApplicationController
   # GET /contracts/1
   # GET /contracts/1.json
   def show
-    if !current_user.has_roles?(:site_admin) && current_user.id != @contract.buyer_id && current_user.id != @contract.seller_id
-      flash[:notice] = "You don't have access to the contract page."
+    if !(current_user.has_roles?(:site_admin) || current_user.id == @contract.buyer_id || current_user.id == @contract.seller_id)
+      flash[:notice] = "Sorry, you don't have access to this contract."
       redirect_to root_path
     end
   end
@@ -61,10 +61,16 @@ class ContractsController < ApplicationController
 
   # GET /contracts/1/edit
   def edit
-    if !params[:admin].present?
-      @createdby = "user"
+    # Contract can only be edited when it is waiting for someone to confirm or decline
+    if @contract.status == "waiting"
+      if !params[:admin].present?
+        @createdby = "user"
+      else
+        @createdby = "admin"
+      end
     else
-      @createdby = "admin"
+      flash[:notice] = "Sorry, this contract cannot be edited because it is #{@contract.status} already."
+      redirect_to contracts_path(@contracts)
     end
   end
 
@@ -75,9 +81,23 @@ class ContractsController < ApplicationController
     @contract = Contract.new(contract_params)
     respond_to do |format|
       if @contract.save
-        if @contract.status != "waiting"
+        post = Post.find(@contract.post_id)
+
+        # If contract is waiting, then post is pending(2)
+        if @contract.status == "waiting"
+          post.status = 2
+
+        # If contract is confirmed, then post is closed(3)
+        elsif @contract.status == "confirmed"
+          post.status = 3
+          @contract.unsigned_user_id = nil
+
+        # If contract is declined, then post is active(1)
+        elsif @contract.status == "declined"
+          post.status = 1
           @contract.unsigned_user_id = nil
         end
+        post.save
         @contract.save
         format.html { redirect_to @contract, notice: 'Contract was successfully created.' }
         format.json { render :show, status: :created, location: @contract }
@@ -91,12 +111,28 @@ class ContractsController < ApplicationController
   # PATCH/PUT /contracts/1
   # PATCH/PUT /contracts/1.json
   def update
+    post = Post.find(@contract.post_id)
     respond_to do |format|
       if @contract.update(contract_params)
-        if @contract.status == "confirmed" && Order.find_by(contract_id: @contract.id) == nil
+        # If the contract is confirmed, then post is closed(3)
+        if @contract.status == "confirmed"
+          @contract.unsigned_user_id = nil
+          @contract.save
+          post.status = 3
+          post.save
           @order = Order.create(contract_id: @contract.id)
-          format.html { redirect_to order_path(@order.id), notice: 'Order was successfully placed.' }
+          format.html { redirect_to order_path(@order), notice: 'Order was successfully placed.' }
         else
+          # If the contract is declined, then post is active(1)
+          if @contract.status == "declined"
+            post.status = 1
+            @contract.unsigned_user_id = nil
+          # If the contract is waiting, then post is pending(2)
+          elsif @contract.status == "waiting"
+            post.status = 2
+          end
+          post.save
+          @contract.save
           format.html { redirect_to @contract, notice: 'Contract was successfully updated.' }
           format.json { render :show, status: :ok, location: @contract }
         end
@@ -129,7 +165,4 @@ class ContractsController < ApplicationController
       params.require(:contract).permit(:meeting_time, :meeting_address_first, :meeting_address_second, :final_payment_method, :final_price, :expiration_time, :status, :post_id, :seller_id, :buyer_id, :unsigned_user_id)
     end
 
-    # def user_create
-    #   params.require(:contract).permit(:user_create)
-    # end
 end

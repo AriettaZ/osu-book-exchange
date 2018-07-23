@@ -1,5 +1,6 @@
 <p id="notice"><%= notice %></p>
 
+<h1>Contract</h1>
 <p>
   <strong>Book:</strong>
   <%= link_to Book.find(Post.find(@contract.post_id).book_id).title, Post.find(@contract.post_id) %>
@@ -61,8 +62,8 @@
   <% end %>
 
   <% if @contract.status == "waiting" && @contract.unsigned_user_id == current_user.id %>
-    <div> <%= link_to "Confirm", contract_path(@contract, contract: {status: :confirmed, unsigned_user_id: nil}), :method => :put, data: { confirm: 'Are you sure you want to confirm?' } %> </div>
-    <div> <%= link_to "Decline", contract_path(@contract, contract: {status: :declined, unsigned_user_id: nil}), :method => :put, data: { confirm: 'Are you sure you want to decline?' } %> </div>
+    <div> <%= link_to "Confirm", contract_path(@contract, contract: {status: :confirmed}), :method => :put, data: { confirm: 'Are you sure you want to confirm?' } %> </div>
+    <div> <%= link_to "Decline", contract_path(@contract, contract: {status: :declined}), :method => :put, data: { confirm: 'Are you sure you want to decline?' } %> </div>
   <% end %>
 <% end %>
 <%= link_to 'Back', contracts_path %>
