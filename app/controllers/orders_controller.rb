@@ -10,6 +10,11 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
+    contract = Contract.find(@order.contract_id)
+    if !current_user.has_roles?(:site_admin) && current_user.id != contract.buyer_id && current_user.id != contract.seller_id
+      flash[:notice] = "Sorry, you don't have access to this order."
+      redirect_to root_path
+    end
   end
 
   # GET /orders/new
@@ -41,8 +46,19 @@ class OrdersController < ApplicationController
   # PATCH/PUT /orders/1
   # PATCH/PUT /orders/1.json
   def update
+    contract = Contract.find(@order.contract_id)
+    post = Post.find(contract.post_id)
     respond_to do |format|
       if @order.update(order_params)
+        # If order is canceled, then post is active(1)
+        if @order.status == "canceled"
+          post.status = 1
+
+        # If order is problematic, active or closed, then post is closed(3)
+        else
+          post.status = 3
+        end
+        post.save
         format.html { redirect_to @order, notice: 'Order was successfully updated.' }
         format.json { render :show, status: :ok, location: @order }
       else

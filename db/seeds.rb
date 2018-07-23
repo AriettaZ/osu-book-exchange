@@ -94,7 +94,7 @@
     condition: 0,
     payment_method: 0,
     description: "a brand new book #{index}",
-    status: 0,
+    status: 1,
     book_id: Book.find(index+1).id,
     user_id: User.find_by(email: "chen.6627@osu.edu").id)
 }
@@ -106,7 +106,7 @@
     condition: 0,
     payment_method: 0,
     description: "a brand new book #{index}",
-    status: 0,
+    status: 1,
     book_id: Book.find(index+1).id,
     user_id: User.find_by(email: "test@test").id)
 }
@@ -118,7 +118,7 @@
     condition: 0,
     payment_method: 0,
     description: "a brand new book #{index}",
-    status: 0,
+    status: 1,
     book_id: Book.find(index+1).id,
     user_id: User.find_by(email: "jacobs.951@osu.edu").id)
 }
@@ -131,7 +131,7 @@
     condition: 0,
     payment_method: 0,
     description: "a brand new book #{index}",
-    status: 0,
+    status: 1,
     book_id: Book.find(index+1).id,
     user_id: User.find_by(email: "lin.2453@osu.edu").id)
 }
@@ -143,7 +143,7 @@
     condition: 0,
     payment_method: 0,
     description: "a brand new book #{index}",
-    status: 0,
+    status: 1,
     book_id: Book.find(index+1).id,
     user_id: User.find_by(email: "zhu.1444@osu.edu").id)
 }
@@ -155,19 +155,19 @@
     condition: index/2,
     payment_method: 0,
     description: "a brand new book #{index}",
-    status: 0,
+    status: 1,
     book_id: Book.find(index+1).id,
     user_id: User.find(index+1).id)
 }
 
 5.times { |index|
   Contract.create!(
-    meeting_time: DateTime.new(2018,2,3,4,5,index+10),
+    meeting_time: DateTime.new(2018,2,3,4,5),
     meeting_address_first: "address#{index}",
     meeting_address_second: "address#{index+100}",
     final_payment_method: 0,
     final_price: "#{index+200.1}",
-    expiration_time: DateTime.new(2018,2,3,4+index,5,index+10),
+    expiration_time: DateTime.new(2018,2,3,4+index,5),
     status: 0,
     seller_id: User.find(10-index).id,
     buyer_id: User.find(index+1).id,
@@ -175,20 +175,24 @@
     post_id: Post.find(index+1).id)
 }
 
-5.times { |index|
+3.times { |index|
   Contract.create!(
-    meeting_time: DateTime.new(2018,2,3,4,5,index+10),
+    meeting_time: DateTime.new(2018,2,3,4,5),
     meeting_address_first: "address#{index}",
     meeting_address_second: "address#{index+100}",
     final_payment_method: 1,
     final_price: "#{index+200.1}",
-    expiration_time: DateTime.new(2018,2,3,4+index,5,index+10),
+    expiration_time: DateTime.new(2018,2,3,4+index,5),
     status: 1,
     seller_id: User.find(index+1).id,
     buyer_id: User.find(10-index).id,
-    unsigned_user_id: User.find(index+4).id,
+    unsigned_user_id: nil,
     post_id: Post.find(10-index).id)
+  Order.create!(
+      status: 0,
+      contract_id: Contract.find(index+6).id)
 }
+
 image_data= File.open(File.join(Rails.root, "/app/assets/images/6631528842598_.pic.jpg"))
 10.times { |index|
   Image.create!(
@@ -214,22 +218,4 @@ image_data= File.open(File.join(Rails.root, "/app/assets/images/6631528842598_.p
     post_id: Post.find(index+1).id,
     sender_id: Post.find(index+1).user_id,
     receiver_id: User.find(10-index).id)
-}
-
-3.times { |index|
-  Order.create!(
-    status: 0,
-    contract_id: Contract.find(index+1).id)
-}
-
-3.times { |index|
-  Order.create!(
-    status: 1,
-    contract_id: Contract.find(index+3).id)
-}
-
-4.times { |index|
-  Order.create!(
-    status: 2,
-    contract_id: Contract.find(index+6).id)
 }

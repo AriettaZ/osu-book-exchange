@@ -3,6 +3,7 @@
 <% post = Post.find(contract.post_id)%>
 <% book = Book.find(post.book_id)%>
 
+<h1>Order #<%=@order.id %> </h1>
 <%= image_tag book.cover_image unless book.cover_image.nil? %>
 <p>
   <strong>Course Number:</strong>
@@ -85,12 +86,16 @@
 </p>
 
 
-<% if @order.status != "closed" %>
+<% if @order.status != "closed" && @order.status != "canceled" %>
   <% if current_user.id == contract.buyer_id %>
+    <div> <%= link_to "Cancel the Order", order_path(@order, order: {status: :canceled}), :method => :put, data: { confirm: 'Are you sure to cancel this order?' } %> </div>
     <div> <%= link_to "Order Completed", order_path(@order, order: {status: :closed}), :method => :put, data: { confirm: 'Are you sure?' } %> </div>
   <% end %>
-  <% if @order.status != "problematic" %>
-    <div> <%= link_to "Order Has Problems", order_path(@order, order: {status: :problematic}), :method => :put, data: { confirm: 'Are you sure?' } %> </div>
-  <% end %>
+<% elsif current_user.id == contract.buyer_id || current_user.id == contract.seller_id %>
+    <div> <%= link_to "Report Problems", order_path(@order, order: {status: :problematic}), :method => :put, data: { confirm: 'Are you sure?' } %> </div>
+<% end %>
+
+<% if current_user.has_roles?(:site_admin)%>
+  <%= link_to 'Edit', edit_order_path(@order) %>
 <% end %>
 <%= link_to 'Back', orders_path %>
