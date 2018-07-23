@@ -77,8 +77,8 @@
 
 10.times { |index|
   Book.create!(
-    isbn10: "#{index + 1}",
-    isbn13: "#{987654321 - index}",
+    ISBN_10: "#{index + 1}",
+    ISBN_13: "#{987654321 - index}",
     edition: "#{index} th",
     title: "hello #{index*2}",
     cover_image: "http://via.placeholder.com/120x150",
