@@ -7,8 +7,16 @@ class DashboardController < ApplicationController
     @user = current_user
   end
 
+  def mycontract
+    @contracts = Contract.where(buyer_id: current_user.id) + Contract.where(seller_id: current_user.id)
+  end
+
   def myorder
-    @orders = current_user.contracts.orders
+    @contracts = Contract.where(buyer_id: current_user.id) + Contract.where(seller_id: current_user.id)
+    @orders = Order.where(contract_id: @contracts.first.id)
+    @contracts[1..@contracts.length].each do |contract|
+      @orders += Order.where(contract_id: contract.id)
+    end
   end
 
   def myrequest

@@ -21,16 +21,9 @@
     <%= form.collection_select :contract_id, Contract.all, :id, :meeting_address_first %>
   </div> -->
   <%= form.hidden_field :contract_id %>
-
+<br/>
   <div class="actions" id="submit">
     <%= form.submit %>
   </div>
-
-  <!-- <script>
-    $(document).ready(function(){
-      $("#submit").css("color", "red");
-      $("form").submit();
-    });
-  </script> -->
 
 <% end %>
