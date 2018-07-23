@@ -20,5 +20,6 @@
 //= require bootstrap-datetimepicker
 //= require popper
 //= require bootstrap-sprockets
+//= require lightbox
 $(document).ready(function(){
 })
