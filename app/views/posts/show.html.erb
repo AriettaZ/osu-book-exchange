@@ -44,7 +44,8 @@
 </div> -->
 
 <% @images.each_with_index do |picture,index| %>
-  <a href="<%= picture.actual_product_image_url %>" class="actual_product_image" data-lightbox="roadtrip">Image #<%= index %></a>
+  <a data-lightbox="roadtrip" href="<%= picture.actual_product_image_url %>"><img class="actual_product_image" src="<%= picture.actual_product_image_url %>" alt="Image #<%= index %>"></a>
+  <!-- <a href="<%= picture.actual_product_image_url %>" class="actual_product_image" data-lightbox="roadtrip">Image #<%= index %></a> -->
 <% end %>
 <!-- <% @images.each do |p| %>
   <%= image_tag p.actual_product_image_url, :class => "actual_product_image" %>
