@@ -20,6 +20,7 @@
 //= require bootstrap-datetimepicker
 //= require popper
 //= require bootstrap-sprockets
+//= require lightbox
 $(document).ready(function(){
   $("select").addClass("form-control")
   $(":input").not(":submit").addClass("form-control")
