@@ -16,16 +16,23 @@
 
   <body>
     <!-- Custom flash messages -->
-    <% flash.each do |message_type, message| %>
+    <!-- <% flash.each do |message_type, message| %>
       <div style="color:red"><%= message %></div>
+    <% end %> -->
+    <% if flash[:notice] -%>
+      <div class="alert alert-warning" role="alert"><%= notice %></div>
     <% end %>
-
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <% if flash[:alert] -%>
+      <div class="alert alert-danger" role="alert"><%= alert %></div>
+    <% end %>
+    <!-- <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p> -->
 
     <%= render "shared/navigation", location: "top" %>
+    <div class="main">
     <%= yield %>
     <%= source_helper %>
+    </div>
     <%= render "shared/footer" , location: "bottom"%>
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

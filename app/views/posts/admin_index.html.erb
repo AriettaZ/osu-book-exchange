@@ -5,8 +5,8 @@
   <thead>
     <tr>
       <th>Post#</th>
-      <th>Book#</th>
-      <th>User#</th>
+      <th>Book</th>
+      <th>User</th>
       <th>Post Type</th>
       <th>Course Number</th>
       <th>Price</th>
@@ -25,8 +25,8 @@
     <% @posts.each do |post| %>
       <tr>
         <td>#<%= post.id %></td>
-        <td><%= link_to "##{post.book.id}", book_path(post.book.id)%>
-        <td><%= post.user.id %></td>
+        <td><%= link_to "#{post.book.title}", book_path(post.book.id)%>
+        <td><%= post.user.name %></td>
         <td><%= post.post_type %></td>
         <td><%= post.course_number %></td>
         <td> $<%= post.price %></td>
