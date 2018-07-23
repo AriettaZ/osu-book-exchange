@@ -4,7 +4,6 @@
 <p>Find me in app/views/messages/new.html.erb</p>
 
 
-
 <%= form_for @message, url: messages_url(post_id: params[:post_id]) do |f| %>
   <%= f.label :content %>
   <%= f.text_area :content, size: "60x12" %>
