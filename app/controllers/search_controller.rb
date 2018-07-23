@@ -3,7 +3,6 @@ class SearchController < ApplicationController
 	def search
 	  books = book_search params[:query], params[:edition]
 	  post_refine_search books.results
-
 	end
 
 	def book_search query, edition
@@ -83,6 +82,6 @@ class SearchController < ApplicationController
 	  	@search_field = params[:query]
 	  	@condition = params[:condition]
 	  	@edition = params[:edition]
-	  	@msg = "Find "+@posts.length.to_s+" Posts"
+	  	# @msg = "Find "+@posts.length.to_s+" Posts"
 	end
 end
