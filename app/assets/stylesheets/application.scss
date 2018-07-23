@@ -28,5 +28,19 @@ body{
   max-width:1200px;
 }
 select.form-control:not([size]):not([multiple]) {
-    height: calc(3rem + 2px);
+  height: calc(3rem + 2px);
+}
+.actual_product_image{
+  max-width: 400px;
+}
+.carousel-indicators li{
+  margin: 1em 1em !important;
+}
+.carousel-item img{
+  // max-width: 38em;
+}
+#carouselExampleIndicators{
+  width:60%;
+  margin: auto;
+
 }

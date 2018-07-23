@@ -20,3 +20,7 @@
 //= require bootstrap-datetimepicker
 //= require popper
 //= require bootstrap-sprockets
+$(document).ready(function(){
+  $(".carousel-inner div:first-child").first().addClass( "active" )
+  $(".carousel-indicators li:first-child").first().addClass( "active" )
+})
