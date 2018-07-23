@@ -16,7 +16,8 @@ Rails.application.routes.draw do
   resources :contracts
   get 'about', to: 'pages#about'
   get 'about-magic', to: 'pages#aboutme'
-  get 'contact', to: 'pages#contact'
+  get 'contact_us', to: 'pages#contact_us'
+  post 'contact_us', to: 'contact_us#contact_us'
   get 'search-book', to: 'books#search'
   resources :books
   get 'posts/new_offer', to: 'posts#new_offer', as: 'posts_new_offer'

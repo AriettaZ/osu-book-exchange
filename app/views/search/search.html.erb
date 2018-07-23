@@ -1,5 +1,6 @@
 <p id="notice"><%= notice %></p>
 <h2><%= @msg %></h2>
+  <%= @msg2 %>
 <%= render "shared/search" %>
 
 <h1>Search Result</h1>
@@ -11,7 +12,7 @@
       <!-- <div>Course: <%= post.course_number %></div> -->
       <div>condition: <%= post.condition %></div>
       <div>Price: <%= post.price %></div>
-      <div>Post Date: <%= post.created_at %></div>
+      <div>Post Date: <%= distance_of_time_in_words(post.created_at, Time.now) %> ago</div>
       <% if post.post_type=="offer" %>
         <div>Seller: <%= User.find_by(id: post.user_id).name %></div>
       <% else %>
@@ -20,13 +21,9 @@
       <!-- <div>Payment Method: <%= post.payment_method %></div> -->
       <div>Description: <%= post.description %></div>
       <div><%= link_to 'More Information', post %></div>
-      <!-- <div><%= link_to 'Edit', edit_post_path(post) %></div>
-      <div><%= link_to 'Delete Post', post, method: :delete, data: { confirm: 'Are you sure?' } %></div> -->
       <hr />
   <% end %>
-  <%= @msg %>
+
 </div>
 
 <br>
-
-<%= link_to 'New Post', new_post_path %>
