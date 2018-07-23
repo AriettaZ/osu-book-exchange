@@ -1,1 +1,1 @@
-json.partial! "posts/post", post: @post
+linkjson.partial! "posts/post", post: @post

@@ -7,6 +7,9 @@ def index
   @posts = Post.all
   @page_title="My Post"
 end
+def admin_index
+  @posts = Post.all
+end
 
 # GET /posts/1
 # GET /posts/1.json

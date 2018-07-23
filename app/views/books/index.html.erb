@@ -1,19 +1,34 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Books</h1>
-
-<table>
+<table id="book_index_table" class="display">
   <thead>
     <tr>
-      <th colspan="3"></th>
+      <th>Title</th>
+      <th>Cover Image</th>
+      <th>ISBN 10</th>
+      <th>ISBN 13</th>
+      <th>Posts</th>
+      <th>Google API Link</th>
+      <th>Show</th>
+      <th>Edit</th>
+      <th>Destroy</th>
     </tr>
   </thead>
 
   <tbody>
     <% @books.each do |book| %>
+      <% posts = Post.where('book':book) %>
       <tr>
         <td><%= book.title %></td>
-        <td><%= image_tag book.cover_image unless book.cover_image.nil? %></td>
+        <td><%= image_tag book.cover_image unless book.cover_image.nil? %>
+        <td><%= book.ISBN_10 %></td>
+        <td><%= book.ISBN_13  %></td>
+        <td><% posts.each  do |post| %>
+          <%= link_to post.id,post_path(post.id) %>
+          <% end %>
+        </td>
+        <td><%= book.self_link %></td>
         <td><%= link_to 'Show', book %></td>
         <td><%= link_to 'Edit', edit_book_path(book) %></td>
         <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -21,6 +36,7 @@
     <% end %>
   </tbody>
 </table>
+
 
 <br>
 

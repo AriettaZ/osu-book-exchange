@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get 'posts/new_request', to: 'posts#new_request', as: 'posts_new_request'
   get 'post/:id/edit_offer', to: 'posts#edit_offer', as: 'post_edit_offer'
   get 'post/:id/edit_request', to: 'posts#edit_request', as: 'post_edit_request'
+  get 'posts/admin_index', to: 'posts#admin_index', as: 'posts_admin_index'
   resources :posts, except: [:new,:edit]
   get 'search', to: 'search#search'
   resources :images
