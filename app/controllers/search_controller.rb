@@ -35,11 +35,6 @@ class SearchController < ApplicationController
 		@conditions = [['--condition--',:all]] if params[:condition]=="all"
 		books.each do
 	    	|book|
-	    	if params[:edition]=="all" then
-		      	unless @editions.include? book.edition then
-		      		@editions.append(book.edition)
-		      	end
-		    end
 	    	Post.search do
 	    		# Match Book id
 	    		fulltext book.id do
@@ -76,6 +71,13 @@ class SearchController < ApplicationController
 		      			else
 		      				@conditions.append(["Used - poor", post.condition])
 		      			end
+		      		end
+		      	end
+
+		      	if params[:edition]=="all" then
+		      		book = Book.find_by_id(post.book_id)
+	    			unless @editions.include? book.edition then
+		      			@editions.append(book.edition)
 		      		end
 		      	end
 	    	end

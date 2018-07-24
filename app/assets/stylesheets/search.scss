@@ -67,7 +67,7 @@
 
 
 .filter{
-    max-width: 630px;
+    max-width: 640px;
     margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
@@ -81,12 +81,20 @@
     display: inline-block;
     vertical-align: -80%;
     margin-left: 10px;
+    width: 114px;
+}
+
+.edition{
+    width: 114px;
 }
 
 .condition-container{
     display: inline-block;
     vertical-align: -80%;
-    margin: 0px 10px;
+}
+
+.condition{
+    width: 162px;
 }
 
 .price-filter{
@@ -94,5 +102,5 @@
     height: 38px;
     border: 1px solid black;
     padding-left: 10px;
-    margin: 0px 8px;
+    margin: 0px 5px;
 }
