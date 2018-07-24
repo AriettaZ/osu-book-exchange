@@ -6,12 +6,13 @@
   <thead>
     <tr>
       <th>Contract</th>
+      <th>Post type</th>
       <th>Book</th>
-      <th>Meeting time</th>
+      <th>Meeting Time</th>
       <!-- <th>Meeting address</th> -->
-      <th>Final Payment method</th>
+      <th>Final Payment Method</th>
       <!-- <th>Final price</th> -->
-      <th>Expiration time</th>
+      <th>Expiration Time</th>
       <th>Seller</th>
       <th>Buyer</th>
       <th>Status</th>
@@ -25,6 +26,7 @@
     <% @contracts.each do |contract| %>
       <tr>
         <td>#<%= contract.id%></td>
+        <td><%=Post.find(contract.post_id).post_type%></td>
         <td><%=link_to Book.find(Post.find(contract.post_id).book_id).title, Post.find(contract.post_id)%></td>
         <td><%= contract.meeting_time.strftime("%Y-%m-%d %H:%M") %></td>
         <!-- <td><%= contract.meeting_address_first %><br/> <%= contract.meeting_address_second %></td> -->

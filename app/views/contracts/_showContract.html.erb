@@ -1,86 +1,137 @@
 <!-- <p id="notice"><%= notice %></p> -->
+<% post = Post.find(contract.post_id)%>
+<% book = Book.find(post.book_id)%>
 <div class="showContract">
+  <div class="row">
+      <div class="col">
+        <strong>Created At:</strong>
+        <%= contract.created_at.to_formatted_s(:long) %>
+      </div>
 
-<p>
-  <strong>Created At:</strong>
-  <%= contract.created_at.to_formatted_s(:long) %>
-</p>
+      <div class="col">
+        <strong>Expiration time:</strong>
+        <%= contract.expiration_time.to_formatted_s(:long) %>
+      </div>
 
-<p>
-  <strong>Expiration time:</strong>
-  <%= contract.expiration_time.to_formatted_s(:long) %>
-</p>
+      <div class="col">
+        <div class="row">
+          <div class="col">
+            <strong>Seller:</strong>
+            <%= User.find(contract.seller_id).name %>
+          </div>
 
-<p>
-  <strong>Book:</strong>
-  <%= link_to Book.find(Post.find(contract.post_id).book_id).title, Post.find(contract.post_id) %>
-</p>
+        <div class="col">
+          <strong>Buyer:</strong>
+          <%= User.find(contract.buyer_id).name %>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<p>
-  <strong>Seller:</strong>
-  <%= User.find(contract.seller_id).name %>
-</p>
+  <div class="image"><%= image_tag book.cover_image unless book.cover_image.nil? %></div>
 
-<p>
-  <strong>Buyer:</strong>
-  <%= User.find(contract.buyer_id).name %>
-</p>
+  <br/>
+  <div class="row">
+    <div class="col">
+      <p>
+        <strong>Book Title:</strong>
+        <%=link_to book.title, post%>
 
-<p>
-  <strong>Meeting time:</strong>
-  <%= contract.meeting_time.to_formatted_s(:long) %>
-</p>
+      </p>
 
-<p>
-  <strong>Meeting address:</strong>
-  <br/><%= contract.meeting_address_first.humanize %>
-  <br/><%= contract.meeting_address_second.humanize %>
-</p>
+      <p>
+        <strong>Edition:</strong>
+        <%= book.edition %>
+      </p>
 
-<p>
-  <strong>Final payment method:</strong>
-  <%= contract.final_payment_method.humanize %>
-</p>
+      <% if !book.ISBN_10.nil? %>
+      <p>
+        <strong>ISBN_10:</strong>
+        <%= book.ISBN_10 %>
+      </p>
+      <% end %>
 
-<p>
-  <strong>Final price:</strong>
-  <%= number_to_currency(contract.final_price) %>
-</p>
+      <% if !book.ISBN_13.nil? %>
+      <p>
+        <strong>ISBN_13:</strong>
+        <%= book.ISBN_13 %>
+      </p>
+      <% end %>
 
-<p>
-  <strong>Status:</strong>
-  <%= contract.status.humanize %>
-  <% if contract.status == "waiting"%>
-    for <%= User.find(contract.unsigned_user_id).name %> to confirm/decline
-  <% end %>
-</p>
-<% if contract.status == "confirmed" %>
-  <% orders = Order.where(contract_id: contract.id) %>
-  <% if orders.empty? %>
-    <p id="notice"> Sorry, the related order is deleted. </p>
-  <% else %>
-    <% order = Order.find_by(contract_id: contract.id) %>
-    <%= link_to "See Order", order_path(order.id, showFrom: showFrom) %>
-  <% end %>
-<% end %>
+      <p>
+        <strong>Condition:</strong>
+        <%= post.condition %>
+      </p>
 
-<!-- Current user is either the buyer, seller or admin. -->
-<% if contract.status == "waiting" && (current_user.has_roles?(:site_admin) || contract.buyer_id == current_user.id || contract.seller_id == current_user.id) %>
-  <!-- The user already signed the contract and admins can edit or delete. -->
-  <% if current_user.has_roles?(:site_admin) || contract.unsigned_user_id != current_user.id %>
-    <div> <%= link_to 'Edit', edit_contract_path(contract, admin: true, editFrom: editFrom)%> </div>
-    <div><%= link_to 'Delete', contract, method: :delete, data: { confirm: 'Are you sure?' } %></div>
-  <% end %>
+      <p>
+        <strong>Description:</strong>
+        <%= post.description %>
+      </p>
 
-  <!-- Only the unsigned user can confirm or decline. -->
-  <% if contract.unsigned_user_id == current_user.id %>
-    <div> <%= link_to "Confirm", contract_path(contract, contract: {status: :confirmed}), :method => :put, data: { confirm: 'Are you sure you want to confirm?' } %> </div>
-    <div> <%= link_to "Decline", contract_path(contract, contract: {status: :declined}), :method => :put, data: { confirm: 'Are you sure you want to decline?' } %> </div>
-  <% end %>
+      <p>
+        <strong>Course Number:</strong>
+        <%= post.course_number %>
+      </p>
+    </div>
 
-<!-- Admin can delete a contract at any time. -->
-<% elsif contract.status != "waiting" && current_user.has_roles?(:site_admin) %>
-  <div><%= link_to 'Delete', contract, method: :delete, data: { confirm: 'Are you sure?' } %></div>
-<% end %>
+    <div class="col">
+      <p>
+        <strong>Meeting time:</strong>
+        <%= contract.meeting_time.to_formatted_s(:long) %>
+      </p>
+
+      <p>
+        <strong>Meeting address:</strong>
+        <br/><%= contract.meeting_address_first.humanize %>
+        <br/><%= contract.meeting_address_second.humanize %>
+      </p>
+
+      <p>
+        <strong>Final payment method:</strong>
+        <%= contract.final_payment_method.humanize %>
+      </p>
+
+      <p>
+        <strong>Final price:</strong>
+        <%= number_to_currency(contract.final_price) %>
+      </p>
+
+      <p>
+        <strong>Status:</strong>
+        <%= contract.status.humanize %>
+        <% if contract.status == "waiting"%>
+          for <%= User.find(contract.unsigned_user_id).name %> to confirm/decline
+        <% end %>
+      </p>
+      <% if contract.status == "confirmed" %>
+        <% orders = Order.where(contract_id: contract.id) %>
+        <% if orders.empty? %>
+          <p id="notice"> Sorry, the related order is deleted. </p>
+        <% else %>
+          <% order = Order.find_by(contract_id: contract.id) %>
+          <%= link_to "See Order", order_path(order.id, showFrom: showFrom) %> |
+        <% end %>
+      <% end %>
+
+        <!-- Current user is either the buyer, seller or admin. -->
+        <% if contract.status == "waiting" && (current_user.has_roles?(:site_admin) || contract.buyer_id == current_user.id || contract.seller_id == current_user.id) %>
+          <!-- The user already signed the contract and admins can edit or delete. -->
+          <% if current_user.has_roles?(:site_admin) || contract.unsigned_user_id != current_user.id %>
+             <%= link_to 'Edit', edit_contract_path(contract, admin: true, editFrom: editFrom)%> |
+            <%= link_to 'Delete', contract, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% end %>
+
+          <!-- Only the unsigned user can confirm or decline. -->
+          <% if contract.unsigned_user_id == current_user.id %>
+             <%= link_to "Confirm", contract_path(contract, contract: {status: :confirmed}), :method => :put, data: { confirm: 'Are you sure you want to confirm?' } %> |
+             <%= link_to "Decline", contract_path(contract, contract: {status: :declined}), :method => :put, data: { confirm: 'Are you sure you want to decline?' } %> |
+          <% end %>
+
+        <!-- Admin can delete a contract at any time. -->
+        <% elsif contract.status != "waiting" && current_user.has_roles?(:site_admin) %>
+          <%= link_to 'Delete', contract, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
+    </div>
+  </div>
 
 </div>
