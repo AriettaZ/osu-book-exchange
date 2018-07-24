@@ -37,5 +37,10 @@ Rails.application.routes.draw do
 
   resources :messages, except: [:edit, :update, :destroy]
 
+  # AJAX routes to load tables into dashboard/myoffer page
+  get 'dashboard/ajax/a_offer', to: 'ajax_pages#a_offer'
+  get 'dashboard/ajax/p_offer', to: 'ajax_pages#p_offer'
+  get 'dashboard/ajax/c_offer', to: 'ajax_pages#c_offer'
+  get 'dashboard/ajax/d_offer', to: 'ajax_pages#d_offer'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

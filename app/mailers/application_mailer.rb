@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'from@example.com'
+  default from: 'osu.magic.team@gmail.com'
   layout 'mailer'
 end

@@ -21,6 +21,5 @@
 //= require popper
 //= require bootstrap-sprockets
 $(document).ready(function(){
-  $("select").addClass("form-control")
-  $(":input").not(":submit").addClass("form-control")
+  $("select, :text, textarea").addClass("form-control")
 })

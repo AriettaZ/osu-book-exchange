@@ -11,4 +11,5 @@ class Contract < ApplicationRecord
   validates :meeting_time, presence: true
   validates :expiration_time, presence: true
   validates :final_price, numericality: { less_than: 10000 }
+
 end

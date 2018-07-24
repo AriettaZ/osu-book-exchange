@@ -8,7 +8,9 @@
   <input class="closed" type="button" name="orders" value="Completed">
   <input class="problematic" type="button" name="orders" value="Problematic">
   <input class="canceled" type="button" name="orders" value="Canceled">
-
+</div>
+<br/>
+<div class="result">
   <% order_statuses = [] %>
   <% Order.statuses.each do |status| %>
     <% order_statuses.append(status[0]) %>
@@ -18,7 +20,7 @@
       <% order_num = 0 %>
       <% @orders.each do |order| %>
         <% if order.status == status%>
-          <div class="data">
+          <div class="data border">
             <% order_num += 1 %>
             <h4>Order #<%= order.id %></h4>
             <%= render "orders/showOrder", order: order %>
@@ -34,19 +36,19 @@
 
 <script>
 $(document).ready(function(){
-  $(".select_list").children("div").not(".active").hide();
+  $(".result").children("div").not(".active").hide();
   $(":button").click(function(){
     if ($(this).attr("class") == "active") {
-      $(".select_list").children("div").not(".active").hide();
+      $(".result").children("div").not(".active").hide();
       $(".active").show();
     } else if ($(this).attr("class") == "problematic") {
-      $(".select_list").children("div").not(".problematic").hide();
+      $(".result").children("div").not(".problematic").hide();
       $(".problematic").show();
     } else if ($(this).attr("class") == "closed") {
-      $(".select_list").children("div").not(".closed").hide();
+      $(".result").children("div").not(".closed").hide();
       $(".closed").show();
     } else if ($(this).attr("class") == "canceled"){
-      $(".select_list").children("div").not(".canceled").hide();
+      $(".result").children("div").not(".canceled").hide();
       $(".canceled").show();
     }
   });

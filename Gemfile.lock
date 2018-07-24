@@ -263,7 +263,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap (>= 1.1.0)
-  bootstrap (~> 4.1.2)
+  bootstrap (~> 4.1.1)
   bootstrap3-datetimepicker-rails (~> 4.17.47)
   byebug
   capybara (>= 2.15, < 4.0)
