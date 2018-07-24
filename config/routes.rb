@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  root to: "pages#home"
+  get 'about', to: 'pages#about'
+  get 'about-magic', to: 'pages#aboutme'
+  get 'contact_us', to: 'pages#contact_us'
+  post 'contact_us', to: 'contact_us#contact_us'
+
   get 'profile', to: 'dashboard#main', as: 'profile'
   get 'profile/myorder', to: 'dashboard#myorder', as: 'profile_myorder'
   get 'profile/mycontract', to: 'dashboard#mycontract', as: 'profile_mycontract'
@@ -17,7 +23,6 @@ Rails.application.routes.draw do
   resources :contracts
   resources :books
   resources :images
-  resources :posts, except: [:new,:edit]
   resources :messages, except: [:edit, :update, :destroy]
   # post routes
   get 'posts/new_offer', to: 'posts#new_offer', as: 'posts_new_offer'
@@ -25,6 +30,7 @@ Rails.application.routes.draw do
   get 'post/:id/edit_offer', to: 'posts#edit_offer', as: 'post_edit_offer'
   get 'post/:id/edit_request', to: 'posts#edit_request', as: 'post_edit_request'
   get 'posts/admin_index', to: 'posts#admin_index', as: 'posts_admin_index'
+  resources :posts, except: [:new,:edit]
   # search routes for finding book exchange listings
   get 'search-book', to: 'books#search'
   get 'search', to: 'search#search'
