@@ -1,3 +1,10 @@
+# Author: Gail Chen
+# Created: 7/18
+# Edit: 7/22 Gail updated post status corresponding to changes in order status.
+# Edit: 7/23 Gail added mailer.
+# Descript: An order is created when a contract is confirmed. Only buyers and
+# admins can close or cancel the order. Users can report problems at any time.
+
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
   access user: [:edit,:update,:show], site_admin: :all
@@ -34,6 +41,9 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     respond_to do |format|
       if @order.save
+        contract = Contract.find(@order.contract_id)
+        MagicMailer.newOrder(@order, User.find(contract.seller_id)).deliver_later
+        MagicMailer.newOrder(@order, User.find(contract.buyer_id)).deliver_later
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else
@@ -50,17 +60,41 @@ class OrdersController < ApplicationController
     post = Post.find(contract.post_id)
     respond_to do |format|
       if @order.update(order_params)
-        # If order is canceled, then post is active(1)
+        # If order is canceled, then post is active(1) and an email is sent to users.
         if @order.status == "canceled"
           post.status = 1
+          post.save
+          MagicMailer.orderCanceled(@order, User.find(contract.buyer_id)).deliver_later
+          MagicMailer.orderCanceled(@order, User.find(contract.seller_id)).deliver_later
+          format.html { redirect_to @order, notice: 'Order was successfully canceled.' }
+          format.json { render :show, status: :ok, location: @order }
 
-        # If order is problematic, active or closed, then post is closed(3)
+        # If order is problematic, then post is closed(3) and reports to the magic team.
+        elsif @order.status == "problematic"
+          post.status = 3
+          post.save
+          MagicMailer.problematicOrder(@order, current_user).deliver_later
+          # format.html { redirect_to dashboard_messages_url(talk_to: 13, post_id: 0) }
+          format.html { redirect_to contact_us_url, notice: 'The MAG¡C team will contact you within 3 work days.' }
+
+        # If order is closed, then post is closed(3) and an email is sent to users.
+        elsif @order.status == "closed"
+          post.status = 3
+          post.save
+          MagicMailer.orderClosed(@order, User.find(contract.seller_id)).deliver_later
+          MagicMailer.orderClosed(@order, User.find(contract.buyer_id)).deliver_later
+          format.html { redirect_to @order, notice: 'Order was successfully closed.' }
+          format.json { render :show, status: :ok, location: @order }
+
+        # If order is reactived, then post is closed(3) and an email is sent to users.
         else
           post.status = 3
+          post.save
+          MagicMailer.orderActive(@order, User.find(contract.seller_id)).deliver_later
+          MagicMailer.orderActive(@order, User.find(contract.buyer_id)).deliver_later
+          format.html { redirect_to @order, notice: 'Order was successfully activated.' }
+          format.json { render :show, status: :ok, location: @order }
         end
-        post.save
-        format.html { redirect_to @order, notice: 'Order was successfully updated.' }
-        format.json { render :show, status: :ok, location: @order }
       else
         format.html { render :edit }
         format.json { render json: @order.errors, status: :unprocessable_entity }

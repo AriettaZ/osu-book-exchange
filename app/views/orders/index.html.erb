@@ -4,9 +4,9 @@
 <table id="order_index_table" class="display">
   <thead>
     <tr>
-      <th>Order</th>
+      <th>Order#</th>
       <th>Created At</th>
-      <!-- <th>Contract</th> -->
+      <!-- <th>Contract#</th> -->
       <th>Post Type</th>
       <th>Book</th>
       <th>Meeting Time</th>
@@ -29,9 +29,9 @@
       <% if !contract.empty?%>
         <% contract = Contract.find(order.contract_id) %>
         <tr>
-          <td>#<%= order.id %></td>
+          <td><%= order.id %></td>
           <td><%= order.created_at.strftime("%Y-%m-%d %H:%M") %></td>
-          <!-- <td><%=link_to "##{contract.id}", Contract.find(contract.id)%></td> -->
+          <!-- <td><%=link_to "#{contract.id}", Contract.find(contract.id)%></td> -->
           <td><%=Post.find(contract.post_id).post_type%></td>
           <td><%=link_to Book.find(Post.find(contract.post_id).book_id).title, Post.find(contract.post_id)%></td>
           <td><%= contract.meeting_time.strftime("%Y-%m-%d %H:%M") %></td>

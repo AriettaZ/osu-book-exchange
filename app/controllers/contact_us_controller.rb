@@ -17,7 +17,9 @@ class ContactUsController < ApplicationController
 	    if @message.save
 	      # flash[:success] = "Message sent for post id: " + params[:post_id].to_s
 	      # redirect_to dashboard_messages_path(talk_to: params[:talk_to], post_id: params[:post_id])
-	      redirect_to dashboard_messages_path(talk_to: 13, post_id: 0)
+
+				# MagicMailer.contact_us(@message, current_user).deliver_later
+				redirect_to dashboard_messages_path(talk_to: 13, post_id: 0)
 	    else
 	      # Show saving errors.
 	      # @message.errors.each do |type, text|
