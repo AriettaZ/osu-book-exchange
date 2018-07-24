@@ -18,7 +18,7 @@
   <%= form.fields_for :book do |f| %>
     <!-- <%= form.label :book %>
     <%= form.text_area :book %> -->
-      <label for="book_self_link">Find book</label>
+      <label for="post_book_self_link">Find book</label>
       <div class="">
         <select title="Enter book name" class="selectpicker field" data-show-subtext="true" data-live-search="true" name="post[book][self_link]" id="post_book_self_link">
         </select>
@@ -105,6 +105,16 @@
   <br />
   <%= render 'image_input', post: @post, image: @image, form:form %>
   <br />
+  <div class="field">
+    <div class="input-group mb-3">
+      <label for="post_status">Save or Publish</label>
+      <select class="form-control" name="post[status]" id="post_status">
+        <option value="draft">Save as a draft</option>
+        <option value="active">Publish</option>
+      </select>
+    </div>
+  </div>
+  <br>
   <div class="actions">
     <%= form.submit %>
   </div>
