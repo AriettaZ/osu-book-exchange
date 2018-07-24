@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get 'dashboard/messages', to: 'dashboard#messages'
   post 'dashboard/messages', to: 'dashboard#create_message'
   get 'dashboard/contacts', to: 'dashboard#contacts'
-  
+
   get 'dashboard/update_account_info'
 
   get 'dashboard/bookmarks'
@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   root to: "pages#home"
   #resources :bookmarks, only: [:create, :destroy]
 
-  delete 'bookmarks', to: 'bookmarks#destroy'
+  delete 'bookmarks/:post_id', to: 'bookmarks#destroy'
   post 'bookmarks', to: 'bookmarks#create'
 
   resources :messages, except: [:edit, :update, :destroy]
