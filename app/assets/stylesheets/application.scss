@@ -17,9 +17,12 @@
  @import 'bootstrap-datetimepicker';
 
 $magic-purple: #2C0A24;
-$magic-orange: #AE4524;
+$magic-orange: #e94814;
 $magic-white: #F8F8F8;
-
+$darker-magic-purple: #190514;
+$lighter-magic-purple:#5b1149;
+$lighter-magic-orange: #e08569;
+$darker-magic-orange: #a32d08;
 body{
   top:0;
   margin: 0;
@@ -109,7 +112,9 @@ a{
   color: black;
   text-decoration: none;
 }
-
+a:hover{
+  color: $magic-orange;
+}
 .navbar-collapse.collapse#navbarSupportedContent{
   display: inline-block !important;
 }
@@ -148,4 +153,50 @@ span.text{
   height: 6em;
   line-height: 6em;
   clear: both;
+}
+#search_book_by_title{
+  z-index: 1000;
+}
+
+
+.stylish-input-group .input-group-addon{
+    background: white !important;
+}
+.stylish-input-group .form-control{
+	border-right:0;
+	box-shadow:0 0 0;
+	border-color:#ccc;
+}
+.stylish-input-group button{
+    border:0;
+    background:transparent;
+}
+
+button.magic-button{
+    display: inline-block;
+    color: white;
+    border: 1px solid $darker-magic-purple;
+    border-radius: 10px;
+    background-color: $magic-purple;
+    text-align: center;
+}
+
+button.magic-button:hover{
+    text-decoration: none;
+    color: black;
+    background-color: rgba(233, 72, 20, 1.000);
+}
+button.magic-button:hover, button.magic-button:focus, button.magic-button:active, button.magic-button.active, .open>button.dropdown-toggle.magic-button{
+  color: #fff;
+  // background-color: #3071a9;
+  // border-color: #285e8e;
+  text-decoration: none;
+  color: black;
+  background-color: $magic-orange;
+}
+button.magic-button:active{
+    font-weight: bold;
+}
+#search_book_by_isbn_button:hover{
+  cursor: pointer;
 }

@@ -26,7 +26,7 @@
 
 <h2>Actual Product Pictures</h2>
 
-<!-- <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
     <% @images.each_with_index do |picture,index| %>
       <% puts index, picture.actual_product_image_url %>
@@ -49,35 +49,42 @@
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
-</div> -->
+</div>
 
-<% @images.each_with_index do |picture,index| %>
+<!-- <% @images.each_with_index do |picture,index| %>
   <a class="actual_product_image_link"  href="<%= picture.actual_product_image_url %>"><img class="actual_product_image" src="<%= picture.actual_product_image_url %>" alt="Image #<%= index %>"></a>
-  <!-- <a href="<%= picture.actual_product_image_url %>" class="actual_product_image" data-lightbox="roadtrip">Image #<%= index %></a> -->
-<% end %>
-<!-- <% @images.each do |p| %>
-  <%= image_tag p.actual_product_image_url, :class => "actual_product_image" %>
-  <%= link_to "Edit Attachment", edit_image_path(p) %>
 <% end %> -->
 
-<div><%= link_to 'Contact Seller', current_user.is_a?(GuestUser)? new_user_session_path : new_message_path(post_id: @post.id) %>
-<!--
-<% Image.where(post_id: @post.id).each do |image| %>
-<%= image_tag image.actual_product_image_url.html_safe %>
-<%= link_to "Edit Attachment", edit_image_path(image) %>
-<% end %> -->
-<% if @post.post_type=="offer" %>
-  <%= link_to 'Edit', post_edit_offer_path(@post) if current_user.id==@post.user_id %>
+<% if current_user.is_a?(GuestUser) %>
+  <% if @post.status == "active"|| @post.status == "pending"%>
+    <%= link_to 'Contact Seller', new_user_session_path, class:['btn','btn-outline-primary'], role:['button']  %>
+  <% end %>
+  <% if @post.status == "active" %>
+    <%= link_to 'Start a Contract',new_user_session_path , class:['btn','btn-outline-primary'], role:['button']%>
+  <% end %>
+
+  <%= link_to "Add Bookmark", new_user_session_path ,  class:['btn','btn-outline-primary'], role:['button'] %>
+
 <% else %>
-  <%= link_to 'Edit', post_edit_request_path(@post) if current_user.id==@post.user_id %>
-<% end %>
+  <% if current_user.id!=@post.user_id %>
+    <% if (@post.status == "active"|| @post.status == "pending")%>
+      <%= link_to 'Contact Seller',  new_message_path(post_id: @post.id), class:['btn','btn-outline-primary'], role:['button']  %>
+    <% end %>
+    <% if @post.status == "active" && current_user.id!=@post.user_id %>
+      <%= link_to 'Start a Contract', new_contract_path(post_id: @post.id, sender_id: current_user.id, receiver_id: @post.user_id), class:['btn','btn-outline-primary'], role:['button'] %>
+    <% end %>
+    <%= button_to "Add Bookmark", :controller => :bookmarks, :action => 'create', params: {post_id: @post.id}, :method => :post,class:['btn','btn-outline-primary']%>
 
-<% if @post.status == "active" %>
-  <%= link_to 'Start a Contract', current_user.is_a?(GuestUser)? new_user_session_path : new_contract_path(post_id: @post.id, sender_id: current_user.id, receiver_id: @post.user_id) if current_user.id!=@post.user_id%>
-<% end %>
+  <% else  %>
+    <% if @post.post_type=="offer" %>
+      <%= link_to 'Edit', post_edit_offer_path(@post),  class:['btn','btn-outline-primary'], role:['button']  %>
+    <% else %>
+      <%= link_to 'Edit', post_edit_request_path(@post),  class:['btn','btn-outline-primary'], role:['button']  %>
+    <% end %>
+    <%= link_to 'Delete', @post, method: :delete, data: { confirm: 'Are you sure?' },class:['btn','btn-outline-primary'], role:['button']  %>
+  <% end %>
 
-<%= button_to "Add Bookmark", :controller => :bookmarks, :action => 'create', params: {post_id: @post.id}, :method => :post %>
-<%= (link_to 'Delete', @post, method: :delete, data: { confirm: 'Are you sure?' }) if current_user.id==@post.user_id %>
-<%= link_to 'Back', posts_path %>
+<% end %>
+<%= link_to 'Back', posts_path,  class:['btn','btn-outline-primary'], role:['button']  %>
 </div>
 <hr>

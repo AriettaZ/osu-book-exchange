@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :edit_offer, :edit_request, :update, :destroy, :toggle_status]
-  access all: [:show, :index], user: :all, site_admin: :all
+  access all: [:show,:new_offer,:new_request,:index], user: :all, site_admin: :all
 # GET /posts
 # GET /posts.json
 def index
@@ -28,16 +28,24 @@ end
 
 # GET /posts/new
 def new_offer
-  @post = current_user.posts.build
-  # @book = Book.new
-  @book= @post.build_book
-  @image = @post.images.build
+  if current_user.is_a?(GuestUser)
+    redirect_to new_user_session_path, notice: 'Please Login First'
+  else
+    @post = current_user.posts.build
+    # @book = Book.new
+    @book= @post.build_book
+    @image = @post.images.build
+  end
 end
 
 def new_request
-  @post = current_user.posts.build
-  # @book = Book.new
-  @book= @post.build_book
+  if current_user.is_a?(GuestUser)
+    redirect_to new_user_session_path, notice: 'Please Login First'
+  else
+    @post = current_user.posts.build
+    # @book = Book.new
+    @book= @post.build_book
+  end
 end
 
 # GET /posts/1/seller_edit
