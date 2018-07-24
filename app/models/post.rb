@@ -4,6 +4,7 @@ class Post < ApplicationRecord
   belongs_to :user
   has_many :images
   has_many :bookmarks
+  # Also has many :users, through: :bookmarks
   accepts_nested_attributes_for :images
   has_many :messages
   has_many :contracts
