@@ -70,7 +70,7 @@ gem 'sunspot_solr' # optional pre-packaged Solr distribution for use in developm
 
 gem 'petergate', '~> 1.7'
 gem 'friendly_id', '~> 5.1.0', :require => 'friendly_id'
-gem 'bootstrap', '~> 4.1.1'
+gem 'bootstrap', '~> 4.1.2'
 gem 'sprockets-rails'
 gem 'dropzonejs-rails'
 gem 'carrierwave'
