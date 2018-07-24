@@ -47,7 +47,6 @@
     color: white;
     height: 38px;
     width: 80px;
-    background-color: white;
     border: 1px solid black;
     border-radius: 10px;
     background-color: rgba(43, 10, 36, 1.000);
@@ -96,7 +95,9 @@
 .condition{
     width: 162px;
 }
-
+.smallThumbnail{
+  max-width: 80px;
+}
 .price-filter{
     width: 120px;
     height: 38px;
