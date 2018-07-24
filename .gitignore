@@ -31,3 +31,4 @@
 /solr/development/data*
 /.DS_Store
 /public/uploads*
+/config/app_environment_variables.rb

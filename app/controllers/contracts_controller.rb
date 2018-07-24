@@ -90,6 +90,8 @@ class ContractsController < ApplicationController
         # If contract is waiting, then post is pending(2)
         if @contract.status == "waiting"
           post.status = 2
+          MagicMailer.newContract(Contract.last, User.last).deliver_now
+          DeclineExpiredContractJob.set(wait_until: @contract.expiration_time).perform_later(@contract.id)
 
         # If contract is confirmed, then post is closed(3)
         elsif @contract.status == "confirmed"
@@ -138,6 +140,7 @@ class ContractsController < ApplicationController
           # If the contract is waiting, then post is pending(2)
           elsif @contract.status == "waiting"
             post.status = 2
+            DeclineExpiredContractJob.set(wait: 1.minute).perform_later(@contract.id)
           end
           post.save
           @contract.save
