@@ -44,7 +44,7 @@
 </div> -->
 
 <% @images.each_with_index do |picture,index| %>
-  <a data-lightbox="roadtrip" href="<%= picture.actual_product_image_url %>"><img class="actual_product_image" src="<%= picture.actual_product_image_url %>" alt="Image #<%= index %>"></a>
+  <a data-lightbox="roadtrip" class="actual_product_image_link"  href="<%= picture.actual_product_image_url %>"><img class="actual_product_image" src="<%= picture.actual_product_image_url %>" alt="Image #<%= index %>"></a>
   <!-- <a href="<%= picture.actual_product_image_url %>" class="actual_product_image" data-lightbox="roadtrip">Image #<%= index %></a> -->
 <% end %>
 <!-- <% @images.each do |p| %>
@@ -63,10 +63,12 @@
 <% else %>
   <%= link_to 'Edit', post_edit_request_path(@post) if current_user.id==@post.user_id %>
 <% end %>
+
 <% if @post.status == "active" %>
   <%= link_to 'Start a Contract', current_user.is_a?(GuestUser)? new_user_session_path : new_contract_path(post_id: @post.id, sender_id: current_user.id, receiver_id: @post.user_id) if current_user.id!=@post.user_id%>
-  <%= button_to "Add Bookmark", :controller => :bookmarks, :action => 'create', params: {post_id: @post.id}, :method => :post %>
 <% end %>
+
+<%= button_to "Add Bookmark", :controller => :bookmarks, :action => 'create', params: {post_id: @post.id}, :method => :post %>
 <%= (link_to 'Delete', @post, method: :delete, data: { confirm: 'Are you sure?' }) if current_user.id==@post.user_id %>
 <%= link_to 'Back', posts_path %>
 </div>

@@ -17,7 +17,7 @@ class SearchController < ApplicationController
 			end
 
 			# Match edition
-			if edition!="all" then
+			if edition!="" then
 				fulltext edition+" th" do
 					fields(:edition)
 				end
@@ -82,7 +82,7 @@ class SearchController < ApplicationController
 	  	@search_field = params[:query]
 	  	@condition = params[:condition]
 	  	@edition = params[:edition]
-	  	# @msg = "Find "+@posts.length.to_s+" Posts"
+	  	@msg = "Find "+@posts.length.to_s+" Posts"
 	  	# @msg = params
 	end
 end

@@ -12,6 +12,7 @@
  *
  *= require dropzone/dropzone
  */
+ @import url('https://fonts.googleapis.com/css?family=Eczar|Merienda|Merriweather|Oswald|Poppins|Ubuntu');
  @import 'bootstrap';
  @import 'bootstrap-datetimepicker';
  @import 'lightbox';
@@ -25,6 +26,7 @@ body{
   margin: 0;
   display:block;
   background:$magic-white;
+  font-family: 'Eczar', serif;
 }
 .bootstrap-select .dropdown-menu{
   max-width:1200px;
@@ -117,7 +119,9 @@ a{
   max-height: 300px;
   margin: 10px;
 }
-
+span.text{
+  float:none;
+}
 div.data {
   padding: 0px 10px 5px;
 }

@@ -9,6 +9,7 @@ class User < ApplicationRecord
 
 
   has_many :posts
+  # Also has many :posts, through: :bookmarks
   has_many :messages
   has_many :contracts
   has_many :bookmarks

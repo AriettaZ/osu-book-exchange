@@ -69,7 +69,6 @@ gem 'sunspot_rails'
 gem 'sunspot_solr' # optional pre-packaged Solr distribution for use in development. Please find a section below explaining other options for running Solr in production
 
 gem 'petergate', '~> 1.7'
-gem 'friendly_id', '~> 5.1.0', :require => 'friendly_id'
 gem 'bootstrap', '~> 4.1.1'
 gem 'sprockets-rails'
 gem 'dropzonejs-rails'
@@ -79,5 +78,3 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 gem 'httparty'
 gem 'rest-client'
 gem 'rack-test', '~> 1.1.0'
-gem 'lightbox2-rails'
-gem 'whenever', require: false

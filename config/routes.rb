@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get 'dashboard/messages', to: 'dashboard#messages'
   post 'dashboard/messages', to: 'dashboard#create_message'
   get 'dashboard/contacts', to: 'dashboard#contacts'
-  
+
   get 'dashboard/update_account_info'
 
   get 'dashboard/bookmarks'
@@ -17,7 +17,8 @@ Rails.application.routes.draw do
   resources :contracts
   get 'about', to: 'pages#about'
   get 'about-magic', to: 'pages#aboutme'
-  get 'contact', to: 'pages#contact'
+  get 'contact_us', to: 'pages#contact_us'
+  post 'contact_us', to: 'contact_us#contact_us'
   get 'search-book', to: 'books#search'
   resources :books
   get 'posts/new_offer', to: 'posts#new_offer', as: 'posts_new_offer'
@@ -31,10 +32,15 @@ Rails.application.routes.draw do
   root to: "pages#home"
   #resources :bookmarks, only: [:create, :destroy]
 
-  delete 'bookmarks', to: 'bookmarks#destroy'
+  delete 'bookmarks/:post_id', to: 'bookmarks#destroy'
   post 'bookmarks', to: 'bookmarks#create'
 
   resources :messages, except: [:edit, :update, :destroy]
 
+  # AJAX routes to load tables into dashboard/myoffer page
+  get 'dashboard/ajax/a_offer', to: 'ajax_pages#a_offer'
+  get 'dashboard/ajax/p_offer', to: 'ajax_pages#p_offer'
+  get 'dashboard/ajax/c_offer', to: 'ajax_pages#c_offer'
+  get 'dashboard/ajax/d_offer', to: 'ajax_pages#d_offer'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

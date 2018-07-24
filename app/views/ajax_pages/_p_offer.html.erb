@@ -1,0 +1,37 @@
+<%p_offer = @offers.select{|offer| offer.status == "pending"}%>
+
+<table id="p-table" style="margin-left:auto;margin-right:auto">
+  <caption style="caption-side:top; text-align:center">Pending Offers</caption>
+  <% if p_offer.length == 0 %>
+    <tr>
+      <td colspan="5" style="text-align:center">You have no pending offers.<td>
+    </tr>
+  <% else %>
+  <tr>
+    <th style="padding:30px"> Book Image </th>
+    <th style="padding:30px"> Book Title </th>
+    <th style="padding:30px"> ISBN </th>
+    <th style="padding:30px"> Price </th>
+    <th style="padding:30px"> Condition </th>
+    <th style="padding:30px"> Date Posted </th>
+  </tr>
+    <% p_offer.each do |offer| %>
+    <tr>
+      <td style="padding:30px"> <%=image_tag(offer.book.cover_image)%> </td>
+      <td style="padding:30px"> <%=offer.book.title%> </td>
+      <td style="padding:30px">
+        <%if !offer.book.ISBN_10.nil?%>
+          <%= offer.book.ISBN_10.to_s %>
+        <% elsif !offer.book.ISBN_13.nil?%>
+          <%= offer.book.ISBN_13.to_s %>
+        <% else %>
+          <%= "No known ISBN" %>
+        <% end %>
+      </td>
+      <td style="padding:30px"> <%="$ " + offer.price.to_s%> </td>
+      <td style="padding:30px"> <%=offer.condition%> </td>
+      <td style="padding:30px"> <%=offer.updated_at.strftime("%Y-%m-%d")%> </td>
+    </tr>
+    <% end %>
+  <% end %>
+</table>
