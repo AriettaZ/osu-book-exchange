@@ -4,21 +4,21 @@ Rails.application.routes.draw do
   get 'about-magic', to: 'pages#aboutme'
   get 'contact_us', to: 'pages#contact_us'
   post 'contact_us', to: 'contact_us#contact_us'
-
+  # user profile pages (and messaging center)
   get 'profile', to: 'dashboard#main', as: 'profile'
   get 'profile/myorder', to: 'dashboard#myorder', as: 'profile_myorder'
   get 'profile/mycontract', to: 'dashboard#mycontract', as: 'profile_mycontract'
   get 'profile/myrequest', to: 'dashboard#myrequest', as: 'profile_myrequest'
   get 'profile/myoffer', to: 'dashboard#myoffer', as: 'profile_myoffer'
-  get 'profile/account_information', to: 'dashboard#account_information', as: 'account_information'
+  get 'profile/account_information', to: 'dashboard#main', as: 'account_information'
   get 'profile/messages', to: 'dashboard#messages'
   post 'profile/messages', to: 'dashboard#create_message'
   get 'profile/contacts', to: 'dashboard#contacts'
-
   get 'profile/update_account_info', to: 'dashboard#update_account_info'
-
   get 'profile/bookmarks', to: 'dashboard#bookmarks', as:"profile_bookmarks"
+  # devise user routes
   devise_for :users, path: '', path_names:{edit: 'profile/edit', sign_in: 'login', sign_out: 'logout' , sign_up: 'signup'}
+  # resources
   resources :orders
   resources :contracts
   resources :books
@@ -38,9 +38,13 @@ Rails.application.routes.draw do
   delete 'bookmarks/:post_id', to: 'bookmarks#destroy'
   post 'bookmarks', to: 'bookmarks#create'
   # AJAX routes to load tables into dashboard/myoffer page
-  get 'dashboard/ajax/a_offer', to: 'ajax_pages#a_offer'
-  get 'dashboard/ajax/p_offer', to: 'ajax_pages#p_offer'
-  get 'dashboard/ajax/c_offer', to: 'ajax_pages#c_offer'
-  get 'dashboard/ajax/d_offer', to: 'ajax_pages#d_offer'
+  get 'profile/ajax/a_offer', to: 'ajax_pages#a_offer'
+  get 'profile/ajax/p_offer', to: 'ajax_pages#p_offer'
+  get 'profile/ajax/c_offer', to: 'ajax_pages#c_offer'
+  get 'profile/ajax/d_offer', to: 'ajax_pages#d_offer'
+  get 'profile/ajax/a_request', to: 'ajax_pages#a_request'
+  get 'profile/ajax/p_request', to: 'ajax_pages#p_request'
+  get 'profile/ajax/c_request', to: 'ajax_pages#c_request'
+  get 'profile/ajax/d_request', to: 'ajax_pages#d_request'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
