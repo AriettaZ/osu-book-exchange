@@ -26,7 +26,7 @@
 </div>
 
 <form>
-	<input type="text" name="" id="user-chat-input" placeholder="Enter your message here."/>
+	<input type="text" name="" id="user-chat-input" placeholder="Enter your message here." />
 	<div id="user-chat-submit">Send</div>
 </form>
 
@@ -48,8 +48,8 @@
 				url: window.location.href+"&last_msg_time="+$('.showed-message').last().find('.created-time').val(),
 
 			}).done(function(data){
-				$('.showed-message').last().after(data)
-			})
+					$('.showed-message').last().after(data)
+				})
 		},5000)
 
 		// Prevent Enter to submit the form
@@ -77,9 +77,14 @@
 					}
 				}).done(function(data){
 					$('.showed-message').last().after(data)
+					$('.messages-container').animate({
+						scrollTop: $('.messages-container')[0].scrollHeight
+					},"normal",function(){
+						$('#user-chat-input').focus()
+					})
 					$('.showed-message').last().animate({
 						opacity: 1,
-						marginTop: 0
+						marginTop: 0,
 					})
 					$('#user-chat-input').val("")
 					$('#user-chat-input').focus()

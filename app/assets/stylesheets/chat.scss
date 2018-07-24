@@ -30,10 +30,11 @@
 
 .from-me{
     float: right;
+    margin-right: 15px;
 }
 
 .from-me .message-content{
-    background-color: rgba(0, 132, 255, 1.000);
+    background-color: rgba(43, 10, 36, 0.8);
     color: white;
     float: right;
 }
@@ -45,4 +46,24 @@
 .from-partner .message-content{
     background-color: rgba(235, 235, 235, 1.000);
     float: left;
+}
+
+
+#user-chat-input{
+    display: inline-block;
+    width: 80%;
+    height: 30px;
+    
+}
+
+#user-chat-submit{
+    display: inline-block;
+    width: 19%;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background-color: rgba(0, 132, 255, 1.000);
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
 }
