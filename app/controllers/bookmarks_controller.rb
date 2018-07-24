@@ -10,13 +10,13 @@ class BookmarksController < ApplicationController
       redirect_to "/posts/#{params[:post_id]}"
     else
       flash[:failure] = @bookmark.errors.full_messages
-      redirect_to dashboard_main_url
+      redirect_to profile_url
     end
   end
 
   def destroy
     Bookmark.where(user_id: current_user.id, post_id: params[:post_id]).first.destroy
     flash[:success] = "Bookmark Destroyed"
-    redirect_to dashboard_bookmarks_url
+    redirect_to profile_bookmarks_url
   end
 end

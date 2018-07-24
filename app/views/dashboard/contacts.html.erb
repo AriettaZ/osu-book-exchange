@@ -1,22 +1,24 @@
 
-<%= stylesheet_link_tag "contact_list" %>
-<div>
-	<div class="header-container">
-		<h1>My Conversations</h1>
-		<h5>Click on the conversation to chat</h4>
-<!-- 		<%= form_tag(dashboard_contacts_path, :method=>"get") do %>
-			<%= button_tag "Refresh", :class=>"refresh" %>
-		<% end %> -->
-	</div>
-	<h1><%= @msg %></h1>
-	<div class="contacts-container">
-		<% @contacts.each do |contact| %>
-			<%= form_tag(dashboard_messages_path(), :method=>"get") do %>
+<%= form_tag(profile_contacts_path, :method=>"get") do %>
+	<%= button_tag("Refresh") %>
+<% end %>
+
+<div class="">
+<h1><%= @msg %></h1>
+<% @contacts.each do |contact| %>
+	<div>
+		Talking With: <%= contact.partner.name %>
+		<br />
+		Post_id: <%= contact.post_id %>
+		<br/>
+		Last Talk Time: <%= contact.latest_message_time %>
+		<br/>
+		<%= form_tag(profile_messages_path(), :method=>"get") do %>
 			<%= hidden_field_tag(:talk_to, contact.partner_id) %>
 			<%= hidden_field_tag(:post_id, contact.post_id) %>
-			
+
 			<div class="contact-info">
-				
+
 				<a onclick="$(this).closest('form').submit()">
 				<div class="contact-info-container">
 					<div class="contact-info-content">Conversation With: <%= contact.partner.name %></div>
@@ -31,7 +33,8 @@
 					<!-- <div class="contact-info-talk"><%= submit_tag("Talk") %></div> -->
 			</div>
 		<% end %>
-			
+
 	</div>
-	<% end %>
+<% end %>
+
 </div>

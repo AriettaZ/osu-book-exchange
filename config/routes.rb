@@ -1,25 +1,18 @@
 Rails.application.routes.draw do
-  # main page link routes
-  root to: "pages#home"
-  get 'about', to: 'pages#about'
-  get 'about-magic', to: 'pages#aboutme'
-  get 'contact_us', to: 'pages#contact_us'
-  post 'contact_us', to: 'contact_us#contact_us'
-  # user dashboard pages (and messaging center)
-  get 'dashboard/main'
-  get 'dashboard/myorder'
-  get 'dashboard/mycontract'
-  get 'dashboard/myrequest'
-  get 'dashboard/myoffer'
-  get 'dashboard/account_information'
-  get 'dashboard/messages', to: 'dashboard#messages'
-  post 'dashboard/messages', to: 'dashboard#create_message'
-  get 'dashboard/contacts', to: 'dashboard#contacts'
-  get 'dashboard/update_account_info'
-  get 'dashboard/bookmarks'
-  # devise user routes
-  devise_for :users, path: '', path_names:{edit: 'dashboard/edit', sign_in: 'login', sign_out: 'logout' , sign_up: 'signup'}
-  # resources
+  get 'profile', to: 'dashboard#main', as: 'profile'
+  get 'profile/myorder', to: 'dashboard#myorder', as: 'profile_myorder'
+  get 'profile/mycontract', to: 'dashboard#mycontract', as: 'profile_mycontract'
+  get 'profile/myrequest', to: 'dashboard#myrequest', as: 'profile_myrequest'
+  get 'profile/myoffer', to: 'dashboard#myoffer', as: 'profile_myoffer'
+  get 'profile/account_information', to: 'dashboard#account_information', as: 'account_information'
+  get 'profile/messages', to: 'dashboard#messages'
+  post 'profile/messages', to: 'dashboard#create_message'
+  get 'profile/contacts', to: 'dashboard#contacts'
+
+  get 'profile/update_account_info', to: 'dashboard#update_account_info'
+
+  get 'profile/bookmarks', to: 'dashboard#bookmarks', as:"profile_bookmarks"
+  devise_for :users, path: '', path_names:{edit: 'profile/edit', sign_in: 'login', sign_out: 'logout' , sign_up: 'signup'}
   resources :orders
   resources :contracts
   resources :books
