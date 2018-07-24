@@ -1,4 +1,6 @@
 <%a_offer = @offers.select{|offer| offer.status == "active"}%>
+<%a_offer.sort_by! {|offer| offer.updated_at} %>
+<%a_offer.reverse! %>
 
 <table id="a-table" style="margin-left:auto;margin-right:auto">
   <caption style="caption-side:top; text-align:center">Active Offers</caption>

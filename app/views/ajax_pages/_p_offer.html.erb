@@ -1,4 +1,6 @@
 <%p_offer = @offers.select{|offer| offer.status == "pending"}%>
+<%p_offer.sort_by! {|offer| offer.updated_at} %>
+<%p_offer.reverse! %>
 
 <table id="p-table" style="margin-left:auto;margin-right:auto">
   <caption style="caption-side:top; text-align:center">Pending Offers</caption>
