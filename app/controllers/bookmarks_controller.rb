@@ -15,7 +15,7 @@ class BookmarksController < ApplicationController
   end
 
   def destroy
-    Bookmark.destroy(Bookmark.where(user_id: current_user.id, post_id: params[:id]).first.id)
+    Bookmark.where(user_id: current_user.id, post_id: params[:post_id]).first.destroy
     flash[:success] = "Bookmark Destroyed"
     redirect_to dashboard_bookmarks_url
   end
