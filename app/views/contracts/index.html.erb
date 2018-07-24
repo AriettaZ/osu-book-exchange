@@ -7,7 +7,7 @@
     <tr>
       <th>Contract#</th>
       <th>Post type</th>
-      <th>Book</th>
+      <!-- <th>Book</th> -->
       <th>Meeting Time</th>
       <!-- <th>Meeting address</th> -->
       <th>Final Payment Method</th>
@@ -26,8 +26,8 @@
     <% @contracts.each do |contract| %>
       <tr>
         <td><%= contract.id%></td>
-        <td><%=Post.find(contract.post_id).post_type%></td>
-        <td><%=link_to Book.find(Post.find(contract.post_id).book_id).title, Post.find(contract.post_id)%></td>
+        <td><%=link_to Post.find(contract.post_id).post_type, Post.find(contract.post_id)%></td>
+        <!-- <td><%=link_to Book.find(Post.find(contract.post_id).book_id).title, Book.find(Post.find(contract.post_id).book_id)%></td> -->
         <td><%= contract.meeting_time.strftime("%Y-%m-%d %H:%M") %></td>
         <!-- <td><%= contract.meeting_address_first %><br/> <%= contract.meeting_address_second %></td> -->
         <td><%= contract.final_payment_method %></td>
@@ -41,7 +41,7 @@
           <% end %>
         </td>
         <td><%= link_to 'Show', contract_path(contract.id, showFrom: "contract_index") %></td>
-        <td><%= link_to 'Edit', edit_contract_path(contract, admin: true, editFrom: "index") %></td>
+        <td><%= link_to 'Edit', edit_contract_path(contract, editFrom: "index") %></td>
         <td><%= link_to 'Destroy', contract, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

@@ -31,7 +31,7 @@
           <%= "No known ISBN" %>
         <% end %>
       </td>
-      <td style="padding:30px"> <%="$ " + offer.price.to_s%> </td>
+      <td style="padding:30px"> <%=number_to_currency(offer.price.to_s)%> </td>
       <td style="padding:30px"> <%=offer.condition%> </td>
       <td style="padding:30px"> <%=offer.updated_at.strftime("%Y-%m-%d")%> </td>
       <td style="padding:30px"> <%= link_to "Edit", post_edit_offer_url(offer.id) %> </td>

@@ -78,10 +78,10 @@ class ContractsController < ApplicationController
     # Contract can only be edited when it is waiting for someone to confirm or decline
     if @contract.status == "waiting"
       # Admin can edit more infos
-      if !params[:admin].present?
-        @createdby = "user"
-      else
+      if current_user.has_roles?(:site_admin)
         @createdby = "admin"
+      else
+        @createdby = "user"
       end
 
     # elsif !current_user.has_roles?(:site_admin)

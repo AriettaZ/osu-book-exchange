@@ -103,34 +103,44 @@
           for <%= User.find(contract.unsigned_user_id).name %> to confirm/decline
         <% end %>
       </p>
+
       <% if contract.status == "confirmed" %>
         <% orders = Order.where(contract_id: contract.id) %>
         <% if orders.empty? %>
           <p id="notice"> Sorry, the related order is deleted. </p>
-        <% else %>
-          <% order = Order.find_by(contract_id: contract.id) %>
-          <%= link_to "See Order", order_path(order.id, showFrom: showFrom) %> |
-        <% end %>
-      <% end %>
+        <%end%>
+      <%end%>
+      </div>
+
+      <div class="col col-2">
+        <div class="btn-group-vertical">
+          <% if contract.status == "confirmed" %>
+            <% orders = Order.where(contract_id: contract.id) %>
+            <% if !orders.empty? %>
+              <% order = Order.find_by(contract_id: contract.id) %>
+              <%= link_to "See Order", order_path(order.id, showFrom: showFrom), class: "btn magic-button" %>
+            <% end %>
+          <% end %>
 
         <!-- Current user is either the buyer, seller or admin. -->
-        <% if contract.status == "waiting" && (current_user.has_roles?(:site_admin) || contract.buyer_id == current_user.id || contract.seller_id == current_user.id) %>
-          <!-- The user already signed the contract and admins can edit or delete. -->
-          <% if current_user.has_roles?(:site_admin) || contract.unsigned_user_id != current_user.id %>
-             <%= link_to 'Edit', edit_contract_path(contract, admin: true, editFrom: editFrom)%> |
-            <%= link_to 'Delete', contract, method: :delete, data: { confirm: 'Are you sure?' } %>
-          <% end %>
+          <% if contract.status == "waiting" && (current_user.has_roles?(:site_admin) || contract.buyer_id == current_user.id || contract.seller_id == current_user.id) %>
+            <!-- The user already signed the contract and admins can edit or delete. -->
+            <% if current_user.has_roles?(:site_admin) || contract.unsigned_user_id != current_user.id %>
+              <%= link_to 'Edit', edit_contract_path(contract, editFrom: editFrom), class: "btn magic-button"%>
+              <%= link_to 'Delete', contract, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn magic-button" %>
+            <% end %>
 
-          <!-- Only the unsigned user can confirm or decline. -->
-          <% if contract.unsigned_user_id == current_user.id %>
-             <%= link_to "Confirm", contract_path(contract, contract: {status: :confirmed}), :method => :put, data: { confirm: 'Are you sure you want to confirm?' } %> |
-             <%= link_to "Decline", contract_path(contract, contract: {status: :declined}), :method => :put, data: { confirm: 'Are you sure you want to decline?' } %> |
-          <% end %>
+            <!-- Only the unsigned user can confirm or decline. -->
+            <% if contract.unsigned_user_id == current_user.id %>
+               <%= link_to "Confirm", contract_path(contract, contract: {status: :confirmed}), :method => :put, data: { confirm: 'Are you sure you want to confirm?' }, class: "btn magic-button" %>
+               <%= link_to "Decline", contract_path(contract, contract: {status: :declined}), :method => :put, data: { confirm: 'Are you sure you want to decline?' }, class: "btn magic-button" %>
+            <% end %>
 
-        <!-- Admin can delete a contract at any time. -->
-        <% elsif contract.status != "waiting" && current_user.has_roles?(:site_admin) %>
-          <%= link_to 'Delete', contract, method: :delete, data: { confirm: 'Are you sure?' } %>
-        <% end %>
+          <!-- Admin can delete a contract at any time. -->
+          <% elsif contract.status != "waiting" && current_user.has_roles?(:site_admin) %>
+            <%= link_to 'Delete', contract, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn magic-button" %>
+          <% end %>
+      </div>
     </div>
   </div>
 

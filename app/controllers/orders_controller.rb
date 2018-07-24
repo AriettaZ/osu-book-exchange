@@ -74,16 +74,16 @@ class OrdersController < ApplicationController
           post.status = 3
           post.save
           MagicMailer.problematicOrder(@order, current_user).deliver_later
-          # format.html { redirect_to dashboard_messages_url(talk_to: 13, post_id: 0) }
+          # format.html { redirect_to profile_messages_url(talk_to: 13, post_id: 0) }
           format.html { redirect_to contact_us_url, notice: 'The MAG¡C team will contact you within 3 work days.' }
 
-        # If order is closed, then post is closed(3) and an email is sent to users.
-        elsif @order.status == "closed"
+        # If order is completed, then post is closed(3) and an email is sent to users.
+        elsif @order.status == "completed"
           post.status = 3
           post.save
-          MagicMailer.orderClosed(@order, User.find(contract.seller_id)).deliver_later
-          MagicMailer.orderClosed(@order, User.find(contract.buyer_id)).deliver_later
-          format.html { redirect_to @order, notice: 'Order was successfully closed.' }
+          MagicMailer.orderCompleted(@order, User.find(contract.seller_id)).deliver_later
+          MagicMailer.orderCompleted(@order, User.find(contract.buyer_id)).deliver_later
+          format.html { redirect_to @order, notice: 'Order was successfully completed.' }
           format.json { render :show, status: :ok, location: @order }
 
         # If order is reactived, then post is closed(3) and an email is sent to users.

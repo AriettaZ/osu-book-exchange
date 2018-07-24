@@ -46,5 +46,13 @@ Rails.application.routes.draw do
   get 'profile/ajax/p_request', to: 'ajax_pages#p_request'
   get 'profile/ajax/c_request', to: 'ajax_pages#c_request'
   get 'profile/ajax/d_request', to: 'ajax_pages#d_request'
+  get 'profile/ajax/a_order', to: 'ajax_pages#a_order'
+  get 'profile/ajax/p_order', to: 'ajax_pages#p_order'
+  get 'profile/ajax/cl_order', to: 'ajax_pages#cl_order'
+  get 'profile/ajax/ca_order', to: 'ajax_pages#ca_order'
+  get 'profile/ajax/u_contract', to: 'ajax_pages#u_contract'
+  get 'profile/ajax/w_contract', to: 'ajax_pages#w_contract'
+  get 'profile/ajax/c_contract', to: 'ajax_pages#c_contract'
+  get 'profile/ajax/d_contract', to: 'ajax_pages#d_contract'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
