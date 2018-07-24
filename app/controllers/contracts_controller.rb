@@ -1,3 +1,11 @@
+# Author: Gail Chen
+# Created: 7/18
+# Edit: 7/21 Gail added admin controls.
+# Edit: 7/22 Gail updated post status corresponding to contract status.
+# Edit: 7/23 Gail added mailer.
+# Descript: A contract can be created either by a user from post page, or by an
+# admin from from index page.
+
 class ContractsController < ApplicationController
   before_action :set_contract, only: [:show, :edit, :update, :destroy]
   access user: [:show, :new, :edit, :create, :update, :destory], site_admin: :all
@@ -10,6 +18,7 @@ class ContractsController < ApplicationController
   # GET /contracts/1
   # GET /contracts/1.json
   def show
+    # Only the buyer and seller of the contract and admins can see the contract page
     @showFrom = params[:showFrom]
     if !(current_user.has_roles?(:site_admin) || current_user.id == @contract.buyer_id || current_user.id == @contract.seller_id)
       flash[:notice] = "Sorry, you don't have access to this contract."
@@ -20,7 +29,9 @@ class ContractsController < ApplicationController
   # GET /contracts/new
   def new
     @contract = Contract.new
+    # Users need to sign in to create a contract.
     if !current_user.is_a?(GuestUser)
+      # The user creates a contract from the post page.
       if !params[:admin].present?
         @contract.post_id = params[:post_id]
         @sender_id = params[:sender_id]
@@ -28,11 +39,12 @@ class ContractsController < ApplicationController
         @createdby = "user"
         set_users()
       else
+        # The admin creates a contract from the contract index page
         @createdby = "admin"
       end
     else
       flash[:notice] = "You have to sign in to start a contract."
-      redirect_to new_user_session_path
+      redirect_to new_user_session_url
     end
   end
 
@@ -65,6 +77,7 @@ class ContractsController < ApplicationController
     @editFrom = params[:editFrom]
     # Contract can only be edited when it is waiting for someone to confirm or decline
     if @contract.status == "waiting"
+      # Admin can edit more infos
       if !params[:admin].present?
         @createdby = "user"
       else
@@ -74,7 +87,7 @@ class ContractsController < ApplicationController
     # elsif !current_user.has_roles?(:site_admin)
     else
       flash[:notice] = "Sorry, this contract cannot be edited because it is #{@contract.status} already."
-      redirect_to contracts_path(@contracts)
+      redirect_to contracts_url(@contracts)
     end
   end
 
@@ -86,30 +99,45 @@ class ContractsController < ApplicationController
     respond_to do |format|
       if @contract.save
         post = Post.find(@contract.post_id)
-
-        # If contract is waiting, then post is pending(2)
+        unsigned_user = User.find(@contract.unsigned_user_id)
+        if @contract.unsigned_user_id == @contract.buyer_id
+          signed_user = User.find(@contract.seller_id)
+        else
+          signed_user = User.find(@contract.buyer_id)
+        end
+        # If contract is waiting, then post is pending(2) and an email is sent to users.
         if @contract.status == "waiting"
           post.status = 2
-          MagicMailer.newContract(Contract.last, User.last).deliver_now
+          post.save
+          @contract.save
+          MagicMailer.newContract(@contract, signed_user, unsigned_user).deliver_later
+          MagicMailer.unsignedContract(@contract, signed_user, unsigned_user).deliver_later
           DeclineExpiredContractJob.set(wait_until: @contract.expiration_time).perform_later(@contract.id)
+          format.html { redirect_to @contract, notice: 'An contract was successfully created.' }
+          format.json { render :show, status: :created, location: @contract }
 
-        # If contract is confirmed, then post is closed(3)
+        # If contract is confirmed, then post is closed(3) and an email is sent to users.
         elsif @contract.status == "confirmed"
           post.status = 3
           @contract.unsigned_user_id = nil
           post.save
           @contract.save
           @order = Order.create(contract_id: @contract.id)
-          format.html { redirect_to order_path(@order), notice: 'Order was successfully placed.' }
-        # If contract is declined, then post is active(1)
+          MagicMailer.newOrder(@order, User.find(@contract.seller_id)).deliver_later
+          MagicMailer.newOrder(@order, User.find(@contract.buyer_id)).deliver_later
+          format.html { redirect_to order_url(@order), notice: 'An order was successfully placed.' }
+
+        # If contract is declined, then post is active(1) and an email is sent to users.
         elsif @contract.status == "declined"
           post.status = 1
           @contract.unsigned_user_id = nil
+          post.save
+          @contract.save
+          MagicMailer.contractDeclined(@contract, signed_user, unsigned_user).deliver_later
+          format.html { redirect_to @contract, notice: 'An contract was successfully declined.' }
+          format.json { render :show, status: :created, location: @contract }
         end
-        post.save
-        @contract.save
-        format.html { redirect_to @contract, notice: 'Contract was successfully created.' }
-        format.json { render :show, status: :created, location: @contract }
+
       else
         format.html { render :new }
         format.json { render json: @contract.errors, status: :unprocessable_entity }
@@ -124,28 +152,45 @@ class ContractsController < ApplicationController
     post = Post.find(@contract.post_id)
     respond_to do |format|
       if @contract.update(contract_params)
-        # If the contract is confirmed, then post is closed(3)
+        # If the contract is confirmed, then post is closed(3) and an email is sent to users.
         if @contract.status == "confirmed"
+          post.status = 3
           @contract.unsigned_user_id = nil
           @contract.save
-          post.status = 3
           post.save
           @order = Order.create(contract_id: @contract.id)
-          format.html { redirect_to order_path(@order), notice: 'Order was successfully placed.' }
+          MagicMailer.newOrder(@order, User.find(@contract.seller_id)).deliver_later
+          MagicMailer.newOrder(@order, User.find(@contract.buyer_id)).deliver_later
+          format.html { redirect_to order_url(@order), notice: 'An order was successfully placed.' }
+
         else
-          # If the contract is declined, then post is active(1)
+          unsigned_user = User.find(@contract.unsigned_user_id)
+          if @contract.unsigned_user_id == @contract.buyer_id
+            signed_user = User.find(@contract.seller_id)
+          else
+            signed_user = User.find(@contract.buyer_id)
+          end
+
+          # If the contract is declined, then post is active(1) and an email is sent to users.
           if @contract.status == "declined"
             post.status = 1
             @contract.unsigned_user_id = nil
-          # If the contract is waiting, then post is pending(2)
+            post.save
+            @contract.save
+            MagicMailer.contractDeclined(@contract, signed_user, unsigned_user).deliver_later
+            format.html { redirect_to @contract, notice: 'The contract was successfully declined.' }
+            format.json { render :show, status: :ok, location: @contract }
+
+          # If the contract is waiting, then post is pending(2) and an email is sent to users.
           elsif @contract.status == "waiting"
             post.status = 2
+            post.save
+            MagicMailer.newContract(@contract, signed_user, unsigned_user).deliver_later
+            MagicMailer.unsignedContract(@contract, signed_user, unsigned_user).deliver_later
             DeclineExpiredContractJob.set(wait: 1.minute).perform_later(@contract.id)
+            format.html { redirect_to @contract, notice: 'The contract is now waiting for confirmation/decline.' }
+            format.json { render :show, status: :ok, location: @contract }
           end
-          post.save
-          @contract.save
-          format.html { redirect_to @contract, notice: 'Contract was successfully updated.' }
-          format.json { render :show, status: :ok, location: @contract }
         end
       else
         format.html { render :edit }

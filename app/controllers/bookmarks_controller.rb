@@ -7,11 +7,10 @@ class BookmarksController < ApplicationController
     if @bookmark.save
       @posts = Post.all
       flash[:success] = "Bookmark Created"
-      redirect_to "/posts/#{params[:post_id]}"
     else
-      flash[:failure] = @bookmark.errors.full_messages
-      redirect_to profile_url
+      flash[:failure] = "Already Bookmarked"
     end
+    redirect_to post_url(params[:post_id])
   end
 
   def destroy

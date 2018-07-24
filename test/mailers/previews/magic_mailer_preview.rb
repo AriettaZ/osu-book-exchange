@@ -4,14 +4,56 @@ class MagicMailerPreview < ActionMailer::Preview
   # Preview this email at http://localhost:3000/rails/mailers/magic_mailer/newContract
   def newContract
     contract = Contract.last
-    user = User.find(contract.unsigned_user_id)
-    MagicMailer.newContract(contract, user)
+    MagicMailer.newContract(contract, User.first, User.last)
   end
 
   # Preview this email at http://localhost:3000/rails/mailers/magic_mailer/unsignedContract
   def unsignedContract
     contract = Contract.last
-    MagicMailer.unsignedContract(contract)
+    MagicMailer.unsignedContract(contract, User.first, User.last)
+  end
+
+  def contractDeclined
+    contract = Contract.last
+    user = User.find(Contract.last.buyer_id)
+    declinedBy = User.find(Contract.last.seller_id)
+
+    MagicMailer.contractDeclined(contract, user, declinedBy)
+  end
+
+  # Preview this email at http://localhost:3000/rails/mailers/magic_mailer/newOrder.html
+  def newOrder
+    order = Order.last
+    user = User.find(Contract.find(order.contract_id).buyer_id)
+    MagicMailer.newOrder(order, user)
+  end
+
+  # Preview this email at http://localhost:3000/rails/mailers/magic_mailer/orderActive.html
+  def orderActive
+    order = Order.last
+    user = User.find(Contract.find(order.contract_id).buyer_id)
+    MagicMailer.orderActive(order, user)
+  end
+
+  # Preview this email at http://localhost:3000/rails/mailers/magic_mailer/problematicOrder.html
+  def problematicOrder
+    order = Order.last
+    user = User.find(Contract.find(order.contract_id).buyer_id)
+    MagicMailer.problematicOrder(order, user)
+  end
+
+  # Preview this email at http://localhost:3000/rails/mailers/magic_mailer/orderClosed.html
+  def orderClosed
+    order = Order.last
+    user = User.find(Contract.find(order.contract_id).buyer_id)
+    MagicMailer.orderClosed(order, user)
+  end
+
+  # Preview this email at http://localhost:3000/rails/mailers/magic_mailer/orderCanceled.html
+   def orderCanceled
+     order = Order.last
+     user = User.find(Contract.find(order.contract_id).buyer_id)
+     MagicMailer.orderCanceled(order, user)
   end
 
   # Preview this email at http://localhost:3000/rails/mailers/magic_mailer/newMessage

@@ -1,0 +1,50 @@
+<h3>Order #<%=order.id%></h3>
+<% contract = Contract.find(order.contract_id)%>
+<% post = Post.find(contract.post_id)%>
+<% book = Book.find(post.book_id)%>
+
+<strong>Created At:</strong>
+<%= order.created_at.to_formatted_s(:long) %>
+
+<br/>
+<strong>Seller:</strong>
+<%= User.find(contract.seller_id).name %>
+
+<br/>
+<strong>Buyer:</strong>
+<%= User.find(contract.buyer_id).name %>
+
+<br/>
+  <strong>Book:</strong>
+  <%=link_to book.title, post%>
+
+<br/>
+  <strong>Condition:</strong>
+  <%= post.condition %>
+
+<br/>
+  <strong>Description:</strong>
+  <%= post.description %>
+
+<br/>
+  <strong>Meeting time:</strong>
+  <%= contract.meeting_time.to_formatted_s(:long) %>
+
+<br/>
+  <strong>Meeting address:</strong>
+  <br/><%= contract.meeting_address_first.humanize %>
+  <% if contract.meeting_address_second != ""%>
+    <br/><%= contract.meeting_address_second.humanize %>
+  <%end%>
+
+<br/>
+  <strong>Payment method:</strong>
+  <%= contract.final_payment_method.humanize %>
+
+<br/>
+  <strong>Price: </strong>
+  <%= number_to_currency(contract.final_price) %>
+
+<br/>
+  <strong>Status:</strong>
+  <%= order.status.humanize %>

@@ -1,0 +1,10 @@
+Hello <%=@user.name%>,
+<br/>
+<br/>
+A new order is placed. Please remember to meet for exchanging the book.
+
+<%= render 'order_info', order: @order%>
+
+<br/>
+To see details of this order, please sign in to visit <%= link_to "My Orders", dashboard_myorder_url%>.
+<br/>

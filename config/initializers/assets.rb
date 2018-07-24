@@ -18,3 +18,6 @@ Rails.application.config.assets.precompile += %w( lightbox/* )
 Rails.application.config.assets.precompile += %w( contact_list.css )
 
 Rails.application.config.assets.precompile += %w( chat.css )
+Rails.application.config.assets.precompile += %w( search.css )
+Rails.application.config.assets.precompile += %w( orders.css )
+Rails.application.config.assets.precompile += %w( contracts.css )

@@ -1,5 +1,10 @@
-<p>Hello <%=@user.name%></p>
+Hello <%=@signed_user.name%>,
+<br/>
+<br/>
+You have created a new contract. Please wait for <%= @unsigned_user.name%> to confirm/decline.
 
-<p>You have created a new contract. Please wait for the other user to confirm/decline.</p>
+<%= render "contract_info", contract: @contract%>
 
-<p>Please sign in to visit <%= link_to "Contract", @contract%></p>
+<br/>
+To see details of this contract, please sign in to visit <%= link_to "My Contracts", dashboard_mycontract_url%>.
+<br/>
