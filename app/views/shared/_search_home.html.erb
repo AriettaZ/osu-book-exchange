@@ -1,0 +1,27 @@
+<%= stylesheet_link_tag "search" %>
+
+
+<%= form_tag(search_path, :method=>"get", :id=>"search-form") do %>
+
+<div class="offer-request-container">
+	<%= select_tag "search_for", options_for_select(['Title','ISBN'],@search_for), :class=>"search-for" %>
+</div>
+
+<div class="offer-request-container">
+	<%= select_tag "offer_request", options_for_select([['offer and request','both'],['offer only','offer'],['request only','request']],@post_type), :class=>"offer-request" %>
+</div>
+
+<script>
+	$("select").niceSelect();
+</script>
+
+<div class="search-query-container">
+	<%= search_field_tag(:query, @search_field || "", :class=>"search-query")  %>
+</div>
+	<%= hidden_field_tag :edition, "all" %>
+	<%= hidden_field_tag :condition, "all" %>
+	<%= hidden_field_tag :high_price, "" %>
+	<%= hidden_field_tag :low_price, "" %>
+
+	<%= link_to "Search", "",:class=>"submit-button", :onclick=>"$('#search-form').submit()" %>
+<% end %>

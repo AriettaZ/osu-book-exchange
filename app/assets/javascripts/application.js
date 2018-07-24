@@ -20,6 +20,11 @@
 //= require bootstrap-datetimepicker
 //= require popper
 //= require bootstrap-sprockets
-//= require lightbox
 $(document).ready(function(){
-})
+  // $("select, :text, textarea").addClass("form-control");
+  // $("select").addClass("form-control");
+  // $(":input").not(":submit").addClass("form-control");
+  // $(".actual_product_image").each(function(){
+  //   $(this).on('load', $(this).parent().attr("data-lightbox", "roadtrip"));
+  // });
+});

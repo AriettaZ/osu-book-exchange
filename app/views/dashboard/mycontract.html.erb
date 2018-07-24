@@ -1,6 +1,5 @@
-<hr>
-<%= render "links" %>
-<hr>
+<%= stylesheet_link_tag "contracts" %>
+
 <h1>My Contracts</h1>
 
 <div class="select_list">
@@ -18,7 +17,7 @@
         <div class="data border">
           <% unsigned_num += 1 %>
           <h4>Contract #<%= contract.id %></h4>
-          <%= render "contracts/showContract", contract: contract, editFrom: "dashboard" %>
+          <%= render "contracts/showContract", contract: contract, editFrom: "profile" %>
         </div>
         <br/>
       <% end %>
@@ -35,7 +34,7 @@
         <div class="data border">
           <% waiting_num += 1 %>
           <h4>Contract #<%= contract.id %></h4>
-          <%= render "contracts/showContract", contract: contract, editFrom: "dashboard" %>
+          <%= render "contracts/showContract", contract: contract, editFrom: "profile" %>
         </div>
         <br/>
       <% end %>
@@ -52,7 +51,7 @@
         <div class="data border">
           <% confirmed_num += 1 %>
           <h4>Contract #<%= contract.id %></h4>
-          <%= render "contracts/showContract", contract: contract, editFrom: "dashboard", showFrom: "mycontract" %>
+          <%= render "contracts/showContract", contract: contract, editFrom: "profile", showFrom: "mycontract" %>
         </div>
         <br/>
       <% end %>
@@ -69,7 +68,7 @@
         <div class="data border">
           <% declined_num += 1 %>
           <h4>Contract #<%= contract.id %></h4>
-          <%= render "contracts/showContract", contract: contract, editFrom: "dashboard" %>
+          <%= render "contracts/showContract", contract: contract, editFrom: "profile" %>
         </div>
         <br/>
       <% end %>

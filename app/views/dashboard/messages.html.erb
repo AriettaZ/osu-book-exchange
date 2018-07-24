@@ -1,44 +1,67 @@
+<%= stylesheet_link_tag "chat" %>
+
 
 <h1>Chat with <%= @talk_to_name %></h1>
 
-<div class="">
 <h2><%= @msg %></h2>
 
-<!-- Show all messages -->
-<% @messages.each do |message| %>
-	<div class="showed-message">
-		<%= hidden_field_tag nil ,message.created_at.to_s(:db), class: "created-time" %>
-		Time: <%= message.created_at %>
-		<br/>
-		Content: <%= message.content %>
-		<br/>
-		Sender: <%= message.sender_id %>
-		<br/>
-		Receiver: <%= message.receiver_id %>
-		<br/><br/>
-	</div>
-<% end %>
+<div class="messages-container">
+	<!-- Show all messages -->
+	<% @messages.each do |message| %>
+		<div class="message-row">
+			<div class="showed-message <%= if message.sender_id==current_user.id then 'from-me' else 'from-partner' end%>">
+				<%= hidden_field_tag nil ,message.created_at, class: "created-time" %>
+				<div class="message-time"><%= message.created_at.strftime("%H:%M - %m/%d/%y") %></div>
+				<div class="message-content"><%= message.content %></div>
+				<div style="display: none;">
+					Sender: <%= message.sender_id %>
+					Receiver: <%= message.receiver_id %>
+				</div>
+			</div>
+		</div>
+	<% end %>
 
-<p><%= @msg2 %></p>
+	<p><%= @msg2 %></p>
+
+</div>
 
 <form>
-	<input type="text" name="" id="user-chat-input" placeholder="Enter your message here."/>
+	<input type="text" name="" id="user-chat-input" placeholder="Enter your message here." autocomplete="off" maxlength=500/>
 	<div id="user-chat-submit">Send</div>
 </form>
 
 <script>
 	$(document).ready(function(){
+
+		$('.messages-container').animate({
+			scrollTop: $('.messages-container')[0].scrollHeight
+		},"normal",function(){
+			$('#user-chat-input').focus()
+		})
+
 		// Refresh the page with Ajax every 5 seconds, append new messages
 		var refresh_timer = setInterval(function(){
-			if(window.location.pathname!="/dashboard/messages"){
+			if(window.location.pathname!="/profile/messages"){
 				clearInterval(refresh_timer)
 			}
 			$.ajax({
 				url: window.location.href+"&last_msg_time="+$('.showed-message').last().find('.created-time').val(),
 
 			}).done(function(data){
-				$('.showed-message').last().after(data)
-			})
+					$('.showed-message').last().after(data)
+					$('.showed-message').last().animate({
+						opacity: 1,
+						marginTop: 0,
+					})
+
+					if($('.messages-container')[0].scrollHeight<=($('.messages-container').scrollTop()+$('.messages-container').height()+$('.showed-message').last().height()+10)){
+
+						$('.messages-container').animate({
+							scrollTop: $('.messages-container')[0].scrollHeight
+						},"normal")
+
+					}
+				})
 		},5000)
 
 		// Prevent Enter to submit the form
@@ -66,6 +89,13 @@
 					}
 				}).done(function(data){
 					$('.showed-message').last().after(data)
+					$('.messages-container').animate({
+						scrollTop: $('.messages-container')[0].scrollHeight
+					},"normal")
+					$('.showed-message').last().animate({
+						opacity: 1,
+						marginTop: 0,
+					})
 					$('#user-chat-input').val("")
 					$('#user-chat-input').focus()
 				})
@@ -78,6 +108,4 @@
 	})
 </script>
 
-<%= link_to "back to contact", dashboard_contacts_path %>
-
-</div>
+<%= link_to "back to contact", profile_contacts_path %>

@@ -1,14 +1,14 @@
 
 <% @appended_messages.each do |message| %>
-	<div class="showed-message">
-		<%= hidden_field_tag nil ,message.created_at.to_s(:db), class: "created-time" %>
-		Time: <%= message.created_at %>
-		<br/>
-		Content: <%= message.content %>
-		<br/>
-		Sender: <%= message.sender_id %>
-		<br/>
-		Receiver: <%= message.receiver_id %>
-		<br/><br/>
+	<div class="message-row">
+		<div class="showed-message <%= if message.sender_id==current_user.id then 'from-me' else 'from-partner' end%>" style="opacity: 0; margin-top: -30px">
+			<%= hidden_field_tag nil ,message.created_at, class: "created-time" %>
+			<div class="message-time"><%= message.created_at.strftime("%H:%M - %m/%d/%y") %></div>
+			<div class="message-content"><%= message.content %></div>
+			<div style="display: none;">
+				Sender: <%= message.sender_id %>
+				Receiver: <%= message.receiver_id %>
+			</div>
+		</div>
 	</div>
 <% end %>

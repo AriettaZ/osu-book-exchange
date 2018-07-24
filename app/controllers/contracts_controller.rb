@@ -22,7 +22,7 @@ class ContractsController < ApplicationController
     @showFrom = params[:showFrom]
     if !(current_user.has_roles?(:site_admin) || current_user.id == @contract.buyer_id || current_user.id == @contract.seller_id)
       flash[:notice] = "Sorry, you don't have access to this contract."
-      redirect_to dashboard_mycontract_url
+      redirect_to profile_mycontract_path
     end
   end
 

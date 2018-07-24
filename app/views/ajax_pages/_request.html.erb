@@ -1,0 +1,41 @@
+<%request_arr = @requests.select{|request| request.status == type}%>
+<%request_arr.sort_by! {|request| request.updated_at} %>
+<%request_arr.reverse! %>
+
+<table id=<%=table_name%> style="margin-left:auto;margin-right:auto">
+  <caption style="caption-side:top; text-align:center"><%=type.capitalize%> requests</caption>
+  <% if request_arr.length == 0 %>
+    <tr>
+      <td colspan="5" style="text-align:center">You have no <%=type%> requests.<td>
+    </tr>
+  <% else %>
+  <tr>
+    <th style="padding:30px"> Book Image </th>
+    <th style="padding:30px"> Book Title </th>
+    <th style="padding:30px"> ISBN </th>
+    <th style="padding:30px"> Price </th>
+    <th style="padding:30px"> Condition </th>
+    <th style="padding:30px"> Date Posted </th>
+    <th style="padding:30px"> Edit </th>
+  </tr>
+    <% request_arr.each do |request| %>
+    <tr>
+      <td style="padding:30px"> <%=image_tag(request.book.cover_image)%> </td>
+      <td style="padding:30px"> <%=request.book.title%> </td>
+      <td style="padding:30px">
+        <%if !request.book.ISBN_10.nil?%>
+          <%= request.book.ISBN_10.to_s %>
+        <% elsif !request.book.ISBN_13.nil?%>
+          <%= request.book.ISBN_13.to_s %>
+        <% else %>
+          <%= "No known ISBN" %>
+        <% end %>
+      </td>
+      <td style="padding:30px"> <%="$ " + request.price.to_s%> </td>
+      <td style="padding:30px"> <%=request.condition%> </td>
+      <td style="padding:30px"> <%=request.updated_at.strftime("%Y-%m-%d")%> </td>
+      <td style="padding:30px"> <%= link_to "Edit", post_edit_request_url(request.id) %> </td>
+    </tr>
+    <% end %>
+  <% end %>
+</table>
