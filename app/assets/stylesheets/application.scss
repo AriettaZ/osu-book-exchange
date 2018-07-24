@@ -172,7 +172,7 @@ span.text{
     background:transparent;
 }
 
-button.magic-button{
+.magic-button, button.magic-button{
     display: inline-block;
     color: white;
     border: 1px solid $darker-magic-purple;
@@ -181,11 +181,21 @@ button.magic-button{
     text-align: center;
 }
 
-button.magic-button:hover{
+.magic-button:hover, button.magic-button:hover{
     text-decoration: none;
     color: black;
     background-color: rgba(233, 72, 20, 1.000);
 }
+
+.magic-button:hover, .magic-button:focus, .magic-button:active, .magic-button.active, .open>.dropdown-toggle.magic-button{
+  color: #fff;
+  // background-color: #3071a9;
+  // border-color: #285e8e;
+  text-decoration: none;
+  color: black;
+  background-color: $magic-orange;
+}
+
 button.magic-button:hover, button.magic-button:focus, button.magic-button:active, button.magic-button.active, .open>button.dropdown-toggle.magic-button{
   color: #fff;
   // background-color: #3071a9;
@@ -194,9 +204,13 @@ button.magic-button:hover, button.magic-button:focus, button.magic-button:active
   color: black;
   background-color: $magic-orange;
 }
-button.magic-button:active{
+.magic-button:active, button.magic-button:active{
     font-weight: bold;
 }
 #search_book_by_isbn_button:hover{
   cursor: pointer;
+}
+
+.border{
+  color: $magic-purple;
 }

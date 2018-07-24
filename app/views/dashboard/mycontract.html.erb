@@ -7,17 +7,18 @@ Description: Show all contracts that the current user has. -->
 
 <h1>My Contracts</h1>
 
-<div id="contract-btn-container" class="btn-group btn-group-toggle" data-toggle="buttons">
-  <button id="u-contract" class="btn btn-outline-secondary active" style="padding:10px">Unsigned Contracts</button>
-  <button id="w-contract" class="btn btn-outline-secondary" style="padding:10px">Waiting Contracts</button>
-  <button id="c-contract" class="btn btn-outline-secondary"style="padding:10px">Confirmed Contracts</button>
-  <button id="d-contract" class="btn btn-outline-secondary" style="padding:10px">Declined Contracts</button>
+<div id="contract-btn-container" class="btn-group btn-group-toggle d-flex" data-toggle="buttons">
+  <button id="u-contract" class="btn btn-default w-100 active" style="padding:10px">Unsigned Contracts</button>
+  <button id="w-contract" class="btn btn-default w-100" style="padding:10px;">Waiting Contracts</button>
+  <button id="c-contract" class="btn btn-default w-100"style="padding:10px;">Confirmed Contracts</button>
+  <button id="d-contract" class="btn btn-default w-100" style="padding:10px;">Declined Contracts</button>
 </div>
 <br/>
 <br/>
 
 <div id="filter-contract-list">
-  <!-- Ajax will fill thsi with correct contract list. -->
+  <!-- Show unsigned contracts initially. Ajax will fill thsi with correct contract list. -->
+  <%=render partial: "ajax_pages/contract", locals: {status: "unsigned", list_name: "u-con-list"}%>
 </div>
 
 <script>
@@ -31,6 +32,8 @@ $("document").ready(function(){
   // Fill in the url based on button click
   // Unsigned contract
   $("#u-contract").click(function(){
+    $("#u-contract").addClass( "active" )
+    $("#contract-btn-container button").not("#u-contract").removeClass( "active" )
     call_obj.url = "ajax/u_contract"
     // Get data from server and fill in current page
     $.ajax(call_obj).done(function(data){
@@ -39,6 +42,8 @@ $("document").ready(function(){
   });
   // Waiting contract
   $("#w-contract").click(function(){
+    $("#w-contract").addClass( "active" )
+    $("#contract-btn-container button").not("#w-contract").removeClass( "active" )
     call_obj.url = "ajax/w_contract"
     // Get data from server and fill in current page
     $.ajax(call_obj).done(function(data){
@@ -47,6 +52,8 @@ $("document").ready(function(){
   });
   // Confirmed contract
   $("#c-contract").click(function(){
+    $("#c-contract").addClass( "active" )
+    $("#contract-btn-container button").not("#c-contract").removeClass( "active" )
     call_obj.url = "ajax/c_contract"
     // Get data from server and fill in current page
     $.ajax(call_obj).done(function(data){
@@ -55,13 +62,14 @@ $("document").ready(function(){
   });
   // Declined contract
   $("#d-contract").click(function(){
+    $("#d-contract").addClass( "active" )
+    $("#contract-btn-container button").not("#d-contract").removeClass( "active" )
     call_obj.url = "ajax/d_contract"
     // Get data from server and fill in current page
     $.ajax(call_obj).done(function(data){
       $("#filter-contract-list").html(data);
     });
   });
-  $("#u-contract").click()
 
 });
 </script>

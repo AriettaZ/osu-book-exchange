@@ -32,3 +32,6 @@
 /.DS_Store
 /public/uploads*
 /config/app_environment_variables.rb
+
+# Ignore application configuration
+/config/application.yml
