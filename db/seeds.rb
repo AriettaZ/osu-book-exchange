@@ -82,7 +82,8 @@
     edition: "#{index} th",
     title: "hello #{index*2}",
     cover_image: "http://via.placeholder.com/120x150",
-    amazon_price: index*5 + 22.5)
+    amazon_price: index*5 + 22.5,
+    self_link:'https://www.googleapis.com/books/v1/volumes/uDxbDgAAQBAJ')
 }
 
 

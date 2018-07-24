@@ -29,7 +29,7 @@ end
 # GET /posts/new
 def new_offer
   if current_user.is_a?(GuestUser)
-    redirect_to new_user_session_path, notice: 'Please Login First'
+    redirect_to new_user_session_path, notice: 'Please login first to sell a book'
   else
     @post = current_user.posts.build
     # @book = Book.new
@@ -40,7 +40,7 @@ end
 
 def new_request
   if current_user.is_a?(GuestUser)
-    redirect_to new_user_session_path, notice: 'Please Login First'
+    redirect_to new_user_session_path, notice: 'Please login first to request a book'
   else
     @post = current_user.posts.build
     # @book = Book.new
