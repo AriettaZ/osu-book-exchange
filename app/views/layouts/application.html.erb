@@ -11,6 +11,10 @@
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
       <!-- <%= javascript_include_tag  'dropzone.js' %> -->
   </head>
 
@@ -34,37 +38,36 @@
     <%= source_helper %>
     </div>
     <%= render "shared/footer" , location: "bottom"%>
-  </body>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
-  <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
   <script type="text/javascript">
   $(document).ready(function(){
+    setTimeout(function(){
+       // window.location.reload(1);
+    }, 5000);
      $('#contract_index_table').DataTable();
      $('#order_index_table').DataTable();
      $('#book_index_table').DataTable();
      $('#post_index_table').DataTable();
       $('.selectpicker').selectpicker();
+      $(".carousel-inner div:first-child").addClass( "active" )
       $(".carousel-inner div:first-child").first().addClass( "active" )
       $(".carousel-indicators li:first-child").first().addClass( "active" )
-        $(".input-block-level").bind("keyup", function() {
-
-          $(".input-block-level").addClass("loading"); // show the spinner
+        $("div.bs-searchbox input").last().bind("keyup", function() {
+          // $('.selectpicker').selectpicker('render');
+          $("div.bs-searchbox input").last().addClass("loading"); // show the spinner
           // var form = $("#live-search-form"); // grab the form wrapping the search bar.
 
           var url = "https://www.googleapis.com/books/v1/volumes?" // live_search action.
           // alert(url)
           var formData ={}; // grab the data in the form
-          formData['q']=$(".input-block-level").val()
+          formData['q']=$("div.bs-searchbox input").last().val()
           console.log(formData)
           $.get(url, formData, function(data){ // perform an AJAX get
-            $(".input-block-level").removeClass("loading"); // hide the spinner
+            $("div.bs-searchbox input").last().removeClass("loading"); // hide the spinner
             $("#post_book_self_link").empty();
             $.each(data['items'], function( index, value ) {
            // $('#live-search-form').append($('<a href="#">'+value['volumeInfo']['title']);
               if (typeof value['volumeInfo']['industryIdentifiers'] != 'undefined'){
-                $('#post_book_self_link').append($('<option value="'+ value['selfLink']+'" data-subtext="'+value['volumeInfo']['industryIdentifiers'][0]['type']+': '+value['volumeInfo']['industryIdentifiers'][0]['identifier']+'">'+value['volumeInfo']['title']+'</option>'));
+                $('#post_book_self_link').append($('<option data-tokens="'+value['volumeInfo']['industryIdentifiers'][0]['type']+': '+ value['volumeInfo']['industryIdentifiers'][0]['identifier']+ '" value="'+ value['selfLink']+'" data-subtext="'+value['volumeInfo']['industryIdentifiers'][0]['type']+': '+value['volumeInfo']['industryIdentifiers'][0]['identifier']+'">'+value['volumeInfo']['title']+'</option>'));
                 console.log( index + ": " + value['volumeInfo']['title'] );
               }
              });
@@ -75,4 +78,5 @@
       });
       });
   </script>
+  </body>
 </html>
