@@ -1,6 +1,6 @@
 <h1>Dashboard#contacts</h1>
 
-<%= form_tag(dashboard_contacts_path, :method=>"get") do %>
+<%= form_tag(profile_contacts_path, :method=>"get") do %>
 	<%= button_tag("Refresh") %>
 <% end %>
 
@@ -14,7 +14,7 @@
 		<br/>
 		Last Talk Time: <%= contact.latest_message_time %>
 		<br/>
-		<%= form_tag(dashboard_messages_path(), :method=>"get") do %>
+		<%= form_tag(profile_messages_path(), :method=>"get") do %>
 			<%= hidden_field_tag(:talk_to, contact.partner_id) %>
 			<%= hidden_field_tag(:post_id, contact.post_id) %>
 			<%= submit_tag("Talk") %>

@@ -1,4 +1,4 @@
-<hr>
+profile<hr>
 <%= render "links" %>
 <hr>
 <h1>My Contracts</h1>
@@ -16,7 +16,7 @@
         <div class="data">
           <% unsigned_num += 1 %>
           <h4>Contract #<%= contract.id %></h4>
-          <%= render "contracts/showContract", contract: contract, editFrom: "dashboard" %>
+          <%= render "contracts/showContract", contract: contract, editFrom: "profile" %>
         </div>
       <% end %>
     <% end %>
@@ -32,7 +32,7 @@
         <div class="data">
           <% waiting_num += 1 %>
           <h4>Contract #<%= contract.id %></h4>
-          <%= render "contracts/showContract", contract: contract, editFrom: "dashboard" %>
+          <%= render "contracts/showContract", contract: contract, editFrom: "profile" %>
         </div>
       <% end %>
     <% end %>
@@ -48,7 +48,7 @@
         <div class="data">
           <% confirmed_num += 1 %>
           <h4>Contract #<%= contract.id %></h4>
-          <%= render "contracts/showContract", contract: contract, editFrom: "dashboard", showFrom: "mycontract" %>
+          <%= render "contracts/showContract", contract: contract, editFrom: "profile", showFrom: "mycontract" %>
         </div>
       <% end %>
     <% end %>
@@ -64,7 +64,7 @@
         <div class="data">
           <% declined_num += 1 %>
           <h4>Contract #<%= contract.id %></h4>
-          <%= render "contracts/showContract", contract: contract, editFrom: "dashboard" %>
+          <%= render "contracts/showContract", contract: contract, editFrom: "profile" %>
         </div>
       <% end %>
     <% end %>
