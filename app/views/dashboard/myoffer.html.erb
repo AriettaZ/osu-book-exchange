@@ -19,193 +19,50 @@
 
 <script>
   $("document").ready(function(){
+    // Create the basic call object
+    var call_obj = {
+      url: "",
+      dataType: "html",
+      method: "GET",
+    }
+    // Fill in the url based on button click
     $("#a-btn").click(function(){
-      $("#a-table").show();
-      $("#p-table").hide();
-      $("#c-table").hide();
-      $("#d-table").hide();
+      call_obj.url = "ajax/a_offer"
+      // Get data from server and fill in current page
+      $.ajax(call_obj).done(function(data){
+        $("#main-content").html(data);
+      });
     });
     $("#p-btn").click(function(){
-      $("#p-table").show();
-      $("#a-table").hide();
-      $("#c-table").hide();
-      $("#d-table").hide();
+      call_obj.url = "ajax/p_offer"
+      // Get data from server and fill in current page
+      $.ajax(call_obj).done(function(data){
+        $("#main-content").html(data);
+      });
     });
     $("#c-btn").click(function(){
-      $("#c-table").show();
-      $("#p-table").hide();
-      $("#a-table").hide();
-      $("#d-table").hide();
+      call_obj.url = "ajax/c_offer"
+      // Get data from server and fill in current page
+      $.ajax(call_obj).done(function(data){
+        $("#main-content").html(data);
+      });
     });
     $("#d-btn").click(function(){
-      $("#d-table").show();
-      $("#p-table").hide();
-      $("#c-table").hide();
-      $("#a-table").hide();
+      call_obj.url = "ajax/d_offer"
+      // Get data from server and fill in current page
+      $.ajax(call_obj).done(function(data){
+        $("#main-content").html(data);
+      });
     });
+
   });
 </script>
 
 
 
-
-<% if @offers.length != 0 %>
-
-  <% a_offer = @offers.select{|offer| offer.status == "active"}%>
-  <% p_offer = @offers.select{|offer| offer.status == "pending"}%>
-
-  <% c_offer = @offers.select{|offer| offer.status == "closed"}%>
-  <% d_offer = @offers.select{|offer| offer.status == "draft"}%>
-
-  <!-- <p><%= a_offer %></p>
-  <p><%= p_offer %></p>
-  <p><%= c_offer %></p>
-  <p><%= d_offer %></p> -->
-
-  <table id="p-table" style="margin-left:auto;margin-right:auto;display:none">
-    <caption style="caption-side:top; text-align:center">Pending Offers</caption>
-    <% if p_offer.length == 0 %>
-      <tr>
-        <td colspan="5" style="text-align:center">You have no pending offers.<td>
-      </tr>
-    <% else %>
-    <tr>
-      <th style="padding:30px"> Book Image </th>
-      <th style="padding:30px"> Book Title </th>
-      <th style="padding:30px"> ISBN </th>
-      <th style="padding:30px"> Price </th>
-      <th style="padding:30px"> Condition </th>
-      <th style="padding:30px"> Date Posted </th>
-    </tr>
-      <% p_offer.each do |offer| %>
-      <tr>
-        <td style="padding:30px"> <%=image_tag(offer.book.cover_image)%> </td>
-        <td style="padding:30px"> <%=offer.book.title%> </td>
-        <td style="padding:30px">
-          <%if !offer.book.ISBN_10.nil?%>
-            <%= offer.book.ISBN_10.to_s %>
-          <% elsif !offer.book.ISBN_13.nil?%>
-            <%= offer.book.ISBN_13.to_s %>
-          <% else %>
-            <%= "No known ISBN" %>
-          <% end %>
-        </td>
-        <td style="padding:30px"> <%="$ " + offer.price.to_s%> </td>
-        <td style="padding:30px"> <%=offer.condition%> </td>
-        <td style="padding:30px"> <%=offer.updated_at.strftime("%Y-%m-%d")%> </td>
-      </tr>
-      <% end %>
-    <% end %>
-  </table>
-
-  <table id="a-table" style="margin-left:auto;margin-right:auto;display:none">
-    <caption style="caption-side:top; text-align:center">Active Offers</caption>
-    <% if a_offer.length == 0 %>
-      <tr>
-        <td colspan="5" style="text-align:center">You have no active offers.<td>
-      </tr>
-    <% else %>
-    <tr>
-      <th style="padding:30px"> Book Image </th>
-      <th style="padding:30px"> Book Title </th>
-      <th style="padding:30px"> ISBN </th>
-      <th style="padding:30px"> Price </th>
-      <th style="padding:30px"> Condition </th>
-      <th style="padding:30px"> Date Posted </th>
-    </tr>
-      <% a_offer.each do |offer| %>
-      <tr>
-        <td style="padding:30px"> <%=image_tag(offer.book.cover_image)%> </td>
-        <td style="padding:30px"> <%=offer.book.title%> </td>
-        <td style="padding:30px">
-          <%if !offer.book.ISBN_10.nil?%>
-            <%= offer.book.ISBN_10.to_s %>
-          <% elsif !offer.book.ISBN_13.nil?%>
-            <%= offer.book.ISBN_13.to_s %>
-          <% else %>
-            <%= "No known ISBN" %>
-          <% end %>
-        </td>
-        <td style="padding:30px"> <%="$ " + offer.price.to_s%> </td>
-        <td style="padding:30px"> <%=offer.condition%> </td>
-        <td style="padding:30px"> <%=offer.updated_at.strftime("%Y-%m-%d")%> </td>
-      </tr>
-      <% end %>
-    <% end %>
-  </table>
-
-  <table id="c-table" style="margin-left:auto;margin-right:auto;display:none">
-    <caption style="caption-side:top; text-align:center">Closed Offers</caption>
-    <% if c_offer.length == 0 %>
-      <tr>
-        <td colspan="5" style="text-align:center">You have no closed offers.<td>
-      </tr>
-    <% else %>
-    <tr>
-      <th style="padding:30px"> Book Image </th>
-      <th style="padding:30px"> Book Title </th>
-      <th style="padding:30px"> ISBN </th>
-      <th style="padding:30px"> Price </th>
-      <th style="padding:30px"> Condition </th>
-      <th style="padding:30px"> Date Posted </th>
-    </tr>
-      <% c_offer.each do |offer| %>
-      <tr>
-        <td style="padding:30px"> <%=image_tag(offer.book.cover_image)%> </td>
-        <td style="padding:30px"> <%=offer.book.title%> </td>
-        <td style="padding:30px">
-          <%if !offer.book.ISBN_10.nil?%>
-            <%= offer.book.ISBN_10.to_s %>
-          <% elsif !offer.book.ISBN_13.nil?%>
-            <%= offer.book.ISBN_13.to_s %>
-          <% else %>
-            <%= "No known ISBN" %>
-          <% end %>
-        </td>
-        <td style="padding:30px"> <%="$ " + offer.price.to_s%> </td>
-        <td style="padding:30px"> <%=offer.condition%> </td>
-        <td style="padding:30px"> <%=offer.updated_at.strftime("%Y-%m-%d")%> </td>
-      </tr>
-      <% end %>
-    <% end %>
-  </table>
-
-  <table id="d-table" style="margin-left:auto;margin-right:auto;display:none">
-    <caption style="caption-side:top; text-align:center">Draft Offers</caption>
-    <% if d_offer.length == 0 %>
-      <tr>
-        <td colspan="5" style="text-align:center">You have no draft offers.<td>
-      </tr>
-    <% else %>
-    <tr>
-      <th style="padding:30px"> Book Image </th>
-      <th style="padding:30px"> Book Title </th>
-      <th style="padding:30px"> ISBN </th>
-      <th style="padding:30px"> Price </th>
-      <th style="padding:30px"> Condition </th>
-      <th style="padding:30px"> Date Posted </th>
-    </tr>
-      <% d_offer.each do |offer| %>
-      <tr>
-        <td style="padding:30px"> <%=image_tag(offer.book.cover_image)%> </td>
-        <td style="padding:30px"> <%=offer.book.title%> </td>
-        <td style="padding:30px">
-          <%if !offer.book.ISBN_10.nil?%>
-            <%= offer.book.ISBN_10.to_s %>
-          <% elsif !offer.book.ISBN_13.nil?%>
-            <%= offer.book.ISBN_13.to_s %>
-          <% else %>
-            <%= "No known ISBN" %>
-          <% end %>
-        </td>
-        <td style="padding:30px"> <%="$ " + offer.price.to_s%> </td>
-        <td style="padding:30px"> <%=offer.condition%> </td>
-        <td style="padding:30px"> <%=offer.updated_at.strftime("%Y-%m-%d")%> </td>
-      </tr>
-      <% end %>
-    <% end %>
-  </table>
-<% end %>
+<div id="main-content">
+<!-- AJAX will fill this with the correct table -->
+</div>
 
 <hr>
 <%= render "links" %>
