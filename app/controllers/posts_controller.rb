@@ -65,41 +65,51 @@ def create
   puts "post_params"
   puts post_params
   puts params[:images]
-  puts post_params[:book]['self_link']
-  @book = Book.where(self_link: post_params[:book]['self_link']).first_or_create
-  # puts @book.id
-  # new_book={}
-  # new_book['self_link']=post_params[:book]['self_link']
-  response = RestClient::Request.execute(
-    method: :get,
-    url: post_params[:book]['self_link'],
-    )
-  response=JSON.parse(response)
-  @book['title']=response['volumeInfo']['title']
-  if response['volumeInfo']['industryIdentifiers']
-    response['volumeInfo']['industryIdentifiers'].each do |isbn_type|
-      type=isbn_type['type']
-      @book[type]=isbn_type['type']['identifier']
+  if post_params[:book]
+    @book = Book.where(self_link: post_params[:book]['self_link']).first_or_create
+    # puts @book.id
+    # new_book={}
+    # new_book['self_link']=post_params[:book]['self_link']
+    response = RestClient::Request.execute(
+      method: :get,
+      url: post_params[:book]['self_link'],
+      )
+    response=JSON.parse(response)
+    @book['title']=response['volumeInfo']['title']
+    if response['volumeInfo']['industryIdentifiers']
+      response['volumeInfo']['industryIdentifiers'].each do |isbn_type|
+        type=isbn_type['type']
+        @book[type]=isbn_type['type']['identifier']
+      end
     end
-  end
-  @book['cover_image']=response['volumeInfo']['imageLinks']['thumbnail']
-  if @book.save
-  # @posts.book_id=@book.id
-    @post = current_user.posts.new(post_params.merge({book: @book}))
+    @book['cover_image']=response['volumeInfo']['imageLinks']['thumbnail']
+    if @book.save
+    # @posts.book_id=@book.id
+      @post = current_user.posts.new(post_params.merge({book: @book}))
 
-    respond_to do |format|
-      if @post.save
-        if params[:images]
-          params[:images]['actual_product_image'].each do |image|
-            @image = @post.images.create!(:actual_product_image => image)
+      respond_to do |format|
+        if @post.save
+          if params[:images]
+            params[:images]['actual_product_image'].each do |image|
+              @image = @post.images.create!(:actual_product_image => image)
+            end
+          end
+          format.html { redirect_to @post, notice: 'Post was successfully created.' }
+          format.json { render :show, status: :created, location: @post }
+        else
+          if post_params['post_type']=='offer'
+            redirect_to posts_new_offer_path, notice:"Book Information Invalid"
+          else
+            redirect_to posts_new_request_path, notice:"Book Information Invalid"
           end
         end
-        format.html { redirect_to @post, notice: 'Post was successfully created.' }
-        format.json { render :show, status: :created, location: @post }
-      else
-        format.html { render :new }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
       end
+    end
+  else
+    if post_params['post_type']=="offer"
+      redirect_to posts_new_offer_path, notice:"Book Information Invalid"
+    else
+      redirect_to posts_new_request_path, notice:"Book Information Invalid"
     end
   end
 end
