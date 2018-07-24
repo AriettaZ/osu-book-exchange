@@ -11,7 +11,6 @@ Rails.application.routes.draw do
   get 'dashboard/mycontract'
   get 'dashboard/myrequest'
   get 'dashboard/myoffer'
-  get 'dashboard/account_information'
   get 'dashboard/messages', to: 'dashboard#messages'
   post 'dashboard/messages', to: 'dashboard#create_message'
   get 'dashboard/contacts', to: 'dashboard#contacts'
@@ -43,5 +42,9 @@ Rails.application.routes.draw do
   get 'dashboard/ajax/p_offer', to: 'ajax_pages#p_offer'
   get 'dashboard/ajax/c_offer', to: 'ajax_pages#c_offer'
   get 'dashboard/ajax/d_offer', to: 'ajax_pages#d_offer'
+  get 'dashboard/ajax/a_request', to: 'ajax_pages#a_request'
+  get 'dashboard/ajax/p_request', to: 'ajax_pages#p_request'
+  get 'dashboard/ajax/c_request', to: 'ajax_pages#c_request'
+  get 'dashboard/ajax/d_request', to: 'ajax_pages#d_request'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

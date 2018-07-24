@@ -1,12 +1,12 @@
-<%c_offer = @offers.select{|offer| offer.status == "closed"}%>
-<%c_offer.sort_by! {|offer| offer.updated_at} %>
-<%c_offer.reverse! %>
+<%offer_arr = @offers.select{|offer| offer.status == type}%>
+<%offer_arr.sort_by! {|offer| offer.updated_at} %>
+<%offer_arr.reverse! %>
 
-<table id="c-table" style="margin-left:auto;margin-right:auto">
-  <caption style="caption-side:top; text-align:center">Closed Offers</caption>
-  <% if c_offer.length == 0 %>
+<table id=<%=table_name%> style="margin-left:auto;margin-right:auto">
+  <caption style="caption-side:top; text-align:center"><%=type.capitalize%> Offers</caption>
+  <% if offer_arr.length == 0 %>
     <tr>
-      <td colspan="5" style="text-align:center">You have no closed offers.<td>
+      <td colspan="5" style="text-align:center">You have no <%=type%> offers.<td>
     </tr>
   <% else %>
   <tr>
@@ -16,8 +16,9 @@
     <th style="padding:30px"> Price </th>
     <th style="padding:30px"> Condition </th>
     <th style="padding:30px"> Date Posted </th>
+    <th style="padding:30px"> Edit </th>
   </tr>
-    <% c_offer.each do |offer| %>
+    <% offer_arr.each do |offer| %>
     <tr>
       <td style="padding:30px"> <%=image_tag(offer.book.cover_image)%> </td>
       <td style="padding:30px"> <%=offer.book.title%> </td>
@@ -33,6 +34,7 @@
       <td style="padding:30px"> <%="$ " + offer.price.to_s%> </td>
       <td style="padding:30px"> <%=offer.condition%> </td>
       <td style="padding:30px"> <%=offer.updated_at.strftime("%Y-%m-%d")%> </td>
+      <td style="padding:30px"> <%= link_to "Edit", post_edit_offer_url(offer.id) %> </td>
     </tr>
     <% end %>
   <% end %>
