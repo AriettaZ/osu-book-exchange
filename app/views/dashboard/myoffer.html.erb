@@ -1,14 +1,212 @@
-<h1>Dashboard#myoffer</h1>
-<p>Find me in app/views/dashboard/myoffer.html.erb</p>
-<table>
-  <tr>
-    <th>Offers</th>
-  </tr>
-  <% @offers.each do |offer| %>
+<% provide(title: "My Offers") %>
+<h1>My Offers</h1>
+<p>You have posted <%= @offers.length %> offers in total.</p>
+<p>You can see all of your offers below. They are sorted by their status.
+   An active offer is listed on the book exchange, but currently has no purchase contract.
+   Pending offers are on the book exchange listing and have an outstanding purchase contract that
+   is waiting to be signed by you or the buyer. Closed offers were purchased and removed
+   from the book exchange listing. Offers that are not yet on the book exchange list are drafts.
+</p>
+
+<br>
+<div id="offer-btn-container" style="text-align:center">
+  <button id="a-btn" style="padding:30px">See Active Offers</button>
+  <button id="p-btn" style="padding:30px">See Pending Offers</button>
+  <button id="c-btn" style="padding:30px">See Closed Offers</button>
+  <button id="d-btn" style="padding:30px">See Draft Offers</button>
+</div>
+<br>
+
+<script>
+  $("document").ready(function(){
+    $("#a-btn").click(function(){
+      $("#a-table").show();
+      $("#p-table").hide();
+      $("#c-table").hide();
+      $("#d-table").hide();
+    });
+    $("#p-btn").click(function(){
+      $("#p-table").show();
+      $("#a-table").hide();
+      $("#c-table").hide();
+      $("#d-table").hide();
+    });
+    $("#c-btn").click(function(){
+      $("#c-table").show();
+      $("#p-table").hide();
+      $("#a-table").hide();
+      $("#d-table").hide();
+    });
+    $("#d-btn").click(function(){
+      $("#d-table").show();
+      $("#p-table").hide();
+      $("#c-table").hide();
+      $("#a-table").hide();
+    });
+  });
+</script>
+
+
+
+
+<% if @offers.length != 0 %>
+
+  <% a_offer = @offers.select{|offer| offer.status == "active"}%>
+  <% p_offer = @offers.select{|offer| offer.status == "pending"}%>
+
+  <% c_offer = @offers.select{|offer| offer.status == "closed"}%>
+  <% d_offer = @offers.select{|offer| offer.status == "draft"}%>
+
+  <!-- <p><%= a_offer %></p>
+  <p><%= p_offer %></p>
+  <p><%= c_offer %></p>
+  <p><%= d_offer %></p> -->
+
+  <table id="p-table" style="margin-left:auto;margin-right:auto;display:none">
+    <caption style="caption-side:top; text-align:center">Pending Offers</caption>
+    <% if p_offer.length == 0 %>
+      <tr>
+        <td colspan="5" style="text-align:center">You have no pending offers.<td>
+      </tr>
+    <% else %>
     <tr>
-      <td> <%= offer.inspect %> </td>
+      <th style="padding:30px"> Book Image </th>
+      <th style="padding:30px"> Book Title </th>
+      <th style="padding:30px"> ISBN </th>
+      <th style="padding:30px"> Price </th>
+      <th style="padding:30px"> Condition </th>
+      <th style="padding:30px"> Date Posted </th>
     </tr>
-  <% end %>
-</table>
+      <% p_offer.each do |offer| %>
+      <tr>
+        <td style="padding:30px"> <%=image_tag(offer.book.cover_image)%> </td>
+        <td style="padding:30px"> <%=offer.book.title%> </td>
+        <td style="padding:30px">
+          <%if !offer.book.ISBN_10.nil?%>
+            <%= offer.book.ISBN_10.to_s %>
+          <% elsif !offer.book.ISBN_13.nil?%>
+            <%= offer.book.ISBN_13.to_s %>
+          <% else %>
+            <%= "No known ISBN" %>
+          <% end %>
+        </td>
+        <td style="padding:30px"> <%="$ " + offer.price.to_s%> </td>
+        <td style="padding:30px"> <%=offer.condition%> </td>
+        <td style="padding:30px"> <%=offer.updated_at.strftime("%Y-%m-%d")%> </td>
+      </tr>
+      <% end %>
+    <% end %>
+  </table>
+
+  <table id="a-table" style="margin-left:auto;margin-right:auto;display:none">
+    <caption style="caption-side:top; text-align:center">Active Offers</caption>
+    <% if a_offer.length == 0 %>
+      <tr>
+        <td colspan="5" style="text-align:center">You have no active offers.<td>
+      </tr>
+    <% else %>
+    <tr>
+      <th style="padding:30px"> Book Image </th>
+      <th style="padding:30px"> Book Title </th>
+      <th style="padding:30px"> ISBN </th>
+      <th style="padding:30px"> Price </th>
+      <th style="padding:30px"> Condition </th>
+      <th style="padding:30px"> Date Posted </th>
+    </tr>
+      <% a_offer.each do |offer| %>
+      <tr>
+        <td style="padding:30px"> <%=image_tag(offer.book.cover_image)%> </td>
+        <td style="padding:30px"> <%=offer.book.title%> </td>
+        <td style="padding:30px">
+          <%if !offer.book.ISBN_10.nil?%>
+            <%= offer.book.ISBN_10.to_s %>
+          <% elsif !offer.book.ISBN_13.nil?%>
+            <%= offer.book.ISBN_13.to_s %>
+          <% else %>
+            <%= "No known ISBN" %>
+          <% end %>
+        </td>
+        <td style="padding:30px"> <%="$ " + offer.price.to_s%> </td>
+        <td style="padding:30px"> <%=offer.condition%> </td>
+        <td style="padding:30px"> <%=offer.updated_at.strftime("%Y-%m-%d")%> </td>
+      </tr>
+      <% end %>
+    <% end %>
+  </table>
+
+  <table id="c-table" style="margin-left:auto;margin-right:auto;display:none">
+    <caption style="caption-side:top; text-align:center">Closed Offers</caption>
+    <% if c_offer.length == 0 %>
+      <tr>
+        <td colspan="5" style="text-align:center">You have no closed offers.<td>
+      </tr>
+    <% else %>
+    <tr>
+      <th style="padding:30px"> Book Image </th>
+      <th style="padding:30px"> Book Title </th>
+      <th style="padding:30px"> ISBN </th>
+      <th style="padding:30px"> Price </th>
+      <th style="padding:30px"> Condition </th>
+      <th style="padding:30px"> Date Posted </th>
+    </tr>
+      <% c_offer.each do |offer| %>
+      <tr>
+        <td style="padding:30px"> <%=image_tag(offer.book.cover_image)%> </td>
+        <td style="padding:30px"> <%=offer.book.title%> </td>
+        <td style="padding:30px">
+          <%if !offer.book.ISBN_10.nil?%>
+            <%= offer.book.ISBN_10.to_s %>
+          <% elsif !offer.book.ISBN_13.nil?%>
+            <%= offer.book.ISBN_13.to_s %>
+          <% else %>
+            <%= "No known ISBN" %>
+          <% end %>
+        </td>
+        <td style="padding:30px"> <%="$ " + offer.price.to_s%> </td>
+        <td style="padding:30px"> <%=offer.condition%> </td>
+        <td style="padding:30px"> <%=offer.updated_at.strftime("%Y-%m-%d")%> </td>
+      </tr>
+      <% end %>
+    <% end %>
+  </table>
+
+  <table id="d-table" style="margin-left:auto;margin-right:auto;display:none">
+    <caption style="caption-side:top; text-align:center">Draft Offers</caption>
+    <% if d_offer.length == 0 %>
+      <tr>
+        <td colspan="5" style="text-align:center">You have no draft offers.<td>
+      </tr>
+    <% else %>
+    <tr>
+      <th style="padding:30px"> Book Image </th>
+      <th style="padding:30px"> Book Title </th>
+      <th style="padding:30px"> ISBN </th>
+      <th style="padding:30px"> Price </th>
+      <th style="padding:30px"> Condition </th>
+      <th style="padding:30px"> Date Posted </th>
+    </tr>
+      <% d_offer.each do |offer| %>
+      <tr>
+        <td style="padding:30px"> <%=image_tag(offer.book.cover_image)%> </td>
+        <td style="padding:30px"> <%=offer.book.title%> </td>
+        <td style="padding:30px">
+          <%if !offer.book.ISBN_10.nil?%>
+            <%= offer.book.ISBN_10.to_s %>
+          <% elsif !offer.book.ISBN_13.nil?%>
+            <%= offer.book.ISBN_13.to_s %>
+          <% else %>
+            <%= "No known ISBN" %>
+          <% end %>
+        </td>
+        <td style="padding:30px"> <%="$ " + offer.price.to_s%> </td>
+        <td style="padding:30px"> <%=offer.condition%> </td>
+        <td style="padding:30px"> <%=offer.updated_at.strftime("%Y-%m-%d")%> </td>
+      </tr>
+      <% end %>
+    <% end %>
+  </table>
+<% end %>
+
+<hr>
 <%= render "links" %>
 <hr>
