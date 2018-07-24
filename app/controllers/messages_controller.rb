@@ -53,6 +53,8 @@ class MessagesController < ApplicationController
 
   end
 
+
+
   private
   # def message_param
   #   params.require(:message).permit(:content)
