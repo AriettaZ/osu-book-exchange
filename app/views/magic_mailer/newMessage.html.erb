@@ -1,5 +1,10 @@
-<h1>Magic#newMessage</h1>
+Hello <%=@receiver.name%>,
+<br/>
+<br/>
+<%=@sender.name%> sent you a new message:
+<br/>
+<%=@message%>
 
-<p>
-  <%= @greeting %>, find me in app/views/magic_mailer/newMessage.html.erb
-</p>
+<br/>
+Please sign in to visit <%= link_to "My Messages", profile_messages_url%> to reply this message.
+<br/>

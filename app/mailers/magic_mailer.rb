@@ -79,8 +79,11 @@ class MagicMailer < ApplicationMailer
 
   # Send an email to the message receiver
   def newMessage(message)
-    @message = message
+    @message = message.content
+    @created_at = @message.created_at
+    @sender = User.find(@message.sender_id)
+    @receiver = User.find(@meesage.receiver_id)
 
-    mail to: "to@example.org"
+    mail to: @receiver.email, subject: "New Message from #{@sender.name} -- OSU Book Exchange"
   end
 end
