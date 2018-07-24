@@ -27,4 +27,9 @@ $(document).ready(function(){
   $(".actual_product_image").each(function(){
     $(this).on('load', $(this).parent().attr("data-lightbox", "roadtrip"));
   })
+  $("form").on("keypress", function (e) {
+    if (e.keyCode == 13) {
+        return false;
+    }
+});
 })
