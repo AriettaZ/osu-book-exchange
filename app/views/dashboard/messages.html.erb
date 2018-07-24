@@ -26,7 +26,7 @@
 </div>
 
 <form>
-	<input type="text" name="" id="user-chat-input" placeholder="Enter your message here." autocomplete="off" />
+	<input type="text" name="" id="user-chat-input" placeholder="Enter your message here." autocomplete="off" maxlength=500/>
 	<div id="user-chat-submit">Send</div>
 </form>
 
@@ -49,6 +49,18 @@
 
 			}).done(function(data){
 					$('.showed-message').last().after(data)
+					$('.showed-message').last().animate({
+						opacity: 1,
+						marginTop: 0,
+					})
+
+					if($('.messages-container')[0].scrollHeight<=($('.messages-container').scrollTop()+$('.messages-container').height()+$('.showed-message').last().height()+10)){
+
+						$('.messages-container').animate({
+							scrollTop: $('.messages-container')[0].scrollHeight
+						},"normal")
+
+					}
 				})
 		},5000)
 
@@ -79,9 +91,7 @@
 					$('.showed-message').last().after(data)
 					$('.messages-container').animate({
 						scrollTop: $('.messages-container')[0].scrollHeight
-					},"normal",function(){
-						$('#user-chat-input').focus()
-					})
+					},"normal")
 					$('.showed-message').last().animate({
 						opacity: 1,
 						marginTop: 0,
