@@ -21,13 +21,6 @@
   </head>
 
   <body>
-    <!-- Custom flash messages -->
-    <!-- <% flash.each do |message_type, message| %>
-      <div style="color:red"><%= message %></div>
-    <% end %> -->
-    <!-- <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p> -->
-
     <%= render "shared/navigation", location: "top" %>
     <div class="main">
       <% if flash[:notice] -%>
@@ -43,12 +36,11 @@
   <script type="text/javascript">
   $(document).ready(function(){
     setTimeout(function(){
-       // window.location.reload(1);
-    }, 5000);
-     $('#contract_index_table').DataTable();
-     $('#order_index_table').DataTable();
-     $('#book_index_table').DataTable();
-     $('#post_index_table').DataTable();
+      $('#contract_index_table').DataTable();
+      $('#order_index_table').DataTable();
+      $('#book_index_table').DataTable();
+      $('#post_index_table').DataTable();
+    }, 0);
       $('.selectpicker').selectpicker();
       $(".carousel-inner div:first-child").addClass( "active" )
       $(".carousel-inner div:first-child").first().addClass( "active" )
@@ -85,9 +77,6 @@
 
       });
       $("select, :text, textarea").addClass("form-control")
-      $(".actual_product_image").each(function(){
-        $(this).on('load', $(this).parent().attr("data-lightbox", "roadtrip"));
-      })
       });
   </script>
   </body>

@@ -1,0 +1,83 @@
+<div class="row">
+    <div class="btn-group col-md-4" role="group" aria-label="Basic example">
+      <button type="button" id="title_button" class="magic-button col-md-6 btn active">Find Book By Title</button>
+      <button type="button" id="isbn_button"  class="magic-button col-md-6 btn" >Find Book By ISBN </button>
+    </div>
+    <div class="col-md-8">
+      <div class="input-group col-md-12"  id="search_book_by_title">
+        <select data-width="100%" title="Enter Book Title" class="selectpicker field" data-show-subtext="true" data-live-search="true" name="post[book][self_link]" id="post_book_self_link">
+        </select>
+      </div>
+      <div class="input-group col-md-12 stylish-input-group collapse" id="search_book_by_isbn">
+          <input type="text" id="search_book_by_isbn_input" class="form-control col-md-10"  placeholder="Find Book By ISBN" >
+          <span id="search_book_by_isbn_button" class="input-group-addon" style="padding: 8px 12px">
+              <div>
+                  <span class="glyphicon glyphicon-search"></span>
+              </div>
+          </span>
+      </div>
+    </div>
+    <div class="collapse col-md-12" id="book_find_by_isbn">
+      <div class="card card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+      </div>
+    </div>
+  </div>
+<script>
+$('#title_button').on('click',function(){
+$('#search_book_by_title').show()
+$('#search_book_by_isbn').hide()
+$('#book_find_by_isbn').hide()
+$("#title_button").addClass( "active" )
+$("#isbn_button").removeClass( "active" )
+})
+$('#isbn_button').on('click',function(){
+$('#search_book_by_isbn').show()
+$('#search_book_by_title').hide()
+$('#book_find_by_isbn').hide()
+$("#isbn_button").addClass( "active" )
+$("#title_button").removeClass( "active" )
+})
+
+$('#search_book_by_isbn_button').on('click',function(){
+$("#search_book_by_isbn_input").addClass("loading"); // show the spinner
+
+var url = "https://www.googleapis.com/books/v1/volumes?" // live_search action.
+// alert(url)
+var isbn_query ={}; // grab the data in the form
+isbn_query['q']='isbn:'+$("#search_book_by_isbn_input").val()
+console.log(isbn_query)
+$.get(url, isbn_query, function(data){ // perform an AJAX get
+  $("#search_book_by_isbn_input").removeClass("loading"); // hide the spinner
+  $("#book_find_by_isbn .card").empty();
+  console.log(data)
+  $.each(data['items'], function( index, value ) {
+ // $('#live-search-form').append($('<a href="#">'+value['volumeInfo']['title']);
+        $('#book_find_by_isbn .card').append('<div class="'+index+'_book_info" style:"margin:10px;clear: both;"></div>')
+        $('#book_find_by_isbn .'+index+'_book_info').append('<h4>Title: '+value['volumeInfo']['title']+'</h4>')
+        $('#book_find_by_isbn .'+index+'_book_info').append('<p class="found_book_information"></p>')
+        if(value['volumeInfo']['imageLinks']){
+          if(value['volumeInfo']['imageLinks']['thumbnail']){
+            $('#book_find_by_isbn .'+index+'_book_info .found_book_information').append('<img class="Thumbnail" style="max-width:128px;float:left; margin-right:10px" src="'+value['volumeInfo']['imageLinks']['thumbnail']+'" />')
+          }else if(value['volumeInfo']['imageLinks']['smallThumbnail']){
+            $('#book_find_by_isbn .'+index+'_book_info .found_book_information').append('<img class="smallThumbnail" style="max-width:80px; float:left; margin-right:10px" src="'+value['volumeInfo']['imageLinks']['smallThumbnail']+'" />')
+          }
+        }
+        if(value['volumeInfo']['industryIdentifiers']){
+          if (value['volumeInfo']['industryIdentifiers'].length==1){
+            $('#book_find_by_isbn .'+index+'_book_info .found_book_information').append('<p style="" ><strong>'+value['volumeInfo']['industryIdentifiers'][0]['type']+'</strong>: '+value['volumeInfo']['industryIdentifiers'][0]['identifier']+' </p>')
+          }else if (value['volumeInfo']['industryIdentifiers'].length==2) {
+            $('#book_find_by_isbn .'+index+'_book_info  .found_book_information').append('<p style="" ><strong>'+value['volumeInfo']['industryIdentifiers'][0]['type']+'</strong>: '+value['volumeInfo']['industryIdentifiers'][0]['identifier']+' </p>')
+            $('#book_find_by_isbn .'+index+'_book_info  .found_book_information').append('<p style="" ><strong>'+value['volumeInfo']['industryIdentifiers'][1]['type']+'</strong>: '+value['volumeInfo']['industryIdentifiers'][1]['identifier']+' </p>')
+          }
+        }
+        if(value['volumeInfo']['authors']&& value['volumeInfo']['authors'].length>=1){
+          $('#book_find_by_isbn .'+index+'_book_info .found_book_information').append('<p style="" >'+'<strong>Author:</strong> '+value['volumeInfo']['authors'].join(', ')+' </p>')
+        }
+        $('#book_find_by_isbn .'+index+'_book_info .found_book_information').append('<input type="radio" style="margin-right:10px" value="'+value['selfLink']+'" name="post[book][self_link]" id="post_book_self_link"><label for="post_book_self_link">This is the book</label>')
+   });
+ }).done(function(){
+       $('#book_find_by_isbn').show();
+});
+})
+</script>
