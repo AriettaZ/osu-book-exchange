@@ -10,11 +10,11 @@
 <%= image_tag @post.book.cover_image unless @post.book.nil? %>
 <div>Book: <%= @post.book.title unless @post.book.nil? %></div>
 <div>Post Date: <%= distance_of_time_in_words(@post.created_at, Time.now) %> ago</div>
-<div>Seller: <%= User.find_by(id: @post.user_id).name %></div>
-
 <% if @post.post_type=="offer" %>
+<div>Seller: <%= User.find_by(id: @post.user_id).name %></div>
   <h2>More Information from Seller</h2>
 <% else %>
+<div>Buyer: <%= User.find_by(id: @post.user_id).name %></div>
   <h2>More Information from Buyer</h2>
 <% end %>
 <div>Course: <%= @post.course_number %></div>
@@ -24,6 +24,7 @@
 <div>condition: <%= @post.condition %></div>
 <div>Description: <%= @post.description %></div>
 
+<% if @images %>
 <h2>Actual Product Pictures</h2>
 
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -50,10 +51,7 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
-
-<!-- <% @images.each_with_index do |picture,index| %>
-  <a class="actual_product_image_link"  href="<%= picture.actual_product_image_url %>"><img class="actual_product_image" src="<%= picture.actual_product_image_url %>" alt="Image #<%= index %>"></a>
-<% end %> -->
+<% end %>
 
 <% if current_user.is_a?(GuestUser) %>
   <% if @post.status == "active"|| @post.status == "pending"%>
@@ -88,3 +86,8 @@
 <%= link_to 'Back', posts_path,  class:['btn','btn-outline-primary'], role:['button']  %>
 </div>
 <hr>
+<script>
+ $(".actual_product_image").each(function(){
+        $(this).on('load', $(this).parent().attr("data-lightbox", "roadtrip"));
+      })
+</script>

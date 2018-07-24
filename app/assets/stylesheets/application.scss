@@ -28,7 +28,7 @@ body{
   margin: 0;
   display:block;
   background: #FFFFFF;
-  font-family: 'Eczar', serif;
+  font-family: 'Merienda', serif;
 }
 .bootstrap-select .dropdown-menu{
   max-width:1200px;
@@ -101,6 +101,10 @@ nav.navbar{
   a:hover{
     color: $magic-orange;
   }
+  a.nav-link.navbar-brand{
+    color:white;
+    weight:bold;
+  }
   a.nav-link, .navbar-nav>li>a.nav-link{
     color:$magic-white;
   }
@@ -150,9 +154,10 @@ span.text{
   position: relative;
   background: $magic-purple;
   text-align: center;
-  height: 6em;
+  height:6em;
   line-height: 6em;
   clear: both;
+  margin-top: 5em;
 }
 #search_book_by_title{
   z-index: 1000;
@@ -188,8 +193,6 @@ button.magic-button:hover{
 }
 button.magic-button:hover, button.magic-button:focus, button.magic-button:active, button.magic-button.active, .open>button.dropdown-toggle.magic-button{
   color: #fff;
-  // background-color: #3071a9;
-  // border-color: #285e8e;
   text-decoration: none;
   color: black;
   background-color: $magic-orange;
@@ -207,7 +210,11 @@ nav .dropdown-menu{
 .form-control , .nice-select, .input-group-addon ,.selectpicker{
   border-color: $magic-purple !important;
 }
+button:focus {outline:0;}
 
+@media only screen and (max-width: 1135px) {
+  
+}
 // input.form-control[disabled], input.form-control[readonly], fieldset[disabled]{
 //   background-color: $lighter-magic-orange;
 // }
