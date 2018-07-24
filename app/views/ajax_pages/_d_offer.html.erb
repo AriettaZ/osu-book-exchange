@@ -1,4 +1,6 @@
 <%d_offer = @offers.select{|offer| offer.status == "draft"}%>
+<%d_offer.sort_by! {|offer| offer.updated_at} %>
+<%d_offer.reverse! %>
 
 <table id="d-table" style="margin-left:auto;margin-right:auto">
   <caption style="caption-side:top; text-align:center">Draft Offers</caption>

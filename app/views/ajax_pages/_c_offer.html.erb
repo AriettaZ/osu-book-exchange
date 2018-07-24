@@ -1,4 +1,6 @@
 <%c_offer = @offers.select{|offer| offer.status == "closed"}%>
+<%c_offer.sort_by! {|offer| offer.updated_at} %>
+<%c_offer.reverse! %>
 
 <table id="c-table" style="margin-left:auto;margin-right:auto">
   <caption style="caption-side:top; text-align:center">Closed Offers</caption>
