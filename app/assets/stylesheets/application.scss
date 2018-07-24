@@ -185,7 +185,9 @@ button.magic-button{
     background-color: $magic-purple;
     text-align: center;
 }
-
+div#user-chat-submit{
+  background-color: $magic-purple;
+}
 button.magic-button:hover{
     text-decoration: none;
     color: black;
@@ -211,9 +213,8 @@ nav .dropdown-menu{
   border-color: $magic-purple !important;
 }
 button:focus {outline:0;}
-
 @media only screen and (max-width: 1135px) {
-  
+
 }
 // input.form-control[disabled], input.form-control[readonly], fieldset[disabled]{
 //   background-color: $lighter-magic-orange;
