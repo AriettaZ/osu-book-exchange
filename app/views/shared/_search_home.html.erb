@@ -2,10 +2,7 @@
 	<%= search_field_tag(:query, @search_field || "")  %>
 	<% default_editions = [['--edition--',:all]] %>
 	<%= select_tag(:search_for, options_for_select([['Title'],['ISBN']], @search_for)) %>
-	<p>Offer or Request: </p>
-	<div><%= radio_button_tag :offer_request, :both, true %>both</div>
-	<%= radio_button_tag :offer_request, :offer, false %>
-	<%= radio_button_tag :offer_request, :request, false %>
+	<%= select_tag(:offer_request, options_for_select([['--Post Type--',:both],['Offer'],['Request']], @post_type)) %>
 	<%= select_tag(:edition, options_for_select(@editions || default_editions, @edition)) %>
 	<!-- <%= number_field_tag(:edition, @edition, within: 1..30) %> -->
 	<!-- [['--edition--',:all],['1',1],['2',2],['3',3],['4',4]],['5',5],['6',6],['7',7],['8',8],['9',9],['10',10] -->

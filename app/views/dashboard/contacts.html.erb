@@ -1,17 +1,14 @@
-
 <%= stylesheet_link_tag "contact_list" %>
+
 <div>
 	<div class="header-container">
 		<h1>My Conversations</h1>
 		<h5>Click on the conversation to chat</h4>
-<!-- 		<%= form_tag(dashboard_contacts_path, :method=>"get") do %>
-			<%= button_tag "Refresh", :class=>"refresh" %>
-		<% end %> -->
 	</div>
 	<h1><%= @msg %></h1>
 	<div class="contacts-container">
 		<% @contacts.each do |contact| %>
-			<%= form_tag(dashboard_messages_path(), :method=>"get") do %>
+			<%= form_tag(profile_messages_path(), :method=>"get") do %>
 			<%= hidden_field_tag(:talk_to, contact.partner_id) %>
 			<%= hidden_field_tag(:post_id, contact.post_id) %>
 			
@@ -28,7 +25,6 @@
 					<%= image_tag("http://via.placeholder.com/120x150", :class=>"contact-img") %>
 				</div>
 				</a>
-					<!-- <div class="contact-info-talk"><%= submit_tag("Talk") %></div> -->
 			</div>
 		<% end %>
 			

@@ -27,13 +27,13 @@
     <p class="alert"><%= alert %></p> -->
 
     <%= render "shared/navigation", location: "top" %>
-    <% if flash[:notice] -%>
-      <div class="alert alert-warning" role="alert"><%= notice %></div>
-    <% end %>
-    <% if flash[:alert] -%>
-      <div class="alert alert-danger" role="alert"><%= alert %></div>
-    <% end %>
     <div class="main">
+      <% if flash[:notice] -%>
+        <div class="alert alert-warning" role="alert"><%= notice %></div>
+      <% end %>
+      <% if flash[:alert] -%>
+        <div class="alert alert-danger" role="alert"><%= alert %></div>
+      <% end %>
     <%= yield %>
     <%= source_helper %>
     </div>
@@ -76,6 +76,9 @@
           });
 
       });
+      $(".actual_product_image").each(function(){
+        $(this).on('load', $(this).parent().attr("data-lightbox", "roadtrip"));
+      })
       });
   </script>
   </body>

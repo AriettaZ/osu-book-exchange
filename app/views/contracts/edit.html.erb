@@ -7,8 +7,8 @@
 <!-- <%= link_to 'Back', url_for(:back) %> -->
 <% if @editFrom == "index"%>
   <%= link_to 'Back', contracts_path %>
-<% elsif @editFrom == "dashboard"%>
-  <%= link_to 'Back', dashboard_mycontract_path%>
+<% elsif @editFrom == "profile"%>
+  <%= link_to 'Back', profile_mycontract_path%>
 <% elsif @editFrom == "show"%>
   <%= link_to 'Back', contract_path(@contract)%>
 <%end%>

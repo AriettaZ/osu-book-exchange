@@ -2,6 +2,7 @@ class SearchController < ApplicationController
 
 	def search
 	  books = book_search params[:query], params[:edition]
+
 	  post_refine_search books.results
 	end
 
@@ -17,7 +18,7 @@ class SearchController < ApplicationController
 			end
 
 			# Match edition
-			if edition!="" then
+			if edition!="all" then
 				fulltext edition+" th" do
 					fields(:edition)
 				end
@@ -32,9 +33,6 @@ class SearchController < ApplicationController
 		@conditions = [['--condition--',:all]] if params[:condition]=="all"
 		books.each do
 	    	|book|
-	    	if params[:edition]=="all" then
-	    		@editions.append(book.edition) unless @editions.include? book.edition
-	    	end
 	    	Post.search do
 	    		# Match Book id
 	    		fulltext book.id do
@@ -74,8 +72,17 @@ class SearchController < ApplicationController
 		      			end
 		      		end
 		      	end
+
+		      	if params[:edition]=="all" then
+		      		book = Book.find_by_id(post.book_id)
+		      		unless @editions.include? book.edition then
+		      			@editions.append(book.edition)
+		      		end
+		      	end
 	    	end
 	  	end
+
+
 
 	  	@post_type = params[:offer_request]
 	  	@search_for = params[:search_for]

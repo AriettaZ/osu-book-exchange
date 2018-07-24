@@ -6,7 +6,9 @@ class DashboardController < ApplicationController
   def main
     @user = current_user
   end
-
+  def account_information
+    @user = current_user
+  end
   def mycontract
     @contracts = Contract.where(buyer_id: current_user.id) + Contract.where(seller_id: current_user.id)
   end
@@ -138,14 +140,14 @@ class DashboardController < ApplicationController
     # flash.now[:success] = @message.inspect
     if @message.save
       flash[:success] = "Message sent for post id: " + params[:post_id].to_s
-      # redirect_to dashboard_messages_path(talk_to: params[:talk_to], post_id: params[:post_id])
+      # redirect_to profile_messages_path(talk_to: params[:talk_to], post_id: params[:post_id])
       append_messages
     else
       # Show saving errors.
       @message.errors.each do |type, text|
         flash.now[:success] = type.to_s.capitalize + " " + text
       end
-      redirect_to dashboard_messages_path(talk_to: params[:talk_to], post_id: params[:post_id])
+      redirect_to profile_messages_path(talk_to: params[:talk_to], post_id: params[:post_id])
     end
 
   end

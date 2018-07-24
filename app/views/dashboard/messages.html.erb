@@ -26,7 +26,7 @@
 </div>
 
 <form>
-	<input type="text" name="" id="user-chat-input" placeholder="Enter your message here." />
+	<input type="text" name="" id="user-chat-input" placeholder="Enter your message here." autocomplete="off" />
 	<div id="user-chat-submit">Send</div>
 </form>
 
@@ -41,7 +41,7 @@
 
 		// Refresh the page with Ajax every 5 seconds, append new messages
 		var refresh_timer = setInterval(function(){
-			if(window.location.pathname!="/dashboard/messages"){
+			if(window.location.pathname!="/profile/messages"){
 				clearInterval(refresh_timer)
 			}
 			$.ajax({
@@ -98,4 +98,4 @@
 	})
 </script>
 
-<%= link_to "back to contact", dashboard_contacts_path %>
+<%= link_to "back to contact", profile_contacts_path %>

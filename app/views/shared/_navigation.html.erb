@@ -1,16 +1,16 @@
-<nav class="navbar navbar-expand-lg navbar-light" role="navigation">
+<nav class="navbar navbar-expand-lg navbar-default" role="navigation">
   <div class="navbar-header">
     <!-- <i class="fas fa-book-open"></i> -->
-    <%= link_to "OSU Textbook Exchange", root_path, class:["nav-link","navbar-brand"] %>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>
+    </button><%= link_to "OSU Textbook Exchange", root_path, class:["nav-link","navbar-brand"] %>
+  </div>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="nav navbar-nav navbar-right  mr-auto">
 
       <!-- Links that everybody can see -->
       <li  class="nav-item">
-        <%= link_to "Home", root_path, class:"nav-link" %>
+         <a class="nav-link" href="<%= root_path %>">Home <span class="sr-only">(current)</span></a>
       </li>
       <li  class="nav-item">
         <%= link_to "Search Posts", posts_path, class:"nav-link" %>
@@ -23,18 +23,17 @@
       </li>
       <!-- Links for admin user -->
       <% if current_user.has_roles?(:site_admin) %>
-        <li  class="nav-item">
-          <%= link_to "Posts", posts_admin_index_path, class:"nav-link" %>
-        </li>
-        <li  class="nav-item">
-        <%= link_to "Orders", orders_path, class:"nav-link" %>
-        </li>
-        <li  class="nav-item">
-          <%= link_to "Books", books_path, class:"nav-link" %>
-        </li>
-        <li  class="nav-item">
-          <%= link_to "Contracts", contracts_path, class:"nav-link" %>
-        </li>
+      <li class="nav-item dropdown">
+       <a class="nav-link dropdown-toggle" href="<%= posts_admin_index_path %>" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         Admin
+       </a>
+       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+         <%= link_to "Posts", posts_admin_index_path, class:"dropdown-item" %>
+          <%= link_to "Orders", orders_path, class:"dropdown-item" %>
+          <%= link_to "Books", books_path, class:"dropdown-item" %>
+          <%= link_to "Contracts", contracts_path, class:"dropdown-item" %>
+       </div>
+     </li>
     <%  end %>
 
         <% if current_user.is_a?(GuestUser) %>
@@ -48,8 +47,20 @@
         <li  class="nav-item">
           <%= link_to "Logout", destroy_user_session_path, class:"nav-link", method: 'delete' %>
         </li>
-        <li  class="nav-item">
-          <%= link_to "Dashboard", dashboard_main_path, class:"nav-link" %>
+
+        <li class="nav-item dropdown">
+           <a class="nav-link dropdown-toggle" href="<%= profile_path %>" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             Profile
+           </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <%= link_to "Account Information", account_information_path, class:"dropdown-item" %>
+             <%= link_to "My Orders", profile_myorder_path, class:"dropdown-item" %>
+             <%= link_to "My Contracts", profile_mycontract_path, class:"dropdown-item" %>
+             <%= link_to "My Requests", profile_myrequest_path, class:"dropdown-item" %>
+             <%= link_to "My Offers", profile_myoffer_path, class:"dropdown-item" %>
+             <%= link_to "My Messages", profile_contacts_path, class:"dropdown-item" %>
+             <%= link_to "My Bookmarks", profile_bookmarks_path, class:"dropdown-item" %>
+          </div>
         </li>
         <% end %>
       </ul>
