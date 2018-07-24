@@ -51,7 +51,11 @@ class DashboardController < ApplicationController
       end
 
       unless has_contact then
-        @contacts.append( Contact.new(message.receiver_id, User.find_by_id(message.receiver_id) , message.post_id, message.created_at) )
+        new_contact = Contact.new(message.receiver_id, User.find_by_id(message.receiver_id) , message.post_id, message.created_at)
+        new_contact.post = Post.find_by_id(message.post_id)
+        new_contact.book = Book.find_by_id(new_contact.post.book_id)
+        @contacts.append(new_contact)
+
       end
     end
 
@@ -73,7 +77,10 @@ class DashboardController < ApplicationController
       end
 
       unless has_contact then
-        @contacts.append( Contact.new(message.sender_id, User.find_by_id(message.sender_id) , message.post_id, message.created_at) )
+        new_contact = Contact.new(message.sender_id, User.find_by_id(message.sender_id) , message.post_id, message.created_at)
+        new_contact.post = Post.find_by_id(message.post_id)
+        new_contact.book = Book.find_by_id(new_contact.post.book_id)
+        @contacts.append(new_contact)
       end
     end
 
@@ -148,6 +155,7 @@ class DashboardController < ApplicationController
     Message.where(created_at: params[:last_msg_time]..Time.now, sender_id: current_user.id, receiver_id: params[:talk_to]).find_each do |message|
       @appended_messages.append(message)
     end
+
     Message.where(created_at: params[:last_msg_time]..Time.now, sender_id: params[:talk_to], receiver_id: current_user.id).find_each do |message|
       @appended_messages.append(message)
     end

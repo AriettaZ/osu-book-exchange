@@ -1,0 +1,50 @@
+//.header-container{
+//  height: 100px;
+//}
+
+//.refresh{
+//  margin-top: -50px;
+//  margin-right: 7%;
+//  float: right;
+//  border-radius: 5px;
+//  background-color: rgba(233, 72, 20, 0.5);
+//  border-bottom-color: rgba(233, 72, 20, 0.8);
+//  border-right-color: rgba(233, 72, 20, 0.8);
+//  border-top-color: rgba(233, 72, 20, 1);
+//  border-left-color: rgba(233, 72, 20, 1);
+//}
+
+
+.contacts-container{
+    width: 100%;
+    display: block;
+}
+
+.contact-info{
+    width: 430px;
+    margin: 10px 30px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    float: left;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.contact-info-container{
+    height: 160px;
+    width: 300px;
+    background-color: rgba(233, 72, 20, 0.5);
+    float: left;
+}
+
+.contact-info-content{
+    height: 40px;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.contact-img{
+    height: 160px;
+    width: 128px;
+    
+}
