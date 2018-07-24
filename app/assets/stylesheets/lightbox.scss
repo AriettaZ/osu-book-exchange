@@ -1,6 +1,6 @@
 /* Preload images */
 body:after {
-  content: image-url('../images/close.png') image-url('../images/loading.gif') image-url('../images/prev.png') image-url('../images/next.png');
+  content: image-url('close.png') image-url('loading.gif') image-url('prev.png') image-url('next.png');
   display: none;
 }
 
@@ -236,9 +236,3 @@ body:after {
       content: "\F065";
     }
   }
-
-
-// this should be removed once all the posts have been rebaked with the new lightboxes overlays
-.lightbox > span {
-  display: none;
-}
