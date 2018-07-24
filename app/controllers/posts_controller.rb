@@ -121,7 +121,14 @@ end
 # DELETE /posts/1
 # DELETE /posts/1.json
 def destroy
-  contract=Contract.where(post:@post)
+  contracts=Contract.where(post: @post)
+  contracts.each do |contract|
+    orders=Order.where(contract: contract)
+    orders.each do |order|
+      order.delete
+    end
+    contract.delete
+  end
   @post.destroy
   respond_to do |format|
     format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }

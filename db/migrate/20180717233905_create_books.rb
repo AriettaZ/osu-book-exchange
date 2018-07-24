@@ -1,8 +1,8 @@
 class CreateBooks < ActiveRecord::Migration[5.2]
   def change
     create_table :books do |t|
-      t.text :ISBN_10
-      t.text :ISBN_13
+      t.text :isbn10
+      t.text :isbn13
       t.text :edition
       t.text :title
       t.text :cover_image

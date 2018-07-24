@@ -12,7 +12,6 @@ class Post < ApplicationRecord
   enum payment_method: {inperson: 0, online: 1}
   enum status: {draft: 0, active: 1, pending: 2, closed: 3}
   enum condition: {"New": 0, "Used - Like New": 1, "Used - Very Good": 2, "Used - Good":3,"Used - Acceptable":4,"Unacceptable":5}
-
   searchable do
     text :condition
     text :description
@@ -23,4 +22,5 @@ class Post < ApplicationRecord
 
     integer :price
   end
+  validates :price, numericality: { less_than: 10000 }
 end

@@ -230,14 +230,14 @@ image_data= File.open(File.join(Rails.root, "/app/assets/images/6631528842598_.p
   if index < 5
     Bookmark.create!(
       user_id: User.find_by(name: "Channing Jacobs").id,
-      post_id: Post.first.id,
+      post_id: Post.find(index+1).id,
       favorite: true
     )
   else
-    # Bookmark.create!(
-    #   user_id: User.find_by(name: Channing Jacobs),
-    #   post_id: Post.first,
-    #   favorite: false
-    # )
+    Bookmark.create!(
+      user_id: User.find_by(email:"zhu.1444@osu.edu").id,
+      post_id: Post.find(index+1).id,
+      favorite: false
+    )
   end
 }
