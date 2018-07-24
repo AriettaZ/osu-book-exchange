@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  # main page link routes
+  root to: "pages#home"
+  get 'about', to: 'pages#about'
+  get 'about-magic', to: 'pages#aboutme'
+  get 'contact_us', to: 'pages#contact_us'
+  post 'contact_us', to: 'contact_us#contact_us'
   # user dashboard pages (and messaging center)
   get 'dashboard/main'
   get 'dashboard/myorder'
@@ -26,12 +32,6 @@ Rails.application.routes.draw do
   get 'post/:id/edit_offer', to: 'posts#edit_offer', as: 'post_edit_offer'
   get 'post/:id/edit_request', to: 'posts#edit_request', as: 'post_edit_request'
   get 'posts/admin_index', to: 'posts#admin_index', as: 'posts_admin_index'
-  # main page link routes
-  root to: "pages#home"
-  get 'about', to: 'pages#about'
-  get 'about-magic', to: 'pages#aboutme'
-  get 'contact_us', to: 'pages#contact_us'
-  post 'contact_us', to: 'contact_us#contact_us'
   # search routes for finding book exchange listings
   get 'search-book', to: 'books#search'
   get 'search', to: 'search#search'
