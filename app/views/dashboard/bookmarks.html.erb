@@ -8,7 +8,7 @@
 <% else %>
 <table>
   <tr>
-    <th style="padding:30px"> Favorite </th>
+    <!-- <th style="padding:30px"> Favorite </th> -->
     <th style="padding:30px"> Book Image </th>
     <th style="padding:30px"> Book Title </th>
     <th style="padding:30px"> ISBN </th>
@@ -20,13 +20,13 @@
   </tr>
   <% @bookmarks.each do |bookmark|%>
   <tr>
-    <td>
+    <!-- <td>
       <% if bookmark.favorite %>
-        <i class="fas fa-star" style="color:gold;font-size:36px"></i>
+        <i class="fas fa-star" style="color:gold;font-size:36px">1</i>
       <% else %>
         <i class="far fa-star" style="color:gold;font-size:36px"></i>
       <% end %>
-    </td>
+    </td> -->
     <td style="padding:30px"><%= link_to (image_tag bookmark.post.book.cover_image unless bookmark.post.book.cover_image.nil?), bookmark.post  %></td>
     <td style="padding:30px"><%= bookmark.post.book.title%></td>
     <td style="padding:30px">
@@ -42,18 +42,15 @@
     <td style="padding:30px"> <%=bookmark.post.condition%> </td>
     <td style="padding:30px"> <%=bookmark.post.status%> </td>
     <td style="padding:30px"> <%=bookmark.post.updated_at.strftime("%Y-%m-%d")%> </td>
-    <td style="padding:30px"> <%= button_to "Remove Bookmark", bookmarks_path + "/#{bookmark.post.id}", method: :delete %> </td>
+    <td style="padding:30px"> <%= button_to "Remove Bookmark", bookmarks_path + "/#{bookmark.post.id}", method: :delete, remote: true %> </td>
   <% end %>
 </table>
 <% end %>
 
 <!-- <script>
   $(document).ready(function(){
-    $(".fas").click(function(){
-
-    });
-    $(".far").click(function(){
-
+    $(".fas, .far").click(function(){
+      $(this).toggleClass("fas").toggleClass("far");
     });
   });
 </script> -->

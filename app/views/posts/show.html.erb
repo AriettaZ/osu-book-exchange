@@ -1,4 +1,12 @@
-<p id="notice"><%= notice %></p>
+<!-- <p id="notice"><%= notice %></p> -->
+<% flash.each do |message_type, message| %>
+  <% if message == "Bookmark Created"%>
+    <div class="alert alert-success" role="alert"><%= message %></div>
+  <% end %>
+  <% if message == "Already Bookmarked"%>
+    <div class="alert alert-warning" role="alert"><%= message %></div>
+  <% end %>
+<% end %>
 <%= image_tag @post.book.cover_image unless @post.book.nil? %>
 <div>Book: <%= @post.book.title unless @post.book.nil? %></div>
 <div>Post Date: <%= distance_of_time_in_words(@post.created_at, Time.now) %> ago</div>
