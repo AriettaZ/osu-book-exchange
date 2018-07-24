@@ -27,5 +27,4 @@ $(document).ready(function(){
   $(".actual_product_image").each(function(){
     $(this).on('load', $(this).parent().attr("data-lightbox", "roadtrip"));
   })
-  });
 })
