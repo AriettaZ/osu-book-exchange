@@ -5,7 +5,7 @@
 <table id="contract_index_table" class="display">
   <thead>
     <tr>
-      <th>Contract#</th>
+      <th>Contract</th>
       <th>Book</th>
       <th>Meeting time</th>
       <!-- <th>Meeting address</th> -->
@@ -29,7 +29,7 @@
         <td><%= contract.meeting_time.strftime("%Y-%m-%d %H:%M") %></td>
         <!-- <td><%= contract.meeting_address_first %><br/> <%= contract.meeting_address_second %></td> -->
         <td><%= contract.final_payment_method %></td>
-        <!-- <td> $<%= contract.final_price %></td> -->
+        <!-- <td> <%= number_to_currency(contract.final_price) %></td> -->
         <td><%= contract.expiration_time.strftime("%Y-%m-%d %H:%M") %></td>
         <td><%= User.find(contract.seller_id).name %></td>
         <td><%= User.find(contract.buyer_id).name %></td>
@@ -38,8 +38,8 @@
             for <%= User.find(contract.unsigned_user_id).name %>
           <% end %>
         </td>
-        <td><%= link_to 'Show', contract %></td>
-        <td><%= link_to 'Edit', edit_contract_path(contract, admin: true) %></td>
+        <td><%= link_to 'Show', contract_path(contract.id, showFrom: "contract_index") %></td>
+        <td><%= link_to 'Edit', edit_contract_path(contract, admin: true, editFrom: "index") %></td>
         <td><%= link_to 'Destroy', contract, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
