@@ -9,7 +9,7 @@ class MagicMailer < ApplicationMailer
     @contract = contract
     @signed_user = signed_user
     @unsigned_user = unsigned_user
-    mail to: @signed_user.email, subject: "OSU Textbook Exchange -- New Contract Created"
+    mail to: @signed_user.email, subject: "OSU Book Exchange -- New Contract Created"
   end
 
   # Send an email to the user that needs to confirm/decline a contract.
@@ -18,7 +18,7 @@ class MagicMailer < ApplicationMailer
     @signed_user = signed_user
     @unsigned_user = unsigned_user
 
-    mail to: @unsigned_user.email, subject: "OSU Textbook Exchange -- New Contract to Sign"
+    mail to: @unsigned_user.email, subject: "OSU Book Exchange -- New Contract to Sign"
   end
 
   def contractDeclined(contract, user, declinedBy)
@@ -26,7 +26,7 @@ class MagicMailer < ApplicationMailer
     @user = user
     @declinedBy = declinedBy
 
-    mail to: @user.email, subject: "OSU Textbook Exchange -- Contract##{@contract.id} Declined"
+    mail to: @user.email, subject: "OSU Book Exchange -- Contract##{@contract.id} Declined"
   end
 
   # Send an email to the users if a new order is placed.
@@ -34,7 +34,7 @@ class MagicMailer < ApplicationMailer
     @order = order
     @user = user
 
-    mail to: @user.email, subject: "OSU Textbook Exchange -- New Order##{@order.id} Placed"
+    mail to: @user.email, subject: "OSU Book Exchange -- New Order##{@order.id} Placed"
   end
 
   # Send an email to users if the order is activated.
@@ -42,7 +42,7 @@ class MagicMailer < ApplicationMailer
     @order = order
     @user = user
 
-    mail to: @user.email, subject: "OSU Textbook Exchange -- Order##{@order.id} Activated"
+    mail to: @user.email, subject: "OSU Book Exchange -- Order##{@order.id} Activated"
   end
 
   # Send an email to magic team if the user reports a problem.
@@ -50,15 +50,15 @@ class MagicMailer < ApplicationMailer
     @order = order
     @user = user
 
-    mail to: "osu.magic.team@gmail.com", subject: "Problematic Order -- OSU Textbook Exchange"
+    mail to: "osu.magic.team@gmail.com", subject: "Problematic Order -- OSU Book Exchange"
   end
 
-  # Send an email to users if the order is closed.
-  def orderClosed(order, user)
+  # Send an email to users if the order is completed.
+  def orderCompleted(order, user)
     @order = order
     @user = user
 
-    mail to: @user.email, subject: "OSU Textbook Exchange -- Order##{@order.id} is Completed"
+    mail to: @user.email, subject: "OSU Book Exchange -- Order##{@order.id} is Completed"
   end
 
   # Send an email to users if the order is canceled.
@@ -66,7 +66,7 @@ class MagicMailer < ApplicationMailer
     @order = order
     @user = user
 
-    mail to: @user.email, subject: "OSU Textbook Exchange -- Order##{@order.id} Canceled"
+    mail to: @user.email, subject: "OSU Book Exchange -- Order##{@order.id} Canceled"
   end
 
   # Send an email to users if the order is canceled.
@@ -74,13 +74,13 @@ class MagicMailer < ApplicationMailer
     @message = user
     @user = user
 
-    mail to: "osu.magic.team@gmail.com", subject: "User Contacts Us -- OSU Textbook Exchange"
+    mail to: "osu.magic.team@gmail.com", subject: "User Contacts Us -- OSU Book Exchange"
   end
 
   # Send an email to the message receiver
   def newMessage(message)
     @message = message
-    
+
     mail to: "to@example.org"
   end
 end

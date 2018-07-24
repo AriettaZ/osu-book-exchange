@@ -42,11 +42,11 @@ class MagicMailerPreview < ActionMailer::Preview
     MagicMailer.problematicOrder(order, user)
   end
 
-  # Preview this email at http://localhost:3000/rails/mailers/magic_mailer/orderClosed.html
-  def orderClosed
+  # Preview this email at http://localhost:3000/rails/mailers/magic_mailer/orderCompleted.html
+  def orderCompleted
     order = Order.last
     user = User.find(Contract.find(order.contract_id).buyer_id)
-    MagicMailer.orderClosed(order, user)
+    MagicMailer.orderCompleted(order, user)
   end
 
   # Preview this email at http://localhost:3000/rails/mailers/magic_mailer/orderCanceled.html

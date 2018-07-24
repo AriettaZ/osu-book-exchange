@@ -9,6 +9,7 @@
 <% else %>
 <% post = Post.find(contract.post_id)%>
 <% book = Book.find(post.book_id)%>
+
 <div class="showOrder">
 
 <div class="row">
@@ -22,7 +23,7 @@
   <%= User.find(contract.seller_id).name %>
   </div>
 
-  <div class="col">
+  <div class="col-3">
   <strong>Buyer:</strong>
   <%= User.find(contract.buyer_id).name %>
   </div>
@@ -101,25 +102,31 @@
       <strong>Status:</strong>
       <%= order.status.humanize %>
     </p>
+  </div>
+
+  <div class="col col-3">
+    <div class="btn-group-vertical center-btn">
     <% if current_user.id == contract.buyer_id %>
       <% if order.status == "active" || order.status == "problematic" %>
-        <%= link_to "Cancel the Order", order_path(order, order: {status: :canceled}), :method => :put, data: { confirm: 'Are you sure to cancel this order?' } %> ｜
-        <%= link_to "Order Completed", order_path(order, order: {status: :closed}), :method => :put, data: { confirm: 'Are you sure?' } %> ｜
+        <%= link_to "Cancel the Order", order_path(order, order: {status: :canceled}), :method => :put, data: { confirm: 'Are you sure to cancel this order?'}, class: "btn btn-default" %>
+        <%= link_to "Order Completed", order_path(order, order: {status: :completed}), :method => :put, data: { confirm: 'Are you sure?' }, class: "btn btn-default" %>
       <% end %>
     <% end %>
 
     <!-- The seller/buyer can report problems at any time. -->
     <% if current_user.id == contract.buyer_id || current_user.id == contract.seller_id %>
-        <%= link_to "Report Problems", order_path(order, order: {status: :problematic}), :method => :put, data: { confirm: 'Are you sure?' } %> ｜
+        <%= link_to "Report Problems", order_path(order, order: {status: :problematic}), :method => :put, data: { confirm: 'Are you sure?' }, class: "btn btn-default" %>
     <% end %>
 
     <!-- Admin can edit the order. -->
     <% if current_user.has_roles?(:site_admin)%>
-     <%= link_to 'Edit', edit_order_path(order) %>
+     <%= link_to 'Edit', edit_order_path(order), class: "btn btn-default" %>
     <% end %>
+  </div>
   </div>
 </div>
 
 
 <% end %>
+</div>
 </div>
