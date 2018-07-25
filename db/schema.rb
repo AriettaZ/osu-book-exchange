@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_23_030007) do
+ActiveRecord::Schema.define(version: 2018_07_25_030547) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.boolean "favorite"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2018_07_23_030007) do
   create_table "books", force: :cascade do |t|
     t.text "ISBN_10"
     t.text "ISBN_13"
-    t.text "edition"
+    t.integer "edition", default: 1
     t.text "title"
     t.text "cover_image"
     t.decimal "amazon_price"
@@ -33,6 +33,11 @@ ActiveRecord::Schema.define(version: 2018_07_23_030007) do
     t.datetime "updated_at", null: false
     t.text "self_link"
     t.decimal "list_price"
+    t.text "description"
+    t.text "publisher"
+    t.text "subtitle"
+    t.text "author"
+    t.date "publication_date"
   end
 
   create_table "contracts", force: :cascade do |t|

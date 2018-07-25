@@ -24,9 +24,7 @@ class Post < ApplicationRecord
   end
   validates :book, presence: true
   validates :post_type, presence: true
-  validates :course_number, presence: true
   validates :price, presence: true
   validates :condition, presence: true
-  validates :description, presence: true
   validates :price, numericality: { less_than: 10000 }
 end
