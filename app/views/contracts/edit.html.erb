@@ -2,9 +2,7 @@
 
 <%= render 'newContract', contract: @contract, createdby: @createdby, editFrom: @editFrom %>
 
-<!-- <%= link_to 'Show', @contract %> | -->
-
-<!-- <%= link_to 'Back', url_for(:back) %> -->
+<br/>
 <% if @editFrom == "index"%>
   <%= link_to 'Back', contracts_path %>
 <% elsif @editFrom == "profile"%>

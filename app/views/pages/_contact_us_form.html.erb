@@ -1,4 +1,5 @@
 <%= form_for(contact_us_path, :method=>"post") do %>
 	<%= text_area_tag :content, nil, placeholder: "" %>
+	<br/>
 	<%= submit_tag "Submit" %>
 <% end %>

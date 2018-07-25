@@ -120,6 +120,10 @@ nav.navbar{
 .footer a{
   color:$magic-white;
 }
+.footer a:hover{
+  color: $magic-orange;
+}
+
 body a{
   color: $magic-orange;
   text-decoration: none;
@@ -171,6 +175,7 @@ span.text{
   margin-top: 5em;
   clear: both;
 }
+
 #search_book_by_title{
   z-index: 1000;
 }
