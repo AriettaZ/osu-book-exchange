@@ -100,6 +100,8 @@ form.new_user{
 }
 
 nav.navbar{
+  border-color: $magic-purple;
+  border-radius: 0;
   width: 100%;
   background-color: $magic-purple;
   color:$magic-white;
@@ -165,14 +167,15 @@ span.text{
 .footer{
   bottom:0px;
   left:0px;
-  right:0px;
-  position: relative;
+  width: 100%;
+  position: fixed;
   background: $magic-purple;
   text-align: center;
   height:6em;
   line-height: 6em;
-  margin-top: 5em;
-  clear: both;
+  // margin-top: 5em;
+  // clear: both;
+  z-index: 10000;
 }
 
 #search_book_by_title{

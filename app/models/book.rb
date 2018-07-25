@@ -9,4 +9,5 @@ class Book < ApplicationRecord
   	text :ISBN_13
   	text :ISBN_10
   end
+  validates_presence_of :title
 end

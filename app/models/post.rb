@@ -1,3 +1,4 @@
+# Channing 7/25 added new validates and removed extra validates
 class Post < ApplicationRecord
   belongs_to :book
   accepts_nested_attributes_for :book
@@ -22,9 +23,9 @@ class Post < ApplicationRecord
 
     integer :price
   end
-  validates :book, presence: true
-  validates :post_type, presence: true
-  validates :price, presence: true
-  validates :condition, presence: true
-  validates :price, numericality: { less_than: 10000 }
+  validates :price, numericality: { less_than_or_equal_to: 10000, greater_than_or_equal_to: 0 }
+  validates_presence_of :condition
+  validates_presence_of :post_type
+  validates_presence_of :payment_method
+  validates_presence_of :status
 end

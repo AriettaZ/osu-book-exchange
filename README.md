@@ -28,3 +28,10 @@ rails db:migrate
 rails db:setup
 ##### Run server
 rails server
+
+
+##### Testing
+RAILS_ENV=test bundle exec rake sunspot:solr:run
+Run the above command before running a test cases. All other
+sunspot:solr processes must be killed or the database will be
+locked.
