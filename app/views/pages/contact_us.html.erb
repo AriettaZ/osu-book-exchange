@@ -3,4 +3,6 @@
 
 <% unless current_user.is_a? GuestUser %>
 <p>As a valuable customer, you can also contact us through <%= link_to "Online Chat", profile_messages_path(talk_to: 13, post_id: 1) %>.</p>
+<% else %>
+<p>If you <%= link_to :login, new_user_session_path %>, you can contact us through Online Chat.</p>
 <% end %>
