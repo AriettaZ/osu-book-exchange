@@ -4,7 +4,7 @@ Edit: 7/24 Gail changed hide/show to Ajax
 Description: Show all contracts that the current user has. -->
 
 <h1>My Contracts</h1>
-<p><strong>Total: </strong><%= @contracts.length %></p>
+<p>You have <strong><%= @contracts.length %></strong> contract<%= "s" if @contracts.length>1 %>.</p>
 
 <div id="contract-btn-container" class="btn-group btn-group-toggle d-flex" data-toggle="buttons">
   <button id="u-contract" class="btn btn-default w-100 active" style="padding:10px">Unsigned Contracts</button>

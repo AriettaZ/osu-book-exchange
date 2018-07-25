@@ -120,6 +120,10 @@ nav.navbar{
 .footer a{
   color:$magic-white;
 }
+
+.footer a:hover{
+  color:$magic-orange;
+}
 body a{
   color: $magic-orange;
   text-decoration: none;
