@@ -9,11 +9,11 @@
 </p>
 
 <br>
-<div id="off-btn-container" style="text-align:center">
-  <button id="oa-btn" style="padding:30px">See Active Offers</button>
-  <button id="op-btn" style="padding:30px">See Pending Offers</button>
-  <button id="oc-btn" style="padding:30px">See Closed Offers</button>
-  <button id="od-btn" style="padding:30px">See Draft Offers</button>
+<div id="off-btn-container" class="btn-group btn-group-toggle d-flex" role="group" aria-label="Offer Buttons" data-toggle="buttons">
+  <button id="oa-btn"class="btn btn-default w-100 active" style="padding:10px">Active Offers</button>
+  <button id="op-btn" class="btn btn-default w-100" style="padding:10px">Pending Offers</button>
+  <button id="oc-btn" class="btn btn-default w-100" style="padding:10px">Closed Offers</button>
+  <button id="od-btn" class="btn btn-default w-100" style="padding:10px">Draft Offers</button>
 </div>
 <br>
 
@@ -32,6 +32,9 @@ $("document").ready(function(){
     $.ajax(call_obj).done(function(data){
       $("#main-content-off").html(data);
     });
+    // Change button status
+    $(this).addClass( "active" )
+    $("#off-btn-container button").not(this).removeClass( "active" )
   });
   $("#op-btn").click(function(){
     call_obj.url = "ajax/p_offer"
@@ -39,6 +42,9 @@ $("document").ready(function(){
     $.ajax(call_obj).done(function(data){
       $("#main-content-off").html(data);
     });
+    // Change button status
+    $(this).addClass( "active" )
+    $("#off-btn-container button").not(this).removeClass( "active" )
   });
   $("#oc-btn").click(function(){
     call_obj.url = "ajax/c_offer"
@@ -46,6 +52,9 @@ $("document").ready(function(){
     $.ajax(call_obj).done(function(data){
       $("#main-content-off").html(data);
     });
+    // Change button status
+    $(this).addClass( "active" )
+    $("#off-btn-container button").not(this).removeClass( "active" )
   });
   $("#od-btn").click(function(){
     call_obj.url = "ajax/d_offer"
@@ -53,6 +62,9 @@ $("document").ready(function(){
     $.ajax(call_obj).done(function(data){
       $("#main-content-off").html(data);
     });
+    // Change button status
+    $(this).addClass( "active" )
+    $("#off-btn-container button").not(this).removeClass( "active" )
   });
 
 });
@@ -61,5 +73,7 @@ $("document").ready(function(){
 
 
 <div id="main-content-off">
-<!-- AJAX will fill this with the correct table -->
+  <!-- Initially loaded partial. -->
+  <%=render partial: "ajax_pages/offer", locals: {type: "active", table_name: "a-off-table"}%>
+  <!-- AJAX will fill this with the correct table -->
 </div>
