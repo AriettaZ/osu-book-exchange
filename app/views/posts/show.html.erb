@@ -24,7 +24,7 @@
 <div>condition: <%= @post.condition %></div>
 <div>Description: <%= @post.description %></div>
 
-<% if @images %>
+<% if @images.length>0 %>
 <h2>Actual Product Pictures</h2>
 
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -66,7 +66,7 @@
 <% else %>
   <% if current_user.id!=@post.user_id %>
     <% if (@post.status == "active"|| @post.status == "pending")%>
-      <%= link_to 'Contact Seller',  new_message_path(post_id: @post.id), class:['btn','btn-outline-primary'], role:['button']  %>
+      <%= link_to 'Contact Seller',  new_message_path(post_id: @post.id, talk_to: @post.user_id), class:['btn','btn-outline-primary'], role:['button']  %>
     <% end %>
     <% if @post.status == "active" && current_user.id!=@post.user_id %>
       <%= link_to 'Start a Contract', new_contract_path(post_id: @post.id, sender_id: current_user.id, receiver_id: @post.user_id), class:['btn','btn-outline-primary'], role:['button'] %>
@@ -86,8 +86,3 @@
 <%= link_to 'Back', posts_path,  class:['btn','btn-outline-primary'], role:['button']  %>
 </div>
 <hr>
-<script>
- $(".actual_product_image").each(function(){
-        $(this).on('load', $(this).parent().attr("data-lightbox", "roadtrip"));
-      })
-</script>

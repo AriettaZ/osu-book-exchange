@@ -1,20 +1,20 @@
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 
-<form class="form-signin">
+<div class="form-signin">
   <!-- <%= image_tag image_url('6631528842598_.pic.jpg') %> -->
-  <img class="mb-4" src="<%= image_url('6631528842598_.pic.jpg')%>" alt="" width="72" height="72">
-  <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+  <img class="mb-4" src="<%= image_url('/6631528842598_.pic.jpg')%>" alt="" width="72" height="72">
+  <h1 class="h2 mb-3 font-weight-normal">Please Login</h1>
   <label for="user_email" class="sr-only">Email address</label>
-  <input type="email" id="user_email" name="user[email]" class="form-control" placeholder="Email address" required autofocus>
+  <input type="email" id="user_email" name="user[email]" class="form-control login-form" placeholder="Email address" required autofocus>
   <label for="user_password" class="sr-only">Password</label>
-  <input type="password" id="user_password" name="user[password]" class="form-control" placeholder="Password" required>
+  <input type="password" id="user_password" name="user[password]" class="form-control login-form " placeholder="Password" required>
   <div class="field">
       <input name="user[remember_me]" type="hidden" value="0">
       <input type="checkbox" value="1" name="user[remember_me]" id="user_remember_me">
       <label for="user_remember_me">Remember me</label>
   </div>
-  <button class="btn btn-lg btn-primary btn-block" name="commit" value="Log in" data-disable-with="Log in" type="submit">Log in</button>
-</form>
+  <button class="btn btn-lg magic-button login-form btn-block" name="commit" value="Log in" data-disable-with="Log in" type="submit">Log in</button>
+</div>
 <% end %>
 
 <%= render "devise/shared/links" %>

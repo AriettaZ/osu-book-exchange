@@ -21,7 +21,11 @@ class MessagesController < ApplicationController
 
   def new
     if !current_user.is_a?(GuestUser)
+      if Message.find_by(sender_id: current_user, receiver_id: params[:talk_to]) then
+        redirect_to profile_messages_path(talk_to: params[:talk_to], post_id: params[:post_id])
+      end
       @message = Message.new
+      @talk_to_name = User.find_by_id(params[:talk_to]).name
       #flash[:success] = params
     else
       flash[:failure] = "You have to sign in to send a message."

@@ -112,12 +112,17 @@ nav.navbar{
 .footer a{
   color:$magic-white;
 }
-a{
-  color: black;
+body a{
+  color: $magic-orange;
   text-decoration: none;
 }
-a:hover{
-  color: $magic-orange;
+body a:hover{
+  color: $magic-purple;
+  text-decoration: none;
+}
+body nav.navbar a.nav-link:hover, body nav.navbar .navbar-nav > li > a.nav-link:hover{
+color: $magic-orange;
+weight:bold;
 }
 .navbar-collapse.collapse#navbarSupportedContent{
   display: inline-block !important;
@@ -131,9 +136,6 @@ a:hover{
   margin: 10px;
 }
 
-footer{
-  clear:both;
-  }
 span.text{
   float:none;
 }
@@ -156,7 +158,6 @@ span.text{
   text-align: center;
   height:6em;
   line-height: 6em;
-  clear: both;
   margin-top: 5em;
 }
 #search_book_by_title{
@@ -223,6 +224,36 @@ nav .dropdown-menu{
   border-color: $magic-purple !important;
 }
 button:focus {outline:0;}
+.login-form {
+  margin:20px 0px;
+}
+.new_user h1{
+  text-align: center;
+}
+.login_link a{
+  top:4px;
+  left:30%;
+  text-align: center;
+  position: relative;
+  margin: 20px 0px;
+}
+.magic-button.login-form{
+  margin:10px 0px;
+}
+#search_book_by_isbn_button{
+  padding: 8px 12px;
+  background-color:$magic-purple!important;
+}
+.glyphicon.glyphicon-search{
+  color: white;
+}
+.post_form{
+  width:70%;
+  margin:auto;
+  h1{
+    text-align: center;
+  }
+}
 @media only screen and (max-width: 1135px) {
 
 }

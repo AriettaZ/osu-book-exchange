@@ -29,7 +29,7 @@ end
 # GET /posts/new
 def new_offer
   if current_user.is_a?(GuestUser)
-    redirect_to new_user_session_path, notice: 'Please Login First'
+    redirect_to new_user_session_path, notice: 'Please login first to sell a book'
   else
     @post = current_user.posts.build
     # @book = Book.new
@@ -40,7 +40,7 @@ end
 
 def new_request
   if current_user.is_a?(GuestUser)
-    redirect_to new_user_session_path, notice: 'Please Login First'
+    redirect_to new_user_session_path, notice: 'Please login first to request a book'
   else
     @post = current_user.posts.build
     # @book = Book.new
@@ -64,7 +64,6 @@ end
 def create
   puts "post_params"
   puts post_params
-  puts params[:images]
   if post_params[:book]
     @book = Book.where(self_link: post_params[:book]['self_link']).first_or_create
     # puts @book.id
@@ -77,54 +76,104 @@ def create
     response=JSON.parse(response)
     @book['title']=response['volumeInfo']['title']
     if response['volumeInfo']['industryIdentifiers']
-      response['volumeInfo']['industryIdentifiers'].each do |isbn_type|
-        type=isbn_type['type']
-        @book[type]=isbn_type['type']['identifier']
+        response['volumeInfo']['industryIdentifiers'].each do |isbn_type|
+          type=isbn_type['type']
+          @book[type]=isbn_type['identifier']
+        end
+    end
+    if response['volumeInfo']['imageLinks']
+      if response['volumeInfo']['imageLinks']['thumbnail']
+        @book['cover_image']=response['volumeInfo']['imageLinks']['thumbnail']
       end
     end
-    @book['cover_image']=response['volumeInfo']['imageLinks']['thumbnail']
-    if @book.save
-    # @posts.book_id=@book.id
-      @post = current_user.posts.new(post_params.merge({book: @book}))
+      if @book.save
+      # @posts.book_id=@book.id
+        @post = current_user.posts.new(post_params.merge({book: @book}))
 
-      respond_to do |format|
-        if @post.save
-          if params[:images]
-            params[:images]['actual_product_image'].each do |image|
-              @image = @post.images.create!(:actual_product_image => image)
+          respond_to do |format|
+            if @post.save
+                if params[:images]
+                    params[:images]['actual_product_image'].each do |image|
+                      @image = @post.images.create!(:actual_product_image => image)
+                    end
+                end
+                format.html { redirect_to @post, notice: 'Post was successfully created.' }
+                format.json { render :show, status: :created, location: @post }
+            else
+                if post_params['post_type']=='offer'
+                  format.html { render :new_offer }
+                  format.json { render json: @order.errors, status: :unprocessable_entity }
+                else
+                  format.html { render :new_request }
+                  format.json { render json: @order.errors, status: :unprocessable_entity }
+                end
             end
           end
-          format.html { redirect_to @post, notice: 'Post was successfully created.' }
-          format.json { render :show, status: :created, location: @post }
-        else
-          if post_params['post_type']=='offer'
-            redirect_to posts_new_offer_path, notice:"Book Information Invalid"
-          else
-            redirect_to posts_new_request_path, notice:"Book Information Invalid"
-          end
-        end
       end
-    end
   else
-    if post_params['post_type']=="offer"
-      redirect_to posts_new_offer_path, notice:"Book Information Invalid"
-    else
-      redirect_to posts_new_request_path, notice:"Book Information Invalid"
-    end
+      if post_params['post_type']=="offer"
+        redirect_to posts_new_offer_path, notice:"Need Book Information"
+      else
+        redirect_to posts_new_request_path, notice:"Need Book Information"
+      end
   end
 end
 
 # PATCH/PUT /posts/1
 # PATCH/PUT /posts/1.json
 def update
-  respond_to do |format|
-    if @post.update(post_params)
-      format.html { redirect_to @post, notice: 'Post was successfully updated.' }
-      format.json { render :show, status: :ok, location: @post }
-    else
-      format.html { render :edit }
-      format.json { render json: @post.errors, status: :unprocessable_entity }
+  puts "post_params"
+  puts post_params
+  if post_params[:book]
+    @book = Book.where(self_link: post_params[:book]['self_link']).first_or_create
+    # puts @book.id
+    # new_book={}
+    # new_book['self_link']=post_params[:book]['self_link']
+    response = RestClient::Request.execute(
+      method: :get,
+      url: post_params[:book]['self_link'],
+      )
+    response=JSON.parse(response)
+    @book['title']=response['volumeInfo']['title']
+    if response['volumeInfo']['industryIdentifiers']
+        response['volumeInfo']['industryIdentifiers'].each do |isbn_type|
+          type=isbn_type['type']
+          puts type
+          puts isbn_type['identifier']
+          @book[type]=isbn_type['identifier']
+        end
     end
+    @book['cover_image']=response['volumeInfo']['imageLinks']['thumbnail']
+      if @book.save
+      # @posts.book_id=@book.id
+        @post = current_user.posts.new(post_params.merge({book: @book}))
+
+          respond_to do |format|
+            if @post.update(post_params)
+                if params[:images]
+                    params[:images]['actual_product_image'].each do |image|
+                      @image = @post.images.create!(:actual_product_image => image)
+                    end
+                end
+                format.html { redirect_to @post, notice: 'Post was successfully updated.' }
+                format.json { render :show, status: :created, location: @post }
+            else
+                if post_params['post_type']=='offer'
+                  format.html { render :edit_offer }
+                  format.json { render json: @order.errors, status: :unprocessable_entity }
+                else
+                  format.html { render :edit_request }
+                  format.json { render json: @order.errors, status: :unprocessable_entity }
+                end
+            end
+          end
+      end
+  else
+      if post_params['post_type']=="offer"
+        redirect_to posts_new_offer_path, notice:"Need Book Information"
+      else
+        redirect_to posts_new_request_path, notice:"Need Book Information"
+      end
   end
 end
 
