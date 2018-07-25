@@ -113,7 +113,7 @@ class ContractsController < ApplicationController
           MagicMailer.newContract(@contract, signed_user, unsigned_user).deliver_later
           MagicMailer.unsignedContract(@contract, signed_user, unsigned_user).deliver_later
           DeclineExpiredContractJob.set(wait_until: @contract.expiration_time).perform_later(@contract, signed_user, unsigned_user)
-          format.html { redirect_to @contract, notice: 'An contract was successfully created.' }
+          format.html { redirect_to @contract, notice: 'A contract was successfully created.' }
           format.json { render :show, status: :created, location: @contract }
 
         # If contract is confirmed, then post is closed(3) and an email is sent to users.
@@ -125,7 +125,8 @@ class ContractsController < ApplicationController
           @order = Order.create(contract_id: @contract.id)
           MagicMailer.newOrder(@order, User.find(@contract.seller_id)).deliver_later
           MagicMailer.newOrder(@order, User.find(@contract.buyer_id)).deliver_later
-          format.html { redirect_to order_url(@order), notice: 'An order was successfully placed.' }
+          CloseExpiredOrdersJob.set(wait_until: (@contract.meeting_time+3.days)).perform_later(@order)
+          format.html { redirect_to order_url(@order), notice: 'Contract was confirmed and an order was successfully placed.' }
 
         # If contract is declined, then post is active(1) and an email is sent to users.
         elsif @contract.status == "declined"
@@ -161,7 +162,8 @@ class ContractsController < ApplicationController
           @order = Order.create(contract_id: @contract.id)
           MagicMailer.newOrder(@order, User.find(@contract.seller_id)).deliver_later
           MagicMailer.newOrder(@order, User.find(@contract.buyer_id)).deliver_later
-          format.html { redirect_to order_url(@order), notice: 'An order was successfully placed.' }
+          CloseExpiredOrdersJob.set(wait_until: (@contract.meeting_time+3.days)).perform_later(@order)
+          format.html { redirect_to order_url(@order), notice: 'Contract was confirmed and an order was successfully placed.' }
 
         else
           unsigned_user = User.find(@contract.unsigned_user_id)

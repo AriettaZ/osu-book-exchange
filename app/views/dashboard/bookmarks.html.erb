@@ -9,21 +9,21 @@
 <table class="bookmark_table display">
   <thead>
   <tr>
-    <th style="padding:30px"> Favorite </th>
-    <th style="padding:30px"> Book Image </th>
-    <th style="padding:30px"> Book Title </th>
-    <th style="padding:30px"> ISBN </th>
-    <th style="padding:30px"> Price </th>
-    <th style="padding:30px"> Condition </th>
-    <th style="padding:30px"> Status </th>
-    <th style="padding:30px"> Date Posted </th>
-    <th style="padding:30px"> Remove </th>
+    <th class="text-center"> Favorite </th>
+    <th class="text-center"> Book Image </th>
+    <th class="text-center"> Book Title </th>
+    <th class="text-center"> ISBN </th>
+    <th class="text-center"> Price </th>
+    <th class="text-center"> Condition </th>
+    <th class="text-center"> Status </th>
+    <th class="text-center"> Date Posted </th>
+    <th class="text-center"> Remove </th>
   </tr>
 </thead>
 <tbody>
   <% @bookmarks.each do |bookmark|%>
   <tr>
-    <td>
+    <td class="text-center">
       <% if bookmark.favorite %>
         <%= link_to bookmarks_path + "/#{bookmark.id}", method: :put, remote: true do %>
           <i class="fas fa-star" style="color:gold;font-size:36px"></i>
@@ -35,9 +35,9 @@
       <% end %>
       <p class="bookmark-id" style="display:none"><%=bookmark.id%></p>
     </td>
-    <td style="padding:30px"><%= link_to (image_tag bookmark.post.book.cover_image unless bookmark.post.book.cover_image.nil?), bookmark.post  %></td>
-    <td style="padding:30px"><%= bookmark.post.book.title%></td>
-    <td style="padding:30px">
+    <td class="text-center"><%= link_to (image_tag bookmark.post.book.cover_image unless bookmark.post.book.cover_image.nil?), bookmark.post  %></td>
+    <td class="text-center"><%= bookmark.post.book.title%></td>
+    <td class="text-center">
       <%if !bookmark.post.book.ISBN_10.nil?%>
         <%= bookmark.post.book.ISBN_10.to_s %>
       <% elsif !bookmark.post.book.ISBN_13.nil?%>
@@ -46,11 +46,11 @@
         <%= "No known ISBN" %>
       <% end %>
     </td>
-    <td style="padding:30px"> <%="$ " + bookmark.post.price.to_s%> </td>
-    <td style="padding:30px"> <%=bookmark.post.condition%> </td>
-    <td style="padding:30px"> <%=bookmark.post.status%> </td>
-    <td style="padding:30px"> <%=bookmark.post.updated_at.strftime("%Y-%m-%d")%> </td>
-    <td style="padding:30px"> <%= button_to "Remove Bookmark", bookmarks_path + "/#{bookmark.post.id}", method: :delete, remote: true %> </td>
+    <td class="text-center"> <%="$ " + bookmark.post.price.to_s%> </td>
+    <td class="text-center"> <%=bookmark.post.condition%> </td>
+    <td class="text-center"> <%=bookmark.post.status%> </td>
+    <td class="text-center"> <%=bookmark.post.updated_at.strftime("%Y-%m-%d")%> </td>
+    <td class="text-center"> <%= button_to "Remove Bookmark", bookmarks_path + "/#{bookmark.post.id}", method: :delete, remote: true %> </td>
   <% end %>
 </tbody>
 </table>

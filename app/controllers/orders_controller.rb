@@ -28,7 +28,9 @@ class OrdersController < ApplicationController
   # GET /orders/new
   def new
     @order = Order.new
-    @order.contract_id = params[:contract_id]
+    if @createdby == "user"
+      @order.contract_id = params[:contract_id]
+    end
   end
 
   # GET /orders/1/edit
@@ -42,9 +44,12 @@ class OrdersController < ApplicationController
     respond_to do |format|
       if @order.save
         contract = Contract.find(@order.contract_id)
+        contract.status = 1
+        contract.save
         MagicMailer.newOrder(@order, User.find(contract.seller_id)).deliver_later
         MagicMailer.newOrder(@order, User.find(contract.buyer_id)).deliver_later
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
+        CloseExpiredOrdersJob.set(wait_until: (contract.meeting_time+3.days)).perform_later(@order)
+        format.html { redirect_to @order, notice: 'The contract was confirmed and an order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new }
@@ -75,7 +80,7 @@ class OrdersController < ApplicationController
           post.save
           MagicMailer.problematicOrder(@order, current_user).deliver_later
           # format.html { redirect_to profile_messages_url(talk_to: 13, post_id: 0) }
-          format.html { redirect_to contact_us_url, notice: 'The MAG¡C team will contact you within 3 work days.' }
+          format.html { redirect_to contact_us_url, notice: 'The MAG¡C team will contact you within 3 workdays.' }
 
         # If order is completed, then post is closed(3) and an email is sent to users.
         elsif @order.status == "completed"
