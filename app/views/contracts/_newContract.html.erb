@@ -40,7 +40,11 @@
   <br />
   <div class="field">
     <%= form.label :final_payment_method %>
-    <%= form.select :final_payment_method, Contract.final_payment_methods.keys.to_a %>
+    <!-- <input type="text"  name="post[post_type]" id="post_post_type" class="form-control" placeholder="Price" value="offer" readonly/> -->
+
+    <%= form.select :final_payment_method, Contract.final_payment_methods.keys.to_a, {}, {:disabled => true} %>
+
+  	<%= form.hidden_field :final_payment_method, {value: 'inperson'}  %>
   </div>
 
   <br />
@@ -65,11 +69,20 @@
       </div>
 
 
-    <div class="field col" id="buyer"></div>
+    <div class="field col" id="buyer">
+        <%= label_tag "Buyer ID" %>
+        <%= form.collection_select :seller_id, User.where(id: 0), :id, :id, prompt: "--select--" %>
+    </div>
 
-    <div class="field col" id="seller"></div>
+    <div class="field col" id="seller">
+      <%= label_tag "Seller ID" %>
+      <%= form.collection_select :seller_id, User.where(id: 0), :id, :id, prompt: "--select--" %>
+    </div>
 
-    <div class="field col" id="unsigned"></div>
+    <div class="field col" id="unsigned">
+        <%= label_tag "Unsigned User ID" %>
+        <%= form.collection_select :seller_id, User.where(id: 0), :id, :id, prompt: "--select--" %>
+    </div>
 
     </div>
     <br />
