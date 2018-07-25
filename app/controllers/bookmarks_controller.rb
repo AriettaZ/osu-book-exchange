@@ -18,4 +18,12 @@ class BookmarksController < ApplicationController
     flash[:success] = "Bookmark Destroyed"
     redirect_to profile_bookmarks_url
   end
+
+  def edit
+    bookmark = Bookmark.where(user_id: current_user.id, id: params[:bookmark_id]).first
+    bookmark.favorite = !bookmark.favorite
+    bookmark.save
+    render profile_bookmarks_path
+  end
+
 end

@@ -169,5 +169,22 @@ class DashboardController < ApplicationController
 
   def bookmarks
     @bookmarks = current_user.bookmarks
+
+    # sorting is handled by jquery table plugin
+    # code left in case of plugin removal
+    # fav_arr = []
+    # unfav_arr = []
+    # @bookmarks.each do |bookmark|
+    #   if bookmark.favorite
+    #     fav_arr.append bookmark
+    #   else
+    #     unfav_arr.append bookmark
+    #   end
+    # end
+    #     fav_arr.sort_by! {|bm| bm.updated_at}
+    #     fav_arr.reverse!
+    #     unfav_arr.sort_by! {|bm| bm.updated_at}
+    #     unfav_arr.reverse!
+    #     @bookmarks  = fav_arr + unfav_arr
   end
 end
