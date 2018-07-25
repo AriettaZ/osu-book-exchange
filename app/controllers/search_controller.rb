@@ -2,21 +2,21 @@ class SearchController < ApplicationController
 
 	def search
 
-	if params[:low_price].length>15 || params[:low_price].to_i <0 || params[:low_price].to_i > 10000 then
-	  	flash[:notice] = "Filter price must be in range $0 - $10,000"
-	  	redirect_to search_path(search_for: params[:search_for], offer_request: params[:offer_request], edition: params[:edition], condition: params[:condition], low_price: 0, high_price: params[:high_price])
-	  	return
-	 elsif params[:high_price].length>15 || params[:high_price].to_i < 0 || params[:high_price].to_i > 10000 then
-	  	flash[:notice] = "Filter price must be in range $0 - $10,000"
-	  	redirect_to search_path(search_for: params[:search_for], offer_request: params[:offer_request], edition: params[:edition], condition: params[:condition], low_price: params[:low_price], high_price: 10000)
-	  	return
-	 end
+		if params[:low_price].length>15 || params[:low_price].to_i <0 || params[:low_price].to_i > 10000 then
+		  	flash[:notice] = "Filter price must be in range $0 - $10,000"
+		  	redirect_to search_path(search_for: params[:search_for], offer_request: params[:offer_request], edition: params[:edition], condition: params[:condition], low_price: 0, high_price: params[:high_price])
+		  	return
+		 elsif params[:high_price].length>15 || params[:high_price].to_i < 0 || params[:high_price].to_i > 10000 then
+		  	flash[:notice] = "Filter price must be in range $0 - $10,000"
+		  	redirect_to search_path(search_for: params[:search_for], offer_request: params[:offer_request], edition: params[:edition], condition: params[:condition], low_price: params[:low_price], high_price: 10000)
+		  	return
+		 end
 
-	  books = book_search
-	  post_refine_search books.results
-	  if params[:edition]!='all' then
-	  	edition_update books.results
-	  end
+		  books = book_search
+		  post_refine_search books.results
+		  if params[:edition]!='all' then
+		  	edition_update books.results
+		  end
 	end
 
 	def book_search
@@ -29,13 +29,6 @@ class SearchController < ApplicationController
 					fields(:ISBN_10, :ISBN_13)
 				end
 			end
-
-			# # Match edition
-			# if edition!="all" then
-			# 	fulltext edition+" th" do
-			# 		fields(:edition)
-			# 	end
-			# end
 		end
 	end
 
@@ -80,7 +73,10 @@ class SearchController < ApplicationController
 	    		end
 	    	end.results.each do
 	      		|post|
-	      		@posts.append(post)
+	      		if post.status != "closed" then
+	      			@posts.append(post)
+	      		end
+
 	      		if params[:condition]=="all" then
 		      		unless @conditions.include? post.condition then
 		      			if post.condition!="Unacceptable"
@@ -142,9 +138,10 @@ class SearchController < ApplicationController
 	    			with(:price).less_than(params[:high_price].to_f+1)
 	    		end
 	    	end.results.each do |post|
-
-	    		unless @editions.include? post.edition then
-		      		@editions.append(post.edition)
+	    		if post.status!= "closed" then
+	    			unless @editions.include? post.edition then
+		      			@editions.append(post.edition)
+		      		end
 		      	end
 	    	end
 	    end
