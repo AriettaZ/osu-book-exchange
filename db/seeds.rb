@@ -79,7 +79,7 @@
   Book.create!(
     ISBN_10: "#{index + 1}",
     ISBN_13: "#{987654321 - index}",
-    edition: "#{index}",
+    # edition: "#{index}",
     title: "hello #{index*2}",
     subtitle:"hello world#{index*2}",
     description:"hello world#{index*2}",
@@ -165,12 +165,12 @@
 
 5.times { |index|
   Contract.create!(
-    meeting_time: DateTime.new(2018,2,3,4,5),
+    meeting_time: DateTime.new(2018,9,28,4,5),
     meeting_address_first: "address#{index}",
     meeting_address_second: "address#{index+100}",
     final_payment_method: 0,
     final_price: "#{index+200.1}",
-    expiration_time: DateTime.new(2018,2,3,4+index,5),
+    expiration_time: DateTime.new(2018,9,28,4+index,5),
     status: 0,
     seller_id: Post.find(index+1).user_id,
     buyer_id: User.find(index+1).id,
@@ -183,12 +183,12 @@
 
 3.times { |index|
   Contract.create!(
-    meeting_time: DateTime.new(2018,2,3,4,5),
+    meeting_time: DateTime.new(2018,10,23,4,5),
     meeting_address_first: "address#{index}",
     meeting_address_second: "address#{index+100}",
     final_payment_method: 1,
     final_price: "#{index+200.1}",
-    expiration_time: DateTime.new(2018,2,3,4+index,5),
+    expiration_time: DateTime.new(2018,10,13,4+index,5),
     status: 1,
     seller_id: Post.find(index+6).user_id,
     buyer_id: User.find(index+6).id,

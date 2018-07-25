@@ -25,12 +25,18 @@
     <br />
     <div class="field">
       <div class="input-group mb-3">
-        <label for="post_course_number">Course Number</label>
+        <label for="post_course_number">Course Number(Optional field for textbook)</label>
         <textarea class="form-control" rows="1" id="post_course_number" name="post[course_number]"aria-label="Course Number" aria-describedby="Course Number"></textarea>
       </div>
     </div>
 
-    <br />
+    <div class="field">
+      <div class="input-group mb-3">
+        <label for="post_edition">Edition(Optional field for textbook)</label>
+        <input class="form-control" type="number" step="1" rows="1" id="post_edition" name="post[edition]"aria-label="Edition" aria-describedby="Edition"></textarea>
+      </div>
+    </div>
+
     <label for="post_price">Price</label>
     <div class="input-group">
       <span class="input-group-addon">$</span>
@@ -54,13 +60,13 @@
       <label for="post_condition">Payment Method</label>
       <select class="form-control" name="post[payment_method]" id="post_payment_method">
         <option value="inperson">In Person</option>
-        <option value="online">Online</option>
+        <option value="online" disabled>Online</option>
       </select>
     </div>
     <br />
     <div class="field">
       <div class="input-group mb-3">
-        <label for="post_description">Description</label>
+        <label for="post_description">Description (Optional)</label>
         <textarea class="form-control" rows="5" id="post_description" name="post[description]"aria-label="Description" aria-describedby="Description"></textarea>
       </div>
     </div>

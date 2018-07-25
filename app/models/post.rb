@@ -20,6 +20,7 @@ class Post < ApplicationRecord
     text :payment_method
     text :status
     text :book_id
+    integer :edition
 
     integer :price
   end

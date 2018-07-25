@@ -110,8 +110,8 @@ class ContractsController < ApplicationController
           post.status = 2
           post.save
           @contract.save
-          MagicMailer.newContract(@contract, signed_user, unsigned_user).deliver_now
-          MagicMailer.unsignedContract(@contract, signed_user, unsigned_user).deliver_now
+          MagicMailer.newContract(@contract, signed_user, unsigned_user).deliver_later
+          MagicMailer.unsignedContract(@contract, signed_user, unsigned_user).deliver_later
           DeclineExpiredContractJob.set(wait_until: @contract.expiration_time).perform_later(@contract, signed_user, unsigned_user)
           format.html { redirect_to @contract, notice: 'An contract was successfully created.' }
           format.json { render :show, status: :created, location: @contract }

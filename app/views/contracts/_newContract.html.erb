@@ -40,7 +40,9 @@
   <br />
   <div class="field">
     <%= form.label :final_payment_method %>
+
     <%= form.select :final_payment_method, Contract.final_payment_methods.keys.to_a %>
+
   </div>
 
   <br />
@@ -65,11 +67,20 @@
       </div>
 
 
-    <div class="field col" id="buyer"></div>
+    <div class="field col" id="buyer">
+        <%= label_tag "Buyer ID" %>
+        <%= form.collection_select :seller_id, User.where(id: 0), :id, :id, prompt: "--select--" %>
+    </div>
 
-    <div class="field col" id="seller"></div>
+    <div class="field col" id="seller">
+      <%= label_tag "Seller ID" %>
+      <%= form.collection_select :seller_id, User.where(id: 0), :id, :id, prompt: "--select--" %>
+    </div>
 
-    <div class="field col" id="unsigned"></div>
+    <div class="field col" id="unsigned">
+        <%= label_tag "Unsigned User ID" %>
+        <%= form.collection_select :seller_id, User.where(id: 0), :id, :id, prompt: "--select--" %>
+    </div>
 
     </div>
     <br />
@@ -89,6 +100,7 @@
 
 <script>
 $("document").ready(function(){
+  $('option[value="online"]').attr("disabled","disabled");
   $("#contract_post_id").change(function(){
     var post_id = parseInt($("#contract_post_id option:selected").val(), 10);
     $.ajax({

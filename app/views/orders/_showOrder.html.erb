@@ -1,16 +1,18 @@
-
+<div class="showOrder">
 <% contract = Contract.find(order.contract_id)%>
 <% if contract == nil %>
+<div class="row">
   <p>
     <strong>Created At:</strong>
     <%= order.created_at.to_formatted_s(:long) %>
   </p>
   <p>Sorry, the contract is deleted.</p>
+</div>
 <% else %>
 <% post = Post.find(contract.post_id)%>
 <% book = Book.find(post.book_id)%>
 
-<div class="showOrder">
+
 
 <div class="row">
   <div class="col">
@@ -43,7 +45,7 @@
 
     <p>
       <strong>Edition:</strong>
-      <%= book.edition %>
+      <%= post.edition %>
     </p>
 
     <% if !book.ISBN_10.nil? %>
@@ -128,5 +130,4 @@
 
 
 <% end %>
-</div>
 </div>

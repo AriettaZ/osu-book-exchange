@@ -30,28 +30,28 @@ class MagicMailerPreview < ActionMailer::Preview
     MagicMailer.contractExpired(contract, user)
   end
 
-  # Preview this email at http://localhost:3000/rails/mailers/magic_mailer/newOrder.html
+  # Preview this email at http://localhost:3000/rails/mailers/magic_mailer/newOrder
   def newOrder
     order = Order.last
     user = User.find(Contract.find(order.contract_id).buyer_id)
     MagicMailer.newOrder(order, user)
   end
 
-  # Preview this email at http://localhost:3000/rails/mailers/magic_mailer/orderActive.html
+  # Preview this email at http://localhost:3000/rails/mailers/magic_mailer/orderActive
   def orderActive
     order = Order.last
     user = User.find(Contract.find(order.contract_id).buyer_id)
     MagicMailer.orderActive(order, user)
   end
 
-  # Preview this email at http://localhost:3000/rails/mailers/magic_mailer/problematicOrder.html
+  # Preview this email at http://localhost:3000/rails/mailers/magic_mailer/problematicOrder
   def problematicOrder
     order = Order.last
     user = User.find(Contract.find(order.contract_id).buyer_id)
     MagicMailer.problematicOrder(order, user)
   end
 
-  # Preview this email at http://localhost:3000/rails/mailers/magic_mailer/orderCompleted.html
+  # Preview this email at http://localhost:3000/rails/mailers/magic_mailer/orderCompleted
   def orderCompleted
     order = Order.last
     user = User.find(Contract.find(order.contract_id).buyer_id)
