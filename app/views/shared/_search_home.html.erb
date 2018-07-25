@@ -17,7 +17,7 @@
 </script>
 
 <div class="search-query-container">
-	<%= search_field_tag(:query, @search_field || "", :class=>"search-query", :placeholder=>"Find book")  %>
+	<%= search_field_tag(:query, @search_field || "", :class=>"search-query", :placeholder=>"Find book", autocomplete:"off")  %>
 </div>
 	<%= hidden_field_tag :edition, "all" %>
 	<%= hidden_field_tag :condition, "all" %>

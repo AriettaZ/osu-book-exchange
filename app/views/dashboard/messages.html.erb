@@ -2,7 +2,6 @@
 
 <%= link_to "< My Conversations", profile_contacts_path, :class=>"message-actions" %>
 <% if params[:talk_to]!="13" %>
-	<%= link_to "Start a contract", new_contract_path(post_id: params[:post_id], sender_id: current_user.id, receiver_id: params[:talk_to]), :class=>"message-actions" %>
 	<%= link_to "See the post", Post.find_by_id(params[:post_id]), :class=>"message-actions" %>
 <% end %>
 
