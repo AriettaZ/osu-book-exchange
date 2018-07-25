@@ -95,17 +95,16 @@ class DashboardController < ApplicationController
       a.latest_message_time <=> b.latest_message_time
     end
 
-
     @talk_to = User.new
   end
 
   def messages
-
-    if params[:last_msg_time] then
+    @messages = []
+    if params[:last_msg_time] && params[:last_msg_time]!="undefined" then
       append_messages
+      return
     else
       # @messages = Message.where(sender_id: 2, receiver_id: 12)
-      @messages = []
       Message.where(sender_id: current_user.id, receiver_id: params[:talk_to]).find_each do |message|
         @messages.append(message)
       end
@@ -123,18 +122,6 @@ class DashboardController < ApplicationController
   end
 
   def create_message
-    # if !Post.find_by_id(params[:post_id])
-    #   render "messages/new" and return
-    # end
-
-    # For Previous Refresh Use
-    # @message = Message.new(content: params[:message][:content],
-    #                        sender_id: current_user.id,
-    #                        # receiver_id: Post.find(params[:post_id]).user.id
-    #                        post_id: params[:post_id].to_i,
-    #                        receiver_id: params[:talk_to]
-    #           )
-
     @message = Message.new(content: params[:content],
                            sender_id: current_user.id,
                            # receiver_id: Post.find(params[:post_id]).user.id
@@ -145,7 +132,11 @@ class DashboardController < ApplicationController
     if @message.save
       flash[:success] = "Message sent for post id: " + params[:post_id].to_s
       # redirect_to profile_messages_path(talk_to: params[:talk_to], post_id: params[:post_id])
-      append_messages
+      if params[:last_msg_time] && params[:last_msg_time]!="undefined" then
+        append_messages
+      else
+        redirect_to profile_messages_path(talk_to: params[:talk_to], post_id: params[:post_id])
+      end
     else
       # Show saving errors.
       @message.errors.each do |type, text|
@@ -157,22 +148,22 @@ class DashboardController < ApplicationController
   end
 
   def append_messages
-    @appended_messages = []
-    Message.where(created_at: params[:last_msg_time]..Time.now, sender_id: current_user.id, receiver_id: params[:talk_to]).find_each do |message|
-      @appended_messages.append(message)
-    end
+      @appended_messages = []
+      Message.where(created_at: params[:last_msg_time]..Time.now, sender_id: current_user.id, receiver_id: params[:talk_to]).find_each do |message|
+        @appended_messages.append(message)
+      end
 
-    Message.where(created_at: params[:last_msg_time]..Time.now, sender_id: params[:talk_to], receiver_id: current_user.id).find_each do |message|
-      @appended_messages.append(message)
-    end
+      Message.where(created_at: params[:last_msg_time]..Time.now, sender_id: params[:talk_to], receiver_id: current_user.id).find_each do |message|
+        @appended_messages.append(message)
+      end
 
-    @appended_messages.sort_by! do |message|
-      message.created_at
-    end
+      @appended_messages.sort_by! do |message|
+        message.created_at
+      end
 
-    @appended_messages.shift
+      @appended_messages.shift
 
-    render partial: "appended_messages"
+      render partial: "appended_messages"
 
   end
 
