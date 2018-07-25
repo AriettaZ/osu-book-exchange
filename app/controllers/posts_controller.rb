@@ -17,6 +17,8 @@ end
 def show
   # @page_title=@post.title
   @images = @post.images.all
+  @book = @post.book
+  @back_url=session[:my_previous_url]
 end
 
 def new

@@ -7,22 +7,37 @@
     <div class="alert alert-warning" role="alert"><%= message %></div>
   <% end %>
 <% end %>
-<%= image_tag @post.book.cover_image unless @post.book.nil? %>
-<div>Book: <%= @post.book.title unless @post.book.nil? %></div>
-<div>Post Date: <%= distance_of_time_in_words(@post.created_at, Time.now) %> ago</div>
+<div class="book_show">
+<p>
+  <%= image_tag @book.cover_image unless @book.cover_image.nil? %>
+  <h1 class="book_title"><%= @book.title %></h1>
+  <h4 class="book_subtitle"><%= @book.subtitle %></h4>
+  <p class="book_authors"><em><%= if @book.author then "By #{ @book.author }    " end %> </em></p>
+  <p  class="book_publisher"> <%= if @book.publisher then "Published by #{@book.publisher}" end%> </p>
+  <p class="book_isbn_13"><%= if @book.ISBN_13 then "ISBN 13: #{@book.ISBN_13}    " end %></p>
+    <p class="book_isbn_10"><%= if @book.ISBN_10 then "ISBN 10: #{@book.ISBN_10}" end %></p>
+  <p class="book_edition"><%= if @book.publication_date then "Publicated Date: #{@book.publication_date}    " end %><%= if @book.edition then "Edition: #{@book.edition}th" end%></p>
+  <p class="list_price"><%= if @book.list_price then " List Price: $#{@book.list_price}" end %></p>
+</p>
+<p class="book_description"><%= if @book.description then @book.description.html_safe end %></p>
+
+</div>
+
+<div class="user_information" style="clear:both">
 <% if @post.post_type=="offer" %>
-<div>Seller: <%= User.find_by(id: @post.user_id).name %></div>
-  <h2>More Information from Seller</h2>
+<h1>More Information from Seller</h1>
+<p><strong>Seller:</strong> <%= User.find_by(id: @post.user_id).name %></p>
 <% else %>
-<div>Buyer: <%= User.find_by(id: @post.user_id).name %></div>
-  <h2>More Information from Buyer</h2>
+  <h1>More Information from Buyer</h1>
+<p><strong>Buyer:</strong> <%= User.find_by(id: @post.user_id).name %></p>
 <% end %>
-<div>Course: <%= @post.course_number %></div>
-<div>Price: <%= @post.price %></div>
-<div>Type: <%= @post.post_type %></div>
-<div>Payment Method: <%= @post.payment_method %>  <i class="fas fa-exclamation-circle">Learn more about payment method</i></div>
-<div>condition: <%= @post.condition %></div>
-<div>Description: <%= @post.description %></div>
+<p><strong>Post Date:</strong> <%= distance_of_time_in_words(@post.created_at, Time.now) %> ago</p>
+<p><strong>Course:</strong> <%= @post.course_number %></p>
+<p><strong>Price:</strong> <%= @post.price %></p>
+<p><strong>Type:</strong> <%= @post.post_type %></p>
+<p><strong>Payment Method:</strong> <%= @post.payment_method=='inperson'? "In Person" : "Online" %>  <i class="fas fa-exclamation-circle"></i></p>
+<p><strong>Condition:</strong> <%= @post.condition %></p>
+<p><strong>Description:</strong> <%= @post.description %></p>
 
 <% if @images.length>0 %>
 <h2>Actual Product Pictures</h2>
@@ -52,7 +67,7 @@
   </a>
 </div>
 <% end %>
-
+</div>
 <% if current_user.is_a?(GuestUser) %>
   <% if @post.status == "active"|| @post.status == "pending"%>
     <%= link_to 'Contact Seller', new_user_session_path, class:['btn','btn-outline-primary'], role:['button']  %>
@@ -66,23 +81,23 @@
 <% else %>
   <% if current_user.id!=@post.user_id %>
     <% if (@post.status == "active"|| @post.status == "pending")%>
-      <%= link_to 'Contact Seller',  new_message_path(post_id: @post.id, talk_to: @post.user_id), class:['btn','btn-outline-primary'], role:['button']  %>
+      <%= link_to 'Contact Seller',  new_message_path(post_id: @post.id, talk_to: @post.user_id), class:['btn','magic-button'], role:['button']  %>
     <% end %>
     <% if @post.status == "active" && current_user.id!=@post.user_id %>
-      <%= link_to 'Start a Contract', new_contract_path(post_id: @post.id, sender_id: current_user.id, receiver_id: @post.user_id), class:['btn','btn-outline-primary'], role:['button'] %>
+      <%= link_to 'Start a Contract', new_contract_path(post_id: @post.id, sender_id: current_user.id, receiver_id: @post.user_id), class:['btn','magic-button'], role:['button'] %>
     <% end %>
-    <%= button_to "Add Bookmark", :controller => :bookmarks, :action => 'create', params: {post_id: @post.id}, :method => :post,class:['btn','btn-outline-primary']%>
+    <%= button_to "Add Bookmark", :controller => :bookmarks, :action => 'create', params: {post_id: @post.id}, :method => :post,class:['btn','magic-button']%>
 
   <% else  %>
     <% if @post.post_type=="offer" %>
-      <%= link_to 'Edit', post_edit_offer_path(@post),  class:['btn','btn-outline-primary'], role:['button']  %>
+      <%= link_to 'Edit', post_edit_offer_path(@post),  class:['btn','magic-button'], role:['button']  %>
     <% else %>
-      <%= link_to 'Edit', post_edit_request_path(@post),  class:['btn','btn-outline-primary'], role:['button']  %>
+      <%= link_to 'Edit', post_edit_request_path(@post),  class:['btn','magic-button'], role:['button']  %>
     <% end %>
-    <%= link_to 'Delete', @post, method: :delete, data: { confirm: 'Are you sure?' },class:['btn','btn-outline-primary'], role:['button']  %>
+    <%= link_to 'Delete', @post, method: :delete, data: { confirm: 'Are you sure?' },class:['btn','magic-button'], role:['button']  %>
   <% end %>
 
 <% end %>
-<%= link_to 'Back', posts_path,  class:['btn','btn-outline-primary'], role:['button']  %>
+<%= link_to 'Back', url_for(:back),  class:['btn','magic-button'], role:['button']  %>
 </div>
 <hr>
