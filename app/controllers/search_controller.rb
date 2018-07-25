@@ -2,13 +2,13 @@ class SearchController < ApplicationController
 
 	def search
 
-	if params[:low_price].length>15 || params[:low_price].to_i <0 || params[:low_price].to_i > 2000 then
-	  	flash[:notice] = "Filter price must be in range $0 - $2000"
+	if params[:low_price].length>15 || params[:low_price].to_i <0 || params[:low_price].to_i > 10000 then
+	  	flash[:notice] = "Filter price must be in range $0 - $10,000"
 	  	redirect_to search_path(search_for: params[:search_for], offer_request: params[:offer_request], edition: params[:edition], condition: params[:condition], low_price: 0, high_price: params[:high_price])
 	  	return
-	 elsif params[:high_price].length>15 || params[:high_price].to_i < 0 || params[:high_price].to_i > 2000 then
-	  	flash[:notice] = "Filter price must be in range $0 - $2000"
-	  	redirect_to search_path(search_for: params[:search_for], offer_request: params[:offer_request], edition: params[:edition], condition: params[:condition], low_price: params[:low_price], high_price: 2000)
+	 elsif params[:high_price].length>15 || params[:high_price].to_i < 0 || params[:high_price].to_i > 10000 then
+	  	flash[:notice] = "Filter price must be in range $0 - $10,000"
+	  	redirect_to search_path(search_for: params[:search_for], offer_request: params[:offer_request], edition: params[:edition], condition: params[:condition], low_price: params[:low_price], high_price: 10000)
 	  	return
 	 end
 
