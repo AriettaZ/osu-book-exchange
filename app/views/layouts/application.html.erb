@@ -82,6 +82,12 @@
       });
       $("select, :text, textarea").addClass("form-control")
       });
+      var filledHeight = $(window).height()-($('nav').height()+$('.main').height()+100+$('.footer').height())
+      if(filledHeight>0){
+        $(".footer").css({
+          marginTop: $(window).height()-($('nav').height()+$('.main').height()+100+$('.footer').height())
+        })
+      }
   </script>
   </body>
 </html>
