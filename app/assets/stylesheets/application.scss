@@ -113,15 +113,15 @@ nav.navbar{
   color:$magic-white;
 }
 body a{
-  color: $magic-purple;
-  text-decoration: none;
-}
-body a:hover{
   color: $magic-orange;
   text-decoration: none;
 }
+body a:hover{
+  color: $magic-purple;
+  text-decoration: none;
+}
 body nav.navbar a.nav-link:hover, body nav.navbar .navbar-nav > li > a.nav-link:hover{
-color: $magic-orange;
+color: $magic-purple;
 weight:bold;
 }
 .navbar-collapse.collapse#navbarSupportedContent{
