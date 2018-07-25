@@ -121,7 +121,7 @@ body a:hover{
   text-decoration: none;
 }
 body nav.navbar a.nav-link:hover, body nav.navbar .navbar-nav > li > a.nav-link:hover{
-color: $magic-purple;
+color: $magic-orange;
 weight:bold;
 }
 .navbar-collapse.collapse#navbarSupportedContent{
@@ -136,9 +136,6 @@ weight:bold;
   margin: 10px;
 }
 
-footer{
-  clear:both;
-  }
 span.text{
   float:none;
 }
@@ -161,7 +158,6 @@ span.text{
   text-align: center;
   height:6em;
   line-height: 6em;
-  clear: both;
   margin-top: 5em;
 }
 #search_book_by_title{

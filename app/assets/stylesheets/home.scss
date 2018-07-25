@@ -1,0 +1,42 @@
+html{
+    height: 100%;
+}
+
+body{
+    background: url(home-background1.jpg) no-repeat center center fixed;
+    background-size: cover;
+}
+
+.footer{
+  display: none;  
+}
+
+.message-search-container{
+    background-color: rgba(255,255,255,0.9);
+    margin: 22% auto 0 auto;
+    padding: 50px 30px 80px 30px;
+    max-width: 690px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.message-search-container h4{
+    padding-top: 5px;
+}
+
+.message-search-container a{
+    color: black;
+}
+
+.message-search-container a:hover{
+    color: rgba(233, 72, 20, 1.000);
+}
+
+.search-container{
+    padding-top: 10px;
+}
+
+.search-container a{
+    color: white;
+}
+

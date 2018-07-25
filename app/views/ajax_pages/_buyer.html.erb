@@ -1,0 +1,8 @@
+
+<%= label_tag "Buyer ID" %>
+
+<% if @buyers.length > 1%>
+  <%= collection_select :contract, :buyer_id, @buyers, :id, :id, prompt: "--select--" %>
+<% else %>
+  <%= collection_select :contract, :buyer_id, @buyers, :id, :id%>
+<% end %>
