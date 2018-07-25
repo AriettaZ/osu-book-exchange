@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  actual_product_image: MyString
-
-two:
-  actual_product_image: MyString
+# one:
+#   actual_product_image: MyString
+#
+# two:
+#   actual_product_image: MyString
