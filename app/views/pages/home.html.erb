@@ -1,16 +1,8 @@
 <%= stylesheet_link_tag "home" %>
 
 <div class="message-search-container">
-
-<% if current_user.is_a?(GuestUser) %>
-	
-<% else %>
-<!-- 	<h1><%= "#{'Hi '+current_user.first_name+', '}" %></h1>
-	<h3>Welcome Back</h3> -->
-	<h1>OSU Book Exchange</h1>
-	<h4>Clean | Secure | Powerful | <%= link_to "How?", about_path  %></h4>
-<% end %>
-
+<h1>OSU Book Exchange</h1>
+<h4>Clean | Secure | Powerful | <%= link_to "How?", about_path  %></h4>
 <%= render "shared/search_home" %>
 
 </div>

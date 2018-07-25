@@ -1,6 +1,6 @@
 <% provide(title: "My Offers") %>
 <h1>My Offers</h1>
-<p><strong>Total: </strong><%= @offers.length %></p>
+<p>You have <strong><%= @offers.length %></strong> offer<%= "s" if @offers.length>1 %>.</p>
 
 <div id="off-btn-container" class="btn-group btn-group-toggle d-flex" role="group" aria-label="Offer Buttons" data-toggle="buttons">
   <button id="oa-btn"class="btn btn-default w-100 active" style="padding:10px">Active Offers</button>
