@@ -3,10 +3,8 @@ class DeclineExpiredContractJob < ApplicationJob
 
   def perform(contract, signed_user, unsigned_user)
     post = Post.find(contract.post_id)
-    expiration = contract.expiration_time
 
     if ((DateTime.now+1.second) >= contract.expiration_time) && (contract.status == "waiting")
-    # if ((DateTime.now+1.minute) >= exipration) && (contract.status == "waiting")
       contract.status = 2
       contract.save
       post.status = 1
