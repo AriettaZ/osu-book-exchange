@@ -1,3 +1,4 @@
+$magic-orange: #e94814;
 .messages-container{
     height: 50vh;
     overflow: scroll;
@@ -48,6 +49,10 @@
     float: left;
 }
 
+.book_show h3{
+  font-family: 'Eczar', serif;
+  color: $magic-orange;
+}
 
 #user-chat-input{
     display: inline-block;

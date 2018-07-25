@@ -17,6 +17,8 @@ end
 def show
   # @page_title=@post.title
   @images = @post.images.all
+  @book = @post.book
+  @back_url=session[:my_previous_url]
 end
 
 def new
@@ -65,16 +67,23 @@ def create
   puts "post_params"
   puts post_params
   if post_params[:book]
-    @book = Book.where(self_link: post_params[:book]['self_link']).first_or_create
-    # puts @book.id
-    # new_book={}
-    # new_book['self_link']=post_params[:book]['self_link']
     response = RestClient::Request.execute(
       method: :get,
       url: post_params[:book]['self_link'],
       )
     response=JSON.parse(response)
-    @book['title']=response['volumeInfo']['title']
+    @book = Book.where(self_link: post_params[:book]['self_link']).first_or_create do |book|
+      book.title=response['volumeInfo']['title']
+      book.subtitle=response['volumeInfo']['subtitle']
+      book.description=response['volumeInfo']['description']
+      book.publisher=response['volumeInfo']['publisher']
+      book.publication_date=response['volumeInfo']['publishedDate']
+      if response['volumeInfo']['authors'] then book.author=response['volumeInfo']['authors'].join(', ') end
+      if response['saleInfo']['listPrice'] then book.list_price=response['saleInfo']['listPrice']['amount'] end
+    end
+    puts @book
+    # new_book={}
+    # new_book['self_link']=post_params[:book]['self_link']
     if response['volumeInfo']['industryIdentifiers']
         response['volumeInfo']['industryIdentifiers'].each do |isbn_type|
           type=isbn_type['type']
@@ -82,9 +91,17 @@ def create
         end
     end
     if response['volumeInfo']['imageLinks']
-      if response['volumeInfo']['imageLinks']['thumbnail']
-        @book['cover_image']=response['volumeInfo']['imageLinks']['thumbnail']
-      end
+        if response['volumeInfo']['imageLinks']['thumbnail']
+          @book['cover_image']=response['volumeInfo']['imageLinks']['thumbnail']
+        elsif response['volumeInfo']['imageLinks']['smallThumbnail']
+          @book['cover_image']=response['volumeInfo']['imageLinks']['smallThumbnail']
+        end
+    end
+    if response['volumeInfo']['industryIdentifiers']
+        response['volumeInfo']['industryIdentifiers'].each do |isbn_type|
+          type=isbn_type['type']
+          @book[type]=isbn_type['identifier']
+        end
     end
       if @book.save
       # @posts.book_id=@book.id

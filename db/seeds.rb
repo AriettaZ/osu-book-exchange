@@ -79,13 +79,15 @@
   Book.create!(
     ISBN_10: "#{index + 1}",
     ISBN_13: "#{987654321 - index}",
-    edition: "#{index} th",
+    edition: "#{index}",
     title: "hello #{index*2}",
+    subtitle:"hello world#{index*2}",
+    description:"hello world#{index*2}",
     cover_image: "http://via.placeholder.com/120x150",
     amazon_price: index*5 + 22.5,
+    list_price: index*5 + 22.5*2,
     self_link:'https://www.googleapis.com/books/v1/volumes/uDxbDgAAQBAJ')
 }
-
 
 2.times { |index|
   Post.create!(
