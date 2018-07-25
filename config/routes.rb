@@ -54,5 +54,19 @@ Rails.application.routes.draw do
   get 'profile/ajax/w_contract', to: 'ajax_pages#w_contract'
   get 'profile/ajax/c_contract', to: 'ajax_pages#c_contract'
   get 'profile/ajax/d_contract', to: 'ajax_pages#d_contract'
+  # AJAX routes to load buyers, sellers options when the admin is creating a contract
+  get 'contracts/ajax/buyer', to: 'ajax_pages#buyer'
+  get 'ajax/buyer', to: 'ajax_pages#buyer'
+  get 'contracts/ajax/seller', to: 'ajax_pages#seller'
+  get 'ajax/seller', to: 'ajax_pages#seller'
+  get 'contracts/ajax/unsigned', to: 'ajax_pages#unsigned'
+  get 'ajax/unsigned', to: 'ajax_pages#unsigned'
+
+  get 'contracts/:id/ajax/buyer', to: 'ajax_pages#buyer'
+  get ':id/ajax/buyer', to: 'ajax_pages#buyer'
+  get 'contracts/:id/ajax/seller', to: 'ajax_pages#seller'
+  get ':id/ajax/seller', to: 'ajax_pages#seller'
+  get 'contracts/:id/ajax/unsigned', to: 'ajax_pages#unsigned'
+  get ':id/ajax/unsigned', to: 'ajax_pages#unsigned'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

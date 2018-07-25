@@ -59,27 +59,20 @@
     <%= form.hidden_field :unsigned_user_id %>
   <% else %>
     <div class="row">
-    <div class="field col">
-      <label for="contract_post_id">Post#</label>
-      <%= form.collection_select :post_id, Post.where(status: "active"), :id, :id, prompt: "--select--"%>
-    </div>
+      <div class="field col post">
+        <label for="contract_post_id">Post#</label>
+        <%= form.collection_select :post_id, Post.where(status: "active"), :id, :id, prompt: "--select--"%>
+      </div>
 
-    <div class="field col">
-      <%= form.label "Buyer ID" %>
-      <%= form.collection_select :buyer_id, User.all, :id, :id, prompt: "--select--", class: 'form-control' %>
-    </div>
 
-    <div class="field col">
-      <%= form.label "Seller ID" %>
-      <%= form.collection_select :seller_id, User.all, :id, :id, prompt: "--select--" %>
-    </div>
+    <div class="field col" id="buyer"></div>
 
-    <div class="field col">
-      <%= form.label "Unsigned User ID" %>
-      <%= form.collection_select :unsigned_user_id, User.all, :id, :id, prompt: "--select--" %>
+    <div class="field col" id="seller"></div>
+
+    <div class="field col" id="unsigned"></div>
+
     </div>
-    </div>
-<br />
+    <br />
     <div class="field">
       <%= form.label :status %>
       <%= form.select :status, Contract.statuses.keys.to_a %>
@@ -93,3 +86,38 @@
     <%= form.submit %>
   </div>
 <% end %>
+
+<script>
+$("document").ready(function(){
+  $("#contract_post_id").change(function(){
+    var post_id = parseInt($("#contract_post_id option:selected").val(), 10);
+    $.ajax({
+      url: "ajax/buyer",
+      dataType: "html",
+      method: "GET",
+      data: {"post_id": post_id}
+    }).done(function(data){
+      $("#buyer").html(data);
+      $("#contract_buyer_id").addClass("form-control");
+    }),
+    $.ajax({
+      url: "ajax/seller",
+      dataType: "html",
+      method: "GET",
+      data: {"post_id": post_id}
+    }).done(function(data){
+      $("#seller").html(data);
+      $("#contract_seller_id").addClass("form-control");
+    }),
+    $.ajax({
+      url: "ajax/unsigned",
+      dataType: "html",
+      method: "GET",
+      data: {"post_id": post_id}
+    }).done(function(data){
+      $("#unsigned").html(data);
+      $("#contract_unsigned_user_id").addClass("form-control");
+    });
+  });
+});
+</script>

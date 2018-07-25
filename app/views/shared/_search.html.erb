@@ -18,10 +18,7 @@
 	</div>
 
 	<%= link_to "Search", "",:class=>"submit-button", :onclick=>"$('#search-form').submit()" %>
-
 </div>
-
-<hr/>
 
 <div class="filter">
 
@@ -34,12 +31,15 @@
 	<div class="condition-container">
 		<%= select_tag(:condition, options_for_select(@conditions || [['--condition--',:all],['New'],['Used - Like New'],['Used - Very Good'],['Used - Acceptable'],['Used - poor','Unacceptable']], @condition), :class=>"condition") %>
 	</div>
-	<%= number_field_tag(:low_price, nil, min: 0, max:2000, class:"price-filter", placeholder:"Lowest Price") %><span class="filter-message"> to </span><%= number_field_tag(:high_price, nil, min: 0, max:2000, class:"price-filter", placeholder:"Highest Price") %>
+	<%= number_field_tag(:low_price, @low_price, min: 0, max:2000, class:"price-filter", placeholder:"Lowest Price") %><span class="filter-message"> to </span><%= number_field_tag(:high_price, @high_price, min: 0, max:2000, class:"price-filter", placeholder:"Highest Price") %>
 
 </div>
 <script>
 	$(document).ready(function(){
-		$("select").niceSelect();
+		$(".search-for").niceSelect();
+		$(".offer-request").niceSelect();
+		$(".edition").niceSelect();
+		$(".condition").niceSelect();
 	})
 	
 </script>

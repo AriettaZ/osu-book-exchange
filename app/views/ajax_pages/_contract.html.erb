@@ -17,7 +17,6 @@ Description: Creates a list of orders of for each status. -->
 <div id='<%=list_name%>'>
   <% if contract_arr.length == 0 %>
       <div style="text-align:center" class="nodata"><h3>You have no <%=status%> contracts.</h3></div>
-      <br/>
   <% else %>
     <% contract_arr.each do |contract| %>
         <div class="data border">

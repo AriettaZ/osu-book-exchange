@@ -1,7 +1,8 @@
-<h1>Dashboard#main</h1>
-<p>Find me in app/views/dashboard/main.html.erb</p>
+<h1>Account Information</h1>
 
-<p> Welcome <%= @user.name %>, to your profile.</p>
-<p> Your email address is: <%= @user.email %>.</p>
-<p> Your phone number is: <%= @user.phone %>.</p>
-<p> Your major is: <%= @user.major %>.</p>
+<h3> <%= @user.name %></h3>
+<br/>
+<p><strong>E-mail:</strong> <%= @user.email %></p>
+<p><strong>Phone:</strong> <%= @user.phone %></p>
+<p><strong>Major:</strong> <%= @user.major %></p>
+<%= link_to "Update Account Information", profile_update_account_info_url %>

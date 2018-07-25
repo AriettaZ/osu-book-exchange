@@ -58,7 +58,9 @@ class MagicMailerPreview < ActionMailer::Preview
 
   # Preview this email at http://localhost:3000/rails/mailers/magic_mailer/newMessage
   def newMessage
-    MagicMailer.newMessage
+    message = Message.last
+
+    MagicMailer.newMessage(message)
   end
 
 end

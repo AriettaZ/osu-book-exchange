@@ -10,7 +10,6 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 Rails.application.config.assets.precompile += %w( dropzone/dropzone.css )
 Rails.application.config.assets.precompile += %w( dropzone.js )
 # Rails.application.config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
-Rails.application.config.assets.precompile += %w( lightbox/* )
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
@@ -21,3 +20,5 @@ Rails.application.config.assets.precompile += %w( chat.css )
 Rails.application.config.assets.precompile += %w( search.css )
 Rails.application.config.assets.precompile += %w( orders.css )
 Rails.application.config.assets.precompile += %w( contracts.css )
+Rails.application.config.assets.precompile += %w( new_message.css )
+Rails.application.config.assets.precompile += %w( home.css )

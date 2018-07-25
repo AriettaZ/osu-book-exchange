@@ -1,5 +1,6 @@
+# Channing 7/25 added new validates and removed extra validates
 class Post < ApplicationRecord
-  belongs_to :book#, optional: true
+  belongs_to :book
   accepts_nested_attributes_for :book
   belongs_to :user
   has_many :images
