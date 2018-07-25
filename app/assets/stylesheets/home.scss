@@ -5,6 +5,7 @@ html{
 body{
     background: url(home-background1.jpg) no-repeat center center fixed;
     background-size: cover;
+    background-position-y: 60%;
 }
 
 // .footer{
@@ -13,11 +14,15 @@ body{
 
 .message-search-container{
     background-color: rgba(255,255,255,0.9);
-    margin: 22% auto 0 auto;
+    margin: 13% auto 0 auto;
     padding: 30px 30px 80px 30px;
     max-width: 690px;
     text-align: center;
     border-radius: 10px;
+}
+
+.message-search-container h1{
+    font-size: 50px;
 }
 
 .message-search-container h4{
