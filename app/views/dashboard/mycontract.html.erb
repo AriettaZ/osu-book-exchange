@@ -3,9 +3,8 @@ Created: 7/22
 Edit: 7/24 Gail changed hide/show to Ajax
 Description: Show all contracts that the current user has. -->
 
-<%= stylesheet_link_tag "contracts" %>
-
 <h1>My Contracts</h1>
+<p><strong>Total: </strong><%= @contracts.length %></p>
 
 <div id="contract-btn-container" class="btn-group btn-group-toggle d-flex" data-toggle="buttons">
   <button id="u-contract" class="btn btn-default w-100 active" style="padding:10px">Unsigned Contracts</button>
@@ -13,7 +12,6 @@ Description: Show all contracts that the current user has. -->
   <button id="c-contract" class="btn btn-default w-100"style="padding:10px;">Confirmed Contracts</button>
   <button id="d-contract" class="btn btn-default w-100" style="padding:10px;">Declined Contracts</button>
 </div>
-<br/>
 <br/>
 
 <div id="filter-contract-list">

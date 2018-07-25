@@ -1,14 +1,7 @@
 <% provide(title: "My Offers") %>
 <h1>My Offers</h1>
-<p>You have posted <%= @offers.length %> offers in total.</p>
-<p>You can see all of your offers below. They are sorted by their status.
-   An active offer is listed on the book exchange, but currently has no purchase contract.
-   Pending offers are on the book exchange listing and have an outstanding purchase contract that
-   is waiting to be signed by you or the buyer. Closed offers were purchased and removed
-   from the book exchange listing. Offers that are not yet on the book exchange list are drafts.
-</p>
+<p><strong>Total: </strong><%= @offers.length %></p>
 
-<br>
 <div id="off-btn-container" class="btn-group btn-group-toggle d-flex" role="group" aria-label="Offer Buttons" data-toggle="buttons">
   <button id="oa-btn"class="btn btn-default w-100 active" style="padding:10px">Active Offers</button>
   <button id="op-btn" class="btn btn-default w-100" style="padding:10px">Pending Offers</button>
