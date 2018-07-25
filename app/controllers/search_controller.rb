@@ -88,7 +88,9 @@ class SearchController < ApplicationController
 	  	@search_field = params[:query]
 	  	@condition = params[:condition]
 	  	@edition = params[:edition]
-	  	@msg = "Find "+@posts.length.to_s+" Posts"
+	  	@msg = "Find "+@posts.length.to_s+" Posts in total"
+	  	@low_price = params[:low_price]
+	  	@high_price = params[:high_price]
 	  	# @msg = params
 	end
 

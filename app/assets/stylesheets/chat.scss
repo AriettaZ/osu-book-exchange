@@ -66,3 +66,29 @@
     color: white;
     cursor: pointer;
 }
+
+#user-chat-submit:hover{
+    background-color: rgba(0, 132, 255, 0.700);
+}
+
+.message-actions{
+    display: inline-block;
+    margin-right: 30px;
+    text-align: center;
+    height: 30px;
+    width: 150px;
+    line-height: 30px;
+    background-color: rgba(0, 132, 255, 1.000);
+    border-radius: 10px;
+        color: white;
+    cursor: pointer;
+}
+
+.message-actions:active{
+    font-weight: bolder;
+}
+
+.message-actions:hover{
+    cursor: pointer;
+    background-color: rgba(0, 132, 255, 0.700);
+}

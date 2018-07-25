@@ -159,6 +159,7 @@ span.text{
   height:6em;
   line-height: 6em;
   margin-top: 5em;
+  clear: both;
 }
 #search_book_by_title{
   z-index: 1000;
@@ -185,9 +186,6 @@ span.text{
     border-radius: 10px;
     background-color: $magic-purple;
     text-align: center;
-}
-div#user-chat-submit{
-  background-color: $magic-purple;
 }
 button.magic-button:hover{
     text-decoration: none;

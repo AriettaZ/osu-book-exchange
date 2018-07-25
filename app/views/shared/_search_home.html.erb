@@ -1,6 +1,5 @@
 <%= stylesheet_link_tag "search" %>
 
-
 <div class="search-container">
 <%= form_tag(search_path, :method=>"get", :id=>"search-form") do %>
 
@@ -13,7 +12,8 @@
 </div>
 
 <script>
-	$("select").niceSelect();
+	$(".search-for").niceSelect();
+	$(".offer-request").niceSelect();
 </script>
 
 <div class="search-query-container">
