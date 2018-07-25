@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   # bookmark creation and removal routes
   delete 'bookmarks/:post_id', to: 'bookmarks#destroy'
   post 'bookmarks', to: 'bookmarks#create'
+  put 'bookmarks/:bookmark_id', to: 'bookmarks#edit'
   # AJAX routes to load tables into dashboard/myoffer page
   get 'profile/ajax/a_offer', to: 'ajax_pages#a_offer'
   get 'profile/ajax/p_offer', to: 'ajax_pages#p_offer'

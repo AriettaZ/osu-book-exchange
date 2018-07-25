@@ -20,7 +20,7 @@ class Post < ApplicationRecord
     text :payment_method
     text :status
     text :book_id
-    integer :edition
+    text :edition
 
     integer :price
   end
@@ -29,4 +29,5 @@ class Post < ApplicationRecord
   validates_presence_of :post_type
   validates_presence_of :payment_method
   validates_presence_of :status
+  validates :edition, numericality: {less_than_or_equal_to: 100, greater_than_or_equal_to: 0}
 end

@@ -1,38 +1,43 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <h1>Bookmarks</h1>
-<p>Below are all your bookmarked posts. Click the image to view the post.</p>
-
+<p>Below are all your bookmarked posts. Click the image to view the post. Favorite posts appear at the top of this page. The most recently updated bookmarks appear toward the top.</p>
+<br>
 <% if @bookmarks.length == 0 %>
   <div style="text-align:center" class="nodata"><h3>You have no bookmarks.</h3></div>
 <% else %>
 <table class="bookmark_table display">
   <thead>
   <tr>
-    <!-- <th style="padding:30px"> Favorite </th> -->
-    <th style="padding:30px"> Book Image </th>
-    <th style="padding:30px"> Book Title </th>
-    <th style="padding:30px"> ISBN </th>
-    <th style="padding:30px"> Price </th>
-    <th style="padding:30px"> Condition </th>
-    <th style="padding:30px"> Status </th>
-    <th style="padding:30px"> Date Posted </th>
-    <th style="padding:30px"> Remove </th>
+    <th class="text-center"> Favorite </th>
+    <th class="text-center"> Book Image </th>
+    <th class="text-center"> Book Title </th>
+    <th class="text-center"> ISBN </th>
+    <th class="text-center"> Price </th>
+    <th class="text-center"> Condition </th>
+    <th class="text-center"> Status </th>
+    <th class="text-center"> Date Posted </th>
+    <th class="text-center"> Remove </th>
   </tr>
 </thead>
 <tbody>
   <% @bookmarks.each do |bookmark|%>
   <tr>
-    <!-- <td>
+    <td class="text-center">
       <% if bookmark.favorite %>
-        <i class="fas fa-star" style="color:gold;font-size:36px">1</i>
+        <%= link_to bookmarks_path + "/#{bookmark.id}", method: :put, remote: true do %>
+          <i class="fas fa-star" style="color:gold;font-size:36px"></i>
+        <% end %>
       <% else %>
-        <i class="far fa-star" style="color:gold;font-size:36px"></i>
+        <%= link_to bookmarks_path + "/#{bookmark.id}", method: :put, remote: true do %>
+          <i class="far fa-star" style="color:gold;font-size:36px"></i>
+        <% end %>
       <% end %>
-    </td> -->
-    <td style="padding:30px"><%= link_to (image_tag bookmark.post.book.cover_image unless bookmark.post.book.cover_image.nil?), bookmark.post  %></td>
-    <td style="padding:30px"><%= bookmark.post.book.title%></td>
-    <td style="padding:30px">
+      <p class="bookmark-id" style="display:none"><%=bookmark.id%></p>
+    </td>
+    <td class="text-center"><%= link_to (image_tag bookmark.post.book.cover_image unless bookmark.post.book.cover_image.nil?), bookmark.post  %></td>
+    <td class="text-center"><%= bookmark.post.book.title%></td>
+    <td class="text-center">
       <%if !bookmark.post.book.ISBN_10.nil?%>
         <%= bookmark.post.book.ISBN_10.to_s %>
       <% elsif !bookmark.post.book.ISBN_13.nil?%>
@@ -41,25 +46,35 @@
         <%= "No known ISBN" %>
       <% end %>
     </td>
-    <td style="padding:30px"> <%="$ " + bookmark.post.price.to_s%> </td>
-    <td style="padding:30px"> <%=bookmark.post.condition%> </td>
-    <td style="padding:30px"> <%=bookmark.post.status%> </td>
-    <td style="padding:30px"> <%=bookmark.post.updated_at.strftime("%Y-%m-%d")%> </td>
-    <td style="padding:30px"> <%= button_to "Remove Bookmark", bookmarks_path + "/#{bookmark.post.id}", method: :delete, remote: true %> </td>
+    <td class="text-center"> <%="$ " + bookmark.post.price.to_s%> </td>
+    <td class="text-center"> <%=bookmark.post.condition%> </td>
+    <td class="text-center"> <%=bookmark.post.status%> </td>
+    <td class="text-center"> <%=bookmark.post.updated_at.strftime("%Y-%m-%d")%> </td>
+    <td class="text-center"> <%= button_to "Remove Bookmark", bookmarks_path + "/#{bookmark.post.id}", method: :delete, remote: true %> </td>
   <% end %>
 </tbody>
 </table>
 <script>
 $(document).ready(function(){
-$('.bookmark_table').DataTable();
+  $(".fas, .far").click(function(){
+    $(this).toggleClass("fas").toggleClass("far");
+    var call = $.ajax({
+      url: "/bookmarks/" + $(this).next().text(),
+      data: {authenticity_token: $('meta[name="csrf-token"]').attr('content')},
+      method: "PUT",
+      dataType: "html"
+    });
+
+    call.fail(function(a,b,xhr){
+      console.dir(a);
+      console.dir(b);
+      console.dir(xhr);
+    });
+    call.done(function(data){
+      console.log(data);
+    });
+  });
+  $('.bookmark_table').DataTable();
 });
 </script>
 <% end %>
-
-<!-- <script>
-  $(document).ready(function(){
-    $(".fas, .far").click(function(){
-      $(this).toggleClass("fas").toggleClass("far");
-    });
-  });
-</script> -->
