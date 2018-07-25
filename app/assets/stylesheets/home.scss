@@ -24,6 +24,19 @@ body{
     padding-top: 5px;
 }
 
+.message-search-container a{
+    color: black;
+}
+
+.message-search-container a:hover{
+    color: rgba(233, 72, 20, 1.000);
+}
+
 .search-container{
     padding-top: 10px;
 }
+
+.search-container a{
+    color: white;
+}
+
