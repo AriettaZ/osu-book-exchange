@@ -1,5 +1,5 @@
 class Post < ApplicationRecord
-  belongs_to :book, optional: true
+  belongs_to :book
   accepts_nested_attributes_for :book
   belongs_to :user
   has_many :images
@@ -23,4 +23,5 @@ class Post < ApplicationRecord
     integer :price
   end
   validates :price, numericality: { less_than: 10000 }
+  validates :book, presence: true
 end

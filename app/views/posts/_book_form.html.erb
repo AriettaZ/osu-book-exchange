@@ -1,22 +1,24 @@
 <div class="row">
-    <div class="btn-group col-md-4" role="group" aria-label="Basic example">
+    <div class="btn-group col-md-12" role="group" >
       <button type="button" id="title_button" class="magic-button col-md-6 btn active">Find Book By Title</button>
       <button type="button" id="isbn_button"  class="magic-button col-md-6 btn" >Find Book By ISBN </button>
     </div>
-    <div class="col-md-8">
-      <div class="input-group col-md-12"  id="search_book_by_title">
+</div>
+    <div class="row" style="margin-top:2em;">
+      <div class="input-group col-md-12"  id="search_book_by_title" style="padding:0 2ex;">
         <select data-width="100%" title="Enter Book Title" class="selectpicker field" data-show-subtext="true" data-live-search="true" name="post[book][self_link]" id="post_book_self_link">
         </select>
       </div>
-      <div class="input-group col-md-12 stylish-input-group collapse" id="search_book_by_isbn">
+      <div class="input-group col-md-12 stylish-input-group collapse" id="search_book_by_isbn" style="padding:0 2ex;">
           <input type="text" id="search_book_by_isbn_input" class="form-control col-md-10"  placeholder="Find Book By ISBN" >
-          <span id="search_book_by_isbn_button" class="input-group-addon" style="padding: 8px 12px">
+          <span id="search_book_by_isbn_button" class="input-group-addon">
               <div>
                   <span class="glyphicon glyphicon-search"></span>
               </div>
           </span>
       </div>
     </div>
+    <div class="row">
     <div class="collapse col-md-12" id="book_find_by_isbn">
       <div class="card card-body">
         Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.

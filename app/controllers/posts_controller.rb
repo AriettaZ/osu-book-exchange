@@ -65,6 +65,7 @@ def create
   puts "post_params"
   puts post_params
   puts params[:images]
+  puts post_params[:book]['self_link']
   if post_params[:book]
     @book = Book.where(self_link: post_params[:book]['self_link']).first_or_create
     # puts @book.id
@@ -77,40 +78,40 @@ def create
     response=JSON.parse(response)
     @book['title']=response['volumeInfo']['title']
     if response['volumeInfo']['industryIdentifiers']
-      response['volumeInfo']['industryIdentifiers'].each do |isbn_type|
-        type=isbn_type['type']
-        @book[type]=isbn_type['type']['identifier']
-      end
+        response['volumeInfo']['industryIdentifiers'].each do |isbn_type|
+          type=isbn_type['type']
+          @book[type]=isbn_type['type']['identifier']
+        end
     end
     @book['cover_image']=response['volumeInfo']['imageLinks']['thumbnail']
-    if @book.save
-    # @posts.book_id=@book.id
-      @post = current_user.posts.new(post_params.merge({book: @book}))
+      if @book.save
+      # @posts.book_id=@book.id
+        @post = current_user.posts.new(post_params.merge({book: @book}))
 
-      respond_to do |format|
-        if @post.save
-          if params[:images]
-            params[:images]['actual_product_image'].each do |image|
-              @image = @post.images.create!(:actual_product_image => image)
+          respond_to do |format|
+            if @post.save
+                if params[:images]
+                    params[:images]['actual_product_image'].each do |image|
+                      @image = @post.images.create!(:actual_product_image => image)
+                    end
+                end
+                format.html { redirect_to @post, notice: 'Post was successfully created.' }
+                format.json { render :show, status: :created, location: @post }
+            else
+                if post_params['post_type']=='offer'
+                  format.html {redirect_to posts_new_offer_path, notice:"Post Information Invalid" }
+                else
+                  format.html { redirect_to posts_new_request_path, notice:"Post Information Invalid"}
+                end
             end
           end
-          format.html { redirect_to @post, notice: 'Post was successfully created.' }
-          format.json { render :show, status: :created, location: @post }
-        else
-          if post_params['post_type']=='offer'
-            redirect_to posts_new_offer_path, notice:"Book Information Invalid"
-          else
-            redirect_to posts_new_request_path, notice:"Book Information Invalid"
-          end
-        end
       end
-    end
   else
-    if post_params['post_type']=="offer"
-      redirect_to posts_new_offer_path, notice:"Book Information Invalid"
-    else
-      redirect_to posts_new_request_path, notice:"Book Information Invalid"
-    end
+      if post_params['post_type']=="offer"
+        redirect_to posts_new_offer_path, notice:"Need Book Information"
+      else
+        redirect_to posts_new_request_path, notice:"Need Book Information"
+      end
   end
 end
 
