@@ -125,7 +125,7 @@ class ContractsController < ApplicationController
           @order = Order.create(contract_id: @contract.id)
           MagicMailer.newOrder(@order, User.find(@contract.seller_id)).deliver_later
           MagicMailer.newOrder(@order, User.find(@contract.buyer_id)).deliver_later
-          CloseExpiredOrderJob.set(wait_until: (@contract.meeting_time+3.days)).perform_later(@order)
+          CloseExpiredOrdersJob.set(wait_until: (@contract.meeting_time+3.days)).perform_later(@order)
           format.html { redirect_to order_url(@order), notice: 'Contract was confirmed and an order was successfully placed.' }
 
         # If contract is declined, then post is active(1) and an email is sent to users.
