@@ -3,5 +3,5 @@
 <%= render 'showContract', contract: @contract, editFrom: "show", showFrom: @showFrom %>
 
 <% if current_user.has_roles?(:site_admin)%>
-<%= link_to 'Back', contracts_path %>
+<%= link_to 'Back', contracts_path, class: "btn magic-button" %>
 <% end %>
