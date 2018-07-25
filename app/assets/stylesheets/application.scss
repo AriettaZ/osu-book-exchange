@@ -196,7 +196,7 @@ span.text{
     background:transparent;
 }
 
-.magic-button, button.magic-button,input[type="submit" i]{
+.magic-button, button.magic-button,input[type="submit" i], input#user-chat-submit{
     display: inline-block;
     color: white;
     border: 1px solid $darker-magic-purple;
@@ -210,10 +210,8 @@ button.magic-button:hover{
     background-color: rgba(233, 72, 20, 1.000);
 }
 
-.magic-button:hover, .magic-button:focus, .magic-button:active, .magic-button.active, .open>.dropdown-toggle.magic-button{
+.magic-button:hover, .magic-button:focus, input[type="submit" i]:hover, input#user-chat-submit:hover, .magic-button:active, .magic-button.active, .open>.dropdown-toggle.magic-button{
   color: #fff;
-  // background-color: #3071a9;
-  // border-color: #285e8e;
   text-decoration: none;
   color: black;
   background-color: $magic-orange;
@@ -293,4 +291,7 @@ div.data{
 
 div.nodata{
   padding: 70px;
+}
+input#user-chat-submit{
+  margin-top: 10px;
 }
