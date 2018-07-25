@@ -17,7 +17,7 @@
   <p  class="book_publisher"> <%= if @book.publisher then "Published by #{@book.publisher}" end%> </p>
   <p class="book_isbn_13"><%= if @book.ISBN_13 then "ISBN 13: #{@book.ISBN_13}    " end %></p>
   <p class="book_isbn_10"><%= if @book.ISBN_10 then "ISBN 10: #{@book.ISBN_10}" end %></p>
-  <p class="book_edition"><%= if @book.publication_date then "Publicated Date: #{@book.publication_date}    " end %><%= if @book.edition then "Edition: #{@book.edition}th" end%></p>
+  <p class="book_publication"><%= if @book.publication_date then "Publicated Date: #{@book.publication_date}    " end %></p>
   <p class="list_price"><%= if @book.list_price then " List Price: $#{@book.list_price}" end %></p>
 </p>
 <p class="book_description"><%= if @book.description then @book.description.html_safe end %></p>
@@ -32,12 +32,14 @@
 <p><strong>Buyer:</strong> <%= User.find_by(id: @post.user_id).name %></p>
 <% end %>
 <p><strong>Post Date:</strong> <%= distance_of_time_in_words(@post.created_at, Time.now) %> ago</p>
-<p><strong>Course:</strong> <%= @post.course_number %></p>
+<p><strong>Course Number:</strong> <%= @post.course_number.empty?? "No Course Number Information" : @post.course_number%></p>
+<p><strong>Edition:</strong> <%= @post.edition %>th</p>
 <p><strong>Price:</strong> <%= @post.price %></p>
 <p><strong>Type:</strong> <%= @post.post_type %></p>
-<p><strong>Payment Method:</strong> <%= @post.payment_method=='inperson'? "In Person" : "Online" %>  <i class="fas fa-exclamation-circle"></i></p>
+<p><strong>Payment Method:</strong> <%= @post.payment_method=='inperson'? "In Person" : "Online" %>
 <p><strong>Condition:</strong> <%= @post.condition %></p>
-<p><strong>Description:</strong> <%= @post.description %></p>
+<p><strong>Description:</strong> <%= @post.description || "No Description" %></p>
+
 
 <% if @images.length>0 %>
 <h2>Actual Product Pictures</h2>
