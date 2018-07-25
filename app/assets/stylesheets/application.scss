@@ -112,12 +112,17 @@ nav.navbar{
 .footer a{
   color:$magic-white;
 }
-a{
-  color: black;
+body a{
+  color: $magic-purple;
   text-decoration: none;
 }
-a:hover{
+body a:hover{
   color: $magic-orange;
+  text-decoration: none;
+}
+body nav.navbar a.nav-link:hover, body nav.navbar .navbar-nav > li > a.nav-link:hover{
+color: $magic-orange;
+weight:bold;
 }
 .navbar-collapse.collapse#navbarSupportedContent{
   display: inline-block !important;
@@ -223,6 +228,22 @@ nav .dropdown-menu{
   border-color: $magic-purple !important;
 }
 button:focus {outline:0;}
+.login-form {
+  margin:20px 0px;
+}
+.new_user h1{
+  text-align: center;
+}
+.login_link a{
+  top:4px;
+  left:30%;
+  text-align: center;
+  position: relative;
+  margin: 20px 0px;
+}
+.magic-button.login-form{
+  margin:10px 0px;
+}
 @media only screen and (max-width: 1135px) {
 
 }
