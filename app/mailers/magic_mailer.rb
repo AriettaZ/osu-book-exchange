@@ -76,13 +76,13 @@ class MagicMailer < ApplicationMailer
     mail to: @user.email, subject: "Order##{@order.id} Canceled -- OSU Book Exchange"
   end
 
-  # Send an email to users if the order is canceled.
-  def contact_us(message, user)
-    @message = user
-    @user = user
-
-    mail to: "osu.magic.team@gmail.com", subject: "User Contacts Us -- OSU Book Exchange"
-  end
+  # Send an email to users if the user contact the Magic team.
+  # def contact_us(message, user)
+  #   @message = user
+  #   @user = user
+  #
+  #   mail to: "osu.magic.team@gmail.com", subject: "User Contacts Us -- OSU Book Exchange"
+  # end
 
   # Send an email to the message receiver
   def newMessage(message)

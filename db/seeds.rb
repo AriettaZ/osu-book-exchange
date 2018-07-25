@@ -79,7 +79,7 @@
   Book.create!(
     ISBN_10: "#{index + 1}",
     ISBN_13: "#{987654321 - index}",
-    edition: "#{index}",
+    # edition: "#{index}",
     title: "hello #{index*2}",
     subtitle:"hello world#{index*2}",
     description:"hello world#{index*2}",

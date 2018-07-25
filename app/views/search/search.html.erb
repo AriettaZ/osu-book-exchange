@@ -21,7 +21,7 @@
       <tr>
         <td class="text-center"><%= post.post_type %></td>
         <td class="text-center"><%= link_to "#{post.book.title}", post %>
-        <td class="text-center"><%= post.book.edition %></td>
+        <td class="text-center"><%= post.edition %></td>
         <td class="text-center"><%= post.course_number %></td>
         <td class="text-center"> $<%= post.price %></td>
         <td class="text-center"><%= post.condition%></td>
@@ -50,4 +50,3 @@ $('#post_index_table').dataTable( {
   ]
 } );
 </script>
-

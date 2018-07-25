@@ -4,7 +4,7 @@
 
 <strong>Created At:</strong>
 <%= contract.created_at.to_formatted_s(:long) %>
-
+<br/>
 <strong>Expiration Time:</strong>
 <%= contract.expiration_time.to_formatted_s(:long) %>
 
@@ -19,6 +19,10 @@
 <br/>
   <strong>Book:</strong>
   <%=link_to book.title, post%>
+
+<br/>
+  <strong>Edition:</strong>
+  <%= post.edition %>
 
 <br/>
   <strong>Condition:</strong>

@@ -27,7 +27,7 @@
       </div>
     </div>
   </div>
-
+<br/>
   <div class="image"><%= image_tag book.cover_image unless book.cover_image.nil? %></div>
 
   <br/>
@@ -41,7 +41,7 @@
 
       <p>
         <strong>Edition:</strong>
-        <%= book.edition %>
+        <%= post.edition %>
       </p>
 
       <% if !book.ISBN_10.nil? %>

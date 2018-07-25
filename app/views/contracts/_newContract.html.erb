@@ -40,11 +40,9 @@
   <br />
   <div class="field">
     <%= form.label :final_payment_method %>
-    <!-- <input type="text"  name="post[post_type]" id="post_post_type" class="form-control" placeholder="Price" value="offer" readonly/> -->
 
-    <%= form.select :final_payment_method, Contract.final_payment_methods.keys.to_a, {}, {:disabled => true} %>
+    <%= form.select :final_payment_method, Contract.final_payment_methods.keys.to_a %>
 
-  	<%= form.hidden_field :final_payment_method, {value: 'inperson'}  %>
   </div>
 
   <br />
@@ -102,6 +100,7 @@
 
 <script>
 $("document").ready(function(){
+  $('option[value="online"]').attr("disabled","disabled");
   $("#contract_post_id").change(function(){
     var post_id = parseInt($("#contract_post_id option:selected").val(), 10);
     $.ajax({
