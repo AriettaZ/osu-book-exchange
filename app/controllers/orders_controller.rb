@@ -48,6 +48,7 @@ class OrdersController < ApplicationController
         contract.save
         MagicMailer.newOrder(@order, User.find(contract.seller_id)).deliver_later
         MagicMailer.newOrder(@order, User.find(contract.buyer_id)).deliver_later
+        CloseExpiredOrdersJob.set(wait_until: (contract.meeting_time+3.days)).perform_later(@order)
         format.html { redirect_to @order, notice: 'The contract was confirmed and an order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else
