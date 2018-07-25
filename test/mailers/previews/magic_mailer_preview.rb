@@ -13,12 +13,21 @@ class MagicMailerPreview < ActionMailer::Preview
     MagicMailer.unsignedContract(contract, User.first, User.last)
   end
 
+  # Preview this email at http://localhost:3000/rails/mailers/magic_mailer/contractDeclined
   def contractDeclined
     contract = Contract.last
     user = User.find(Contract.last.buyer_id)
     declinedBy = User.find(Contract.last.seller_id)
 
     MagicMailer.contractDeclined(contract, user, declinedBy)
+  end
+
+  # Preview this email at http://localhost:3000/rails/mailers/magic_mailer/contractExpired
+  def contractExpired
+    contract = Contract.last
+    user = User.find(Contract.last.buyer_id)
+
+    MagicMailer.contractExpired(contract, user)
   end
 
   # Preview this email at http://localhost:3000/rails/mailers/magic_mailer/newOrder.html

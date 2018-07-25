@@ -29,6 +29,13 @@ class MagicMailer < ApplicationMailer
     mail to: @user.email, subject: "Contract##{@contract.id} Declined -- OSU Book Exchange"
   end
 
+  def contractExpired(contract, user)
+    @contract = contract
+    @user = user
+
+    mail to: @user.email, subject: "Contract##{@contract.id} Expired -- OSU Book Exchange"
+  end
+
   # Send an email to the users if a new order is placed.
   def newOrder(order, user)
     @order = order

@@ -5,6 +5,9 @@
 <strong>Created At:</strong>
 <%= contract.created_at.to_formatted_s(:long) %>
 
+<strong>Expiration Time:</strong>
+<%= contract.expiration_time.to_formatted_s(:long) %>
+
 <br/>
 <strong>Seller:</strong>
 <%= User.find(contract.seller_id).name %>
