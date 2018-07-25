@@ -1,9 +1,13 @@
+<div id="osu-bxi" class="container">
 <h1>OSU Exchange Intro</h1>
+<br>
 <p>OSU Text Book Exchange Program is aiming at helping OSU student to easily sell/buy textbook. This website provides students opportunity to not only post selling offers online, but also buying requests. Both seller and buyer can check our website to find matching offers/requests.</p>
 <p>To buy/sell your textbook: </p>
 <ol>
 	<li><%= link_to 'Sign-up', new_user_registration_path %> an account using valid OSU email address or <%= link_to 'Sign-in', user_session_path %>.</li>
+	<br>
 	<li>Search for matching offer/request using the site-wise search engine below. Use the "more info" button to check more information on the offer/request. <%= render "shared/search_home" %></li>
+	<br>
 	<li><p>If you find a matching offer/request: </p>
 		<ol>
 			<li>Click on the "Contact Seller/Buyer" button to send messages to the seller/buyer.</li>
@@ -12,6 +16,7 @@
 			<li>Attend the meeting in your contract.</li>
 		</ol>
 	</li>
+	<br>
 	<li> <p>If you cannot find a matching offer/request: </p>
 		<ol>
 			<li>Click on the "New Post" button.</li>
@@ -22,3 +27,11 @@
 		</ol>
 	</li>
 </ol>
+</div>
+
+<style>
+#osu-bxi {
+	font-size: 1.2em;
+	max-width: 45vw;
+}
+</style>
