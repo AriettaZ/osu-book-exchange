@@ -8,14 +8,14 @@
       <th>Created At</th>
       <!-- <th>Contract#</th> -->
       <th>Post Type</th>
-      <th>Book</th>
-      <th>Meeting Time</th>
-      <!-- <th>Meeting address</th> -->
-      <th>Payment Method</th>
-      <th>Price</th>
-      <!-- <th>Expiration time</th> -->
+      <!-- <th>Book</th> -->
       <th>Buyer</th>
       <th>Seller</th>
+      <th>Meeting Time</th>
+      <!-- <th>Meeting address</th> -->
+      <!-- <th>Payment Method</th> -->
+      <th>Price</th>
+      <!-- <th>Expiration time</th> -->
       <th>Status</th>
       <th>Show</th>
       <th>Edit</th>
@@ -32,15 +32,15 @@
           <td><%= order.id %></td>
           <td><%= order.created_at.strftime("%Y-%m-%d %H:%M") %></td>
           <!-- <td><%=link_to "#{contract.id}", Contract.find(contract.id)%></td> -->
-          <td><%=Post.find(contract.post_id).post_type%></td>
-          <td><%=link_to Book.find(Post.find(contract.post_id).book_id).title, Post.find(contract.post_id)%></td>
-          <td><%= contract.meeting_time.strftime("%Y-%m-%d %H:%M") %></td>
-          <!-- <td><%= contract.meeting_address_first %><br/> <%= contract.meeting_address_second %></td> -->
-          <td><%= contract.final_payment_method %></td>
-          <td> <%= number_to_currency(contract.final_price) %></td>
-          <!-- <td><%= contract.expiration_time.strftime("%Y-%m-%d %H:%M") %></td> -->
+          <td><%=link_to Post.find(contract.post_id).post_type, Post.find(contract.post_id)%></td>
+          <!-- <td><%=link_to Book.find(Post.find(contract.post_id).book_id).title, Post.find(contract.post_id)%></td> -->
           <td><%= User.find(contract.buyer_id).name %></td>
           <td><%= User.find(contract.seller_id).name %></td>
+          <td><%= contract.meeting_time.strftime("%Y-%m-%d %H:%M") %></td>
+          <!-- <td><%= contract.meeting_address_first %><br/> <%= contract.meeting_address_second %></td> -->
+          <!-- <td><%= contract.final_payment_method %></td> -->
+          <td> <%= number_to_currency(contract.final_price) %></td>
+          <!-- <td><%= contract.expiration_time.strftime("%Y-%m-%d %H:%M") %></td> -->
           <td><%= order.status %></td>
           <td><%= link_to 'Show', order_path(order.id, showFrom: "order_index") %></td>
           <td><%= link_to 'Edit', edit_order_path(order) %></td>
@@ -53,4 +53,4 @@
 
 <br>
 
-<!-- <%= link_to 'New Order', new_order_path %> -->
+<%= link_to 'New Order', new_order_url(createdby: "admin"), class: "btn magic-button"%>

@@ -8,13 +8,13 @@
       <th>Contract#</th>
       <th>Post type</th>
       <!-- <th>Book</th> -->
+      <th>Seller</th>
+      <th>Buyer</th>
       <th>Meeting Time</th>
       <!-- <th>Meeting address</th> -->
       <th>Final Payment Method</th>
       <!-- <th>Final price</th> -->
       <th>Expiration Time</th>
-      <th>Seller</th>
-      <th>Buyer</th>
       <th>Status</th>
       <th>Show</th>
       <th>Edit</th>
@@ -28,13 +28,13 @@
         <td><%= contract.id%></td>
         <td><%=link_to Post.find(contract.post_id).post_type, Post.find(contract.post_id)%></td>
         <!-- <td><%=link_to Book.find(Post.find(contract.post_id).book_id).title, Book.find(Post.find(contract.post_id).book_id)%></td> -->
+        <td><%= User.find(contract.seller_id).name %></td>
+        <td><%= User.find(contract.buyer_id).name %></td>
         <td><%= contract.meeting_time.strftime("%Y-%m-%d %H:%M") %></td>
         <!-- <td><%= contract.meeting_address_first %><br/> <%= contract.meeting_address_second %></td> -->
         <td><%= contract.final_payment_method %></td>
         <!-- <td> <%= number_to_currency(contract.final_price) %></td> -->
         <td><%= contract.expiration_time.strftime("%Y-%m-%d %H:%M") %></td>
-        <td><%= User.find(contract.seller_id).name %></td>
-        <td><%= User.find(contract.buyer_id).name %></td>
         <td><%= contract.status %>
           <% if contract.status == "waiting"%>
             for <%= User.find(contract.unsigned_user_id).name %>

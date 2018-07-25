@@ -61,12 +61,15 @@ Rails.application.routes.draw do
   get 'ajax/seller', to: 'ajax_pages#seller'
   get 'contracts/ajax/unsigned', to: 'ajax_pages#unsigned'
   get 'ajax/unsigned', to: 'ajax_pages#unsigned'
-
   get 'contracts/:id/ajax/buyer', to: 'ajax_pages#buyer'
   get ':id/ajax/buyer', to: 'ajax_pages#buyer'
   get 'contracts/:id/ajax/seller', to: 'ajax_pages#seller'
   get ':id/ajax/seller', to: 'ajax_pages#seller'
   get 'contracts/:id/ajax/unsigned', to: 'ajax_pages#unsigned'
   get ':id/ajax/unsigned', to: 'ajax_pages#unsigned'
+
+  # AJAX routes to load selected contract when admin is createing an order
+  get 'orders/ajax/selected_contract', to: 'ajax_pages#selected_contract'
+  get 'ajax/selected_contract', to: 'ajax_pages#selected_contract'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

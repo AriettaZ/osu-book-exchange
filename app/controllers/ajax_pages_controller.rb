@@ -10,6 +10,7 @@ class AjaxPagesController < ApplicationController
   before_action :buyer_setup, only: [:buyer]
   before_action :seller_setup, only: [:seller]
   before_action :unsigned_setup, only: [:unsigned]
+  before_action :selected_contract_setup, only: [:selected_contract]
 
   # offer tables for dashboard
   def a_offer
@@ -79,6 +80,10 @@ class AjaxPagesController < ApplicationController
     render partial: "unsigned"
   end
 
+  def selected_contract
+    render partial: "contracts/showContract", locals: {contract: @contract, editFrom: "index", showFrom: "order_index"}
+  end
+
   private
   # setups for request and offer tables
   def offer_setup
@@ -101,9 +106,14 @@ class AjaxPagesController < ApplicationController
     @contracts = Contract.where(buyer_id: current_user.id) + Contract.where(seller_id: current_user.id)
   end
 
+  def selected_contract_setup
+    contract_id = params[:contract_id]
+    @contract = Contract.find(contract_id)
+  end
+
   def buyer_setup
-    @post_id = params[:post_id]
-    post = Post.find(@post_id)
+    post_id = params[:post_id]
+    post = Post.find(post_id)
     if post.post_type == "offer"
       @buyers = User.where.not(id: post.user_id)
     elsif post.post_type == "request"
@@ -112,8 +122,8 @@ class AjaxPagesController < ApplicationController
   end
 
   def seller_setup
-    @post_id = params[:post_id]
-    post = Post.find(@post_id)
+    post_id = params[:post_id]
+    post = Post.find(post_id)
     if post.post_type == "offer"
       @sellers = User.where(id: post.user_id)
     elsif post.post_type == "request"
@@ -122,8 +132,8 @@ class AjaxPagesController < ApplicationController
   end
 
   def unsigned_setup
-    @post_id = params[:post_id]
-    post = Post.find(@post_id)
+    post_id = params[:post_id]
+    post = Post.find(post_id)
     @unsigned = User.where(id: post.user_id)
   end
 end
