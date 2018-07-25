@@ -9,9 +9,10 @@
     <h1 class="h2 mb-3 font-weight-normal">Forgot your password?</h1>
     <label for="user_email" class="sr-only">Email address</label>
     <input type="email" id="user_email" name="user[email]" autocomplete="email" class="form-control login-form" placeholder="Email address" required autofocus>
-    <button class="btn btn-lg magic-button login-form btn-block" name="commit" value="Send me reset password instructions" data-disable-with="Send me reset password instructions" type="submit">Send me reset password instructions</button>
+    <button class="btn btn-lg magic-button login-form btn-block" style="margin-top:0px;"name="commit" value="Send me reset password instructions" data-disable-with="Send me reset password instructions" type="submit">Send me reset password instructions</button>
+<%= render "devise/shared/links" %>
   </form>
 <% end %>
 
-<%= render "devise/shared/links" %>
+
 </div>

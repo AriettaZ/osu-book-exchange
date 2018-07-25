@@ -1,3 +1,4 @@
+<div class="login-form">
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 
 <div class="form-signin">
@@ -14,7 +15,8 @@
       <label for="user_remember_me">Remember me</label>
   </div>
   <button class="btn btn-lg magic-button login-form btn-block" name="commit" value="Log in" data-disable-with="Log in" type="submit">Log in</button>
+<%= render "devise/shared/links" %>
 </div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+</div>
