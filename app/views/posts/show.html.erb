@@ -12,17 +12,17 @@
   <%= image_tag @book.cover_image unless @book.cover_image.nil? %>
   <h1 class="book_title"><%= @book.title %></h1>
   <h4 class="book_subtitle"><%= @book.subtitle %></h4>
+  <%= button_to "Add Bookmark", :controller => :bookmarks, :action => 'create', params: {post_id: @post.id}, :method => :post %>
   <p class="book_authors"><em><%= if @book.author then "By #{ @book.author }    " end %> </em></p>
   <p  class="book_publisher"> <%= if @book.publisher then "Published by #{@book.publisher}" end%> </p>
   <p class="book_isbn_13"><%= if @book.ISBN_13 then "ISBN 13: #{@book.ISBN_13}    " end %></p>
-    <p class="book_isbn_10"><%= if @book.ISBN_10 then "ISBN 10: #{@book.ISBN_10}" end %></p>
+  <p class="book_isbn_10"><%= if @book.ISBN_10 then "ISBN 10: #{@book.ISBN_10}" end %></p>
   <p class="book_edition"><%= if @book.publication_date then "Publicated Date: #{@book.publication_date}    " end %><%= if @book.edition then "Edition: #{@book.edition}th" end%></p>
   <p class="list_price"><%= if @book.list_price then " List Price: $#{@book.list_price}" end %></p>
 </p>
 <p class="book_description"><%= if @book.description then @book.description.html_safe end %></p>
 
 </div>
-
 <div class="user_information" style="clear:both">
 <% if @post.post_type=="offer" %>
 <h1>More Information from Seller</h1>
@@ -69,14 +69,14 @@
 <% end %>
 </div>
 <% if current_user.is_a?(GuestUser) %>
+  <%= link_to "Add Bookmark", new_user_session_path ,  class:['btn','magic-button'], role:['button'] %>
+
   <% if @post.status == "active"|| @post.status == "pending"%>
-    <%= link_to 'Contact Seller', new_user_session_path, class:['btn','btn-outline-primary'], role:['button']  %>
+    <%= link_to 'Contact Seller', new_user_session_path, class:['btn','magic-button'], role:['button']  %>
   <% end %>
   <% if @post.status == "active" %>
-    <%= link_to 'Start a Contract',new_user_session_path , class:['btn','btn-outline-primary'], role:['button']%>
+    <%= link_to 'Start a Contract',new_user_session_path , class:['btn','magic-button'], role:['button']%>
   <% end %>
-
-  <%= link_to "Add Bookmark", new_user_session_path ,  class:['btn','btn-outline-primary'], role:['button'] %>
 
 <% else %>
   <% if current_user.id!=@post.user_id %>
@@ -86,7 +86,6 @@
     <% if @post.status == "active" && current_user.id!=@post.user_id %>
       <%= link_to 'Start a Contract', new_contract_path(post_id: @post.id, sender_id: current_user.id, receiver_id: @post.user_id), class:['btn','magic-button'], role:['button'] %>
     <% end %>
-    <%= button_to "Add Bookmark", :controller => :bookmarks, :action => 'create', params: {post_id: @post.id}, :method => :post,class:['btn','magic-button']%>
 
   <% else  %>
     <% if @post.post_type=="offer" %>

@@ -182,7 +182,6 @@ span.text{
   z-index: 1000;
 }
 
-
 .stylish-input-group .input-group-addon{
     background: white !important;
 }
@@ -196,7 +195,7 @@ span.text{
     background:transparent;
 }
 
-.magic-button, button.magic-button{
+.magic-button, button.magic-button,input[type="submit" i]{
     display: inline-block;
     color: white;
     border: 1px solid $darker-magic-purple;
@@ -263,6 +262,10 @@ button:focus {outline:0;}
 }
 .book_show img{
   float:left;
+  margin: 4em;
+}
+.book_show form{
+  float:right;
   margin: 5em;
 }
 .book_show
