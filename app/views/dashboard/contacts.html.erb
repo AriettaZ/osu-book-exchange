@@ -9,25 +9,24 @@
 	<div class="contacts-container">
 		<% @contacts.each do |contact| %>
 			<%= form_tag(profile_messages_path(), :method=>"get") do %>
-			<%= hidden_field_tag(:talk_to, contact.partner_id) %>
-			<%= hidden_field_tag(:post_id, contact.post_id) %>
+				<%= hidden_field_tag(:talk_to, contact.partner_id) %>
+				<%= hidden_field_tag(:post_id, contact.post_id) %>
 			
-			<div class="contact-info">
+				<div class="contact-info">
 				
 				<a onclick="$(this).closest('form').submit()">
-				<div class="contact-info-container">
-					<div class="contact-info-content">Conversation With: <%= contact.partner.name %></div>
-					<div class="contact-info-content">Book Name: <%= if(contact.book) then contact.book.title else "N/A" end %></div>
-					<div class="contact-info-content">Price: $<%= if(contact.post) then contact.post.price else "N/A" end %></div>
-					<div class="contact-info-content">Last Message: <%= contact.latest_message_time.strftime("%H:%M (%m/%d/%y)") %></div>
-				</div>
-				<div class="contact-img-container">
-					<%= image_tag("http://via.placeholder.com/120x150", :class=>"contact-img") %>
-				</div>
+					<div class="contact-info-container">
+						<div class="contact-info-content">Conversation With: <%= contact.partner.name %></div>
+						<div class="contact-info-content">Book Name: <%= if(contact.book) then contact.book.title else "N/A" end %></div>
+						<div class="contact-info-content">Price: $<%= if(contact.post) then contact.post.price else "N/A" end %></div>
+						<div class="contact-info-content">Last Message: <%= contact.latest_message_time.strftime("%H:%M (%m/%d/%y)") %></div>
+					</div>
+					<div class="contact-img-container">
+						<%= image_tag("http://via.placeholder.com/120x150", :class=>"contact-img") %>
+					</div>
 				</a>
-			</div>
-		<% end %>
-			
+				</div>
+			<% end %>
+		<% end %>	
 	</div>
-	<% end %>
 </div>
