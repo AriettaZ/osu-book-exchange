@@ -1,25 +1,45 @@
+<div id="osu-bxi" class="container">
 <h1>OSU Exchange Intro</h1>
-<br/>
+<br>
 <p>OSU Text Book Exchange Program is aiming at helping OSU student to easily sell/buy textbook. This website provides students opportunity to not only post selling offers online, but also buying requests. Both seller and buyer can check our website to find matching offers/requests.</p>
 <p>To buy/sell your textbook: </p>
 <ol>
 	<li><%= link_to 'Sign-up', new_user_registration_path %> an account using valid OSU email address or <%= link_to 'Sign-in', user_session_path %>.</li>
-	<li>Search for matching offer/request using the site-wise search engine below. Use the "more info" button to check more information on the offer/request. <%= render "shared/search_home" %></li>
+	<br>
+	<li>Search for matching offer/request using the site-wise search engine below. Click on the book title to check more information on the offer/request. <%= render "shared/search_home" %></li>
+	<br>
 	<li><p>If you find a matching offer/request: </p>
 		<ol>
 			<li>Click on the "Contact Seller/Buyer" button to send messages to the seller/buyer.</li>
+			<li>Check <%= link_to "Profile - My Message", profile_contacts_path %> regularly to see if the buyer/seller has replyed.</li>
+		</ol>
+	</li>
+	<br>
+	<li> <p>If you cannot find a matching offer/request: </p>
+		<ol>
+			<li>On the navigation menu, click on <%= link_to "Post Book", posts_new_offer_path %> to sell a book or <%= link_to "Request Book", posts_new_request_path %> to buy a book.</li>
+			<li>Fill in the form. If you simply want to give away your textbook, please enter $0 for the price.</li>
+			<li>Click on the "Create Post" button to post your offer/request.</li>
+			<li>Check <%= link_to "Profile - My Message", profile_contacts_path %> regularly to see if there is a buyer/seller trying to reach you.</li>
+		</ol>
+	</li>
+	<br>
+	<li> <p>Finalize your sale/purchase: </p>
+		<ol>
 			<li>After talking about price, meeting date and place and payment method, use the "Start a Contract" button to finalize your meeting information.</li>
 			<li>Once the seller/buyer confirm the contract, your phone numbers will be exchanged.</li>
 			<li>Attend the meeting in your contract.</li>
 		</ol>
 	</li>
-	<li> <p>If you cannot find a matching offer/request: </p>
-		<ol>
-			<li>Click on the "New Post" button.</li>
-			<li>Fill in the post type, book information, payment method, item description, attachment and your intending price. If you simply want to give away your textbook, please enter $0 for the price.</li>
-			<li>Click on the "Create Post" button and your post will enter the database.</li>
-			<li>Check the website regularly to see if there is a buyer/seller trying to reach you.</li>
-			<li>(If you sign up for email notification, you will also be noticed through email about contacting buyers/sellers)</li>
-		</ol>
+	<br>
+	<li> <p>If you meet any problem, you can <%= link_to "contact us", contact_us_path %>.</p>
 	</li>
 </ol>
+</div>
+
+<style>
+#osu-bxi {
+	font-size: 1.2em;
+	max-width: 45vw;
+}
+</style>
