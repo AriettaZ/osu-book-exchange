@@ -4,9 +4,9 @@
 
 <br/>
 <% if @editFrom == "index"%>
-  <%= link_to 'Back', contracts_path %>
+  <%= link_to 'Back', contracts_url, class: "btn magic-button" %>
 <% elsif @editFrom == "profile"%>
-  <%= link_to 'Back', profile_mycontract_path%>
+  <%= link_to 'Back', profile_mycontract_url, class: "btn magic-button"%>
 <% elsif @editFrom == "show"%>
-  <%= link_to 'Back', contract_path(@contract)%>
+  <%= link_to 'Back', contract_url(@contract), class: "btn magic-button"%>
 <%end%>

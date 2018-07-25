@@ -101,6 +101,7 @@
 <script>
 $("document").ready(function(){
   $('option[value="online"]').attr("disabled","disabled");
+  $('[type=submit]').addClass("btn magic-button");
   $("#contract_post_id").change(function(){
     var post_id = parseInt($("#contract_post_id option:selected").val(), 10);
     $.ajax({

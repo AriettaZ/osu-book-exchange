@@ -106,7 +106,7 @@ class AjaxPagesController < ApplicationController
     post = Post.find(@post_id)
     if post.post_type == "offer"
       @buyers = User.where.not(id: post.user_id)
-    elsif post.type == "request"
+    elsif post.post_type == "request"
       @buyers = User.where(id: post.user_id)
     end
   end
@@ -116,7 +116,7 @@ class AjaxPagesController < ApplicationController
     post = Post.find(@post_id)
     if post.post_type == "offer"
       @sellers = User.where(id: post.user_id)
-    elsif post.type == "request"
+    elsif post.post_type == "request"
       @sellers = User.where.not(id: post.user_id)
     end
   end
