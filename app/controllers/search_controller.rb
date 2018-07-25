@@ -1,18 +1,28 @@
 class SearchController < ApplicationController
 
 	def search
-	  books = book_search params[:query], params[:edition]
+
+	if params[:low_price].length>15 || params[:low_price].to_i <0 || params[:low_price].to_i > 2000 then
+	  	flash[:notice] = "Filter price must be in range $0 - $2000"
+	  	redirect_to search_path(search_for: params[:search_for], offer_request: params[:offer_request], edition: params[:edition], condition: params[:condition], low_price: 0, high_price: params[:high_price])
+	  	return
+	 elsif params[:high_price].length>15 || params[:high_price].to_i < 0 || params[:high_price].to_i > 2000 then
+	  	flash[:notice] = "Filter price must be in range $0 - $2000"
+	  	redirect_to search_path(search_for: params[:search_for], offer_request: params[:offer_request], edition: params[:edition], condition: params[:condition], low_price: params[:low_price], high_price: 2000)
+	  	return
+	 end
+
+	  books = book_search
 	  post_refine_search books.results
 	  if params[:edition]!='all' then
-	  	books = book_search params[:query], 'all'
 	  	edition_update books.results
 	  end
 	end
 
-	def book_search query, edition
+	def book_search
 		Book.search do
 			# Match title or ISBN
-			fulltext query do
+			fulltext params[:query] do
 				if params[:search_for]=='Title' then
 					fields(:title)
 				elsif params[:search_for]=='ISBN' then
@@ -20,12 +30,12 @@ class SearchController < ApplicationController
 				end
 			end
 
-			# Match edition
-			if edition!="all" then
-				fulltext edition+" th" do
-					fields(:edition)
-				end
-			end
+			# # Match edition
+			# if edition!="all" then
+			# 	fulltext edition+" th" do
+			# 		fields(:edition)
+			# 	end
+			# end
 		end
 	end
 
@@ -54,6 +64,13 @@ class SearchController < ApplicationController
 	    			end
 	    		end
 
+	    		# Match edition
+				if params[:edition]!="all" then
+					fulltext params[:edition] do
+						fields(:edition)
+					end
+				end
+
 	    		# Match book max/min price
 	    		if(params[:low_price]!="") then
 	    			with(:price).greater_than(params[:low_price].to_f-1)
@@ -75,9 +92,8 @@ class SearchController < ApplicationController
 		      	end
 
 		      	if params[:edition]=="all" then
-		      		book = Book.find_by_id(post.book_id)
-	    			unless @editions.include? book.edition then
-		      			@editions.append(book.edition)
+	    			unless @editions.include? post.edition then
+		      			@editions.append(post.edition)
 		      		end
 		      	end
 	    	end
@@ -126,9 +142,9 @@ class SearchController < ApplicationController
 	    			with(:price).less_than(params[:high_price].to_f+1)
 	    		end
 	    	end.results.each do |post|
-	    		book = Book.find_by_id(post.book_id)
-	    		unless @editions.include? book.edition then
-		      		@editions.append(book.edition)
+
+	    		unless @editions.include? post.edition then
+		      		@editions.append(post.edition)
 		      	end
 	    	end
 	    end
