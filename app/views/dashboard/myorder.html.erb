@@ -3,9 +3,8 @@ Created: 7/22
 Edit: 7/24 Gail changed hide/show to Ajax
 Description: Show all orders that the current user has. -->
 
-<%= stylesheet_link_tag "orders" %>
-
 <h1>My Orders</h1>
+<p><strong>Total: </strong><%= @orders.length %></p>
 <div id="order-btn-container" class="btn-group btn-group-toggle d-flex" data-toggle="buttons">
   <button id="a-order" class="btn btn-default w-100 active" style="padding:10px">Active Orders</button>
   <button id="p-order" class="btn btn-default w-100" style="padding:10px">Problematic Orders</button>
