@@ -1,0 +1,12 @@
+Hello <%=@user.name%>,
+<br/>
+<br/>
+<%post = Post.find(@contract.post_id)%>
+We are sorry to inform you that contract#<%=@contract.id%> was expired and you didn't confirm or decline.
+If you still want to exchange this book, please revisit this <%= link_to "Post", post%>.
+
+<%= render "contract_info", contract: @contract%>
+
+<br/>
+To see details of this contract, please sign in to visit <%= link_to "My Contracts", profile_mycontract_url%>.
+<br/>
