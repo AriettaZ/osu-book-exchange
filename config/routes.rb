@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   get 'post/:id/edit_offer', to: 'posts#edit_offer', as: 'post_edit_offer'
   get 'post/:id/edit_request', to: 'posts#edit_request', as: 'post_edit_request'
   get 'posts/admin_index', to: 'posts#admin_index', as: 'posts_admin_index'
+  put 'posts/:id/soft_delete',to: 'posts#soft_delete',   as: 'posts_soft_delete'
   resources :posts, except: [:new,:edit]
   # search routes for finding book exchange listings
   get 'search-book', to: 'books#search'
