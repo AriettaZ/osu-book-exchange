@@ -1,7 +1,8 @@
 class CloseExpiredOrdersJob < ApplicationJob
   queue_as :default
 
-  # If the contract is expired and it is not confirmed or declined, then decline the contract and send email notifications to users.
+  # If the contract is expired and it is not confirmed or declined, 
+  # then decline the contract and send email notifications to users.
   def perform(order)
     @order = order
     contract = Contract.find(order.contract_id)
