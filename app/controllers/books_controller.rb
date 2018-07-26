@@ -67,6 +67,15 @@ class BooksController < ApplicationController
     # DELETE /books/1
     # DELETE /books/1.json
     def destroy
+      @book.posts.each do |post|
+        post.contracts do |contract|
+          contract.orders do |order|
+            order.delete
+          end
+          constract.delete
+        end
+        post.delete
+      end
       @book.destroy
       respond_to do |format|
         format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
@@ -82,7 +91,7 @@ class BooksController < ApplicationController
 
       # Never trust parameters from the scary internet, only allow the white list through.
       def book_params
-        params.require(:book).permit(:ISBN_10,:ISBN_13,:edition,:title,:cover_image,:amazon_price,:self_link)
+        params.require(:book).permit(:ISBN_10,:ISBN_13,:description, :author, :publisher, :list_price,:publication_date, :subtitle, :edition,:title,:cover_image,:self_link)
 
       end
 
