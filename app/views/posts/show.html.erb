@@ -37,7 +37,7 @@
 <p><strong>Edition:</strong> <%= @post.edition %> th</p>
 <p><strong>Price:</strong> <%= @post.price %></p>
 <p><strong>Type:</strong> <%= @post.post_type %></p>
-<p><strong>Payment Method:</strong> <%=  @post.payment_method.capitalize %></p>
+<p><strong>Payment Method:</strong> <%= @post.payment_method=='inperson'? "In Person" : "Online" %>
 <p><strong>Condition:</strong> <%= @post.condition %></p>
 <p><strong>Description:</strong> <%= @post.description || "No Description" %></p>
 
