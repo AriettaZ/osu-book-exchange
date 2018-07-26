@@ -128,7 +128,6 @@
             <% if current_user.has_roles?(:site_admin) || contract.unsigned_user_id != current_user.id %>
               <%= link_to 'Edit', edit_contract_path(contract, editFrom: editFrom), class: "btn magic-button"%>
               <%= link_to "Delete", contract_path(contract, contract: {status: :deleted}), :method => :put, data: { confirm: 'Are you sure you want to delete this contract?' }, class: "btn magic-button" %>
-              <!-- <%= link_to 'Delete', contract, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn magic-button" %> -->
             <% end %>
 
             <!-- Only the unsigned user can confirm or decline. -->
@@ -137,9 +136,6 @@
                <%= link_to "Decline", contract_path(contract, contract: {status: :declined}), :method => :put, data: { confirm: 'Are you sure you want to decline?' }, class: "btn magic-button" %>
             <% end %>
 
-          <!-- Admin can delete a contract at any time. -->
-          <!-- <% elsif contract.status != "waiting" && current_user.has_roles?(:site_admin) %>
-          <%= link_to "Delete", contract_path(contract, contract: {status: :deleted}), :method => :put, data: { confirm: 'Are you sure you want to delete this contract?' }, class: "btn magic-button" %> -->
           <% end %>
       </div>
     </div>
