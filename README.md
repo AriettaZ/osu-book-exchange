@@ -80,7 +80,7 @@ rails db:setup
 rails server
 ```
 
-#####Set up mailer
+##### Set up the mailer
 Store your email address and password in config/application.yml file.
 ```
 GMAIL_USERNAME: 'example@gmail.com'
