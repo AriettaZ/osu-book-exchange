@@ -22,7 +22,7 @@
 						<div class="contact-info-content">Last Message: <%= contact.latest_message_time.strftime("%H:%M (%m/%d/%y)") %></div>
 					</div>
 					<div class="contact-img-container">
-						<%= image_tag("http://via.placeholder.com/120x150", :class=>"contact-img") %>
+						<%= image_tag(contact.book.cover_image, :class=>"contact-img") %>
 					</div>
 				</a>
 				</div>

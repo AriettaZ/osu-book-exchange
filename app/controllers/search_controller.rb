@@ -73,7 +73,7 @@ class SearchController < ApplicationController
 	    		end
 	    	end.results.each do
 	      		|post|
-	      		if post.status != "closed" && post.status != "draft" then
+	      		if post.status != "closed" && post.status != "draft" && post.status != "deleted" then
 	      			@posts.append(post)
 	      		end
 
@@ -139,7 +139,7 @@ class SearchController < ApplicationController
 	    			with(:price).less_than(params[:high_price].to_f+1)
 	    		end
 	    	end.results.each do |post|
-	    		if post.status!= "closed" && post.status != "draft" then
+	    		if post.status!= "closed" && post.status != "draft" && post.status != "deleted" then
 	    			unless @editions.include? post.edition then
 		      			@editions.append(post.edition)
 		      		end
