@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-default" role="navigation">
+<nav class="navbar navbar-expand-lg navbar-default" role="navigation">
   <div class="navbar-header">
     <%= link_to "OSU Book Exchange", root_path, class:["nav-link","navbar-brand"] %>
     <!-- <i class="fas fa-book-open"></i> -->
@@ -6,8 +6,8 @@
       <i class="navbar-toggler-icon fa fa-home fa-2x" style="margin-top:5px; font-size:30px;"></i>
     </button>
   </div>
-  <div class="navbar-collapse" id="navbarSupportedContent">
-    <ul class="nav navbar-nav navbar-right mr-auto">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="nav navbar-nav navbar-right  mr-auto">
 
       <!-- Links that everybody can see -->
       <li  class="nav-item">
@@ -47,10 +47,10 @@
         <% else %>
 
         <li class="nav-item dropdown">
-           <a class="nav-link dropdown-toggle" href="<%= profile_path %>" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           <a class="nav-link dropdown-toggle" href="<%= profile_path %>" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
              Profile
            </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <%= link_to "Account Information", account_information_path, class:"dropdown-item" %>
              <%= link_to "My Orders", profile_myorder_path, class:"dropdown-item" %>
              <%= link_to "My Contracts", profile_mycontract_path, class:"dropdown-item" %>
