@@ -98,6 +98,7 @@
     <% end %>
     </div>
 <br/>
-<%= link_to 'Show', @post %> |
-<%= link_to 'Back', url_for(:back) %>
+<%= link_to 'Show Post', @post, class:["btn","magic-button"] %>
+<%= link_to 'Delete', posts_soft_delete_path(@post),method: :put, data: { confirm: 'Are you sure?' },class:['btn','magic-button'], role:['button']  %>
+<%= link_to 'Back', url_for(:back) , class:["btn","magic-button"] %>
   </div>

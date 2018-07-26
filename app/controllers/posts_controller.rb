@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :edit_offer, :edit_request, :update, :destroy, :toggle_status]
+  before_action :set_post, only: [:show, :edit, :edit_offer, :edit_request, :update,:soft_delete, :destroy, :toggle_status]
   access all: [:show,:new_offer,:new_request,:index], user: :all, site_admin: :all
 # GET /posts
 # GET /posts.json
@@ -50,6 +50,16 @@ def new_request
   end
 end
 
+
+def soft_delete
+  @post.status='deleted'
+  if @post.save
+    flash[:notice] = "The post is deleted successfully"
+  else
+    flash[:notice] = "Error deleting post"
+  end
+  redirect_to @post
+end
 # GET /posts/1/seller_edit
 def edit_offer
   @book = @post.book
