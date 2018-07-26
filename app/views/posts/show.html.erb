@@ -34,7 +34,7 @@
 <p><strong>Post Status:</strong> <%= @post.status.capitalize %></p>
 <p><strong>Post Date:</strong> <%= distance_of_time_in_words(@post.created_at, Time.now) %> ago</p>
 <p><strong>Course Number:</strong> <%= @post.course_number.empty?? "No Course Number Information" : @post.course_number%></p>
-<p><strong>Edition:</strong> <%= @post.edition %> th</p>
+<p><strong>Edition:</strong> <%= @post.edition %> </p>
 <p><strong>Price:</strong> <%= @post.price %></p>
 <p><strong>Type:</strong> <%= @post.post_type %></p>
 <p><strong>Payment Method:</strong> <%= @post.payment_method=='inperson'? "In Person" : "Online" %>
