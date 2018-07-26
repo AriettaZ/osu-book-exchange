@@ -62,7 +62,6 @@ class DashboardController < ApplicationController
         new_contact.post = Post.find_by_id(message.post_id)
         new_contact.book = Book.find_by_id(new_contact.post.book_id)
         @contacts.append(new_contact)
-
       end
     end
 

@@ -12,8 +12,8 @@
   user.major= "CSE"
   user.name = "Brutus #{index+1}"
   user.phone= "8888888888"
-  user.password = 'valid_password'
-  user.password_confirmation = 'valid_password'
+  user.password = 'password'
+  user.password_confirmation = 'password'
   user.role=:user
   user.save!
 }
@@ -24,8 +24,8 @@
   user.major= "CSE"
   user.name = "Ariel Zhu"
   user.phone= "8888888888"
-  user.password = 'valid_password'
-  user.password_confirmation = 'valid_password'
+  user.password = 'password'
+  user.password_confirmation = 'password'
   user.role=:site_admin
   user.save!
 }
@@ -35,8 +35,8 @@
   user.major= "CSE"
   user.name = "Channing Jacobs"
   user.phone= "8888888888"
-  user.password = 'valid_password'
-  user.password_confirmation = 'valid_password'
+  user.password = 'password'
+  user.password_confirmation = 'password'
   user.role=:site_admin
   user.save!
 }
@@ -46,8 +46,8 @@
   user.major= "CSE"
   user.name = "Mike Lin"
   user.phone= "8888888888"
-  user.password = 'valid_password'
-  user.password_confirmation = 'valid_password'
+  user.password = 'password'
+  user.password_confirmation = 'password'
   user.role=:site_admin
   user.save!
 }
@@ -57,8 +57,8 @@
   user.major= "CSE"
   user.name = "Gail Chen"
   user.phone= "8888888888"
-  user.password = 'valid_password'
-  user.password_confirmation = 'valid_password'
+  user.password = 'password'
+  user.password_confirmation = 'password'
   user.role=:site_admin
   user.save!
 }
@@ -69,25 +69,74 @@
   user.major= "CSE"
   user.name = "TEST"
   user.phone= "8888888888"
-  user.password = 'valid_password'
-  user.password_confirmation = 'valid_password'
+  user.password = 'password'
+  user.password_confirmation = 'password'
   user.role=:user
   user.save!
 }
 
-10.times { |index|
-  Book.create!(
-    ISBN_10: "#{index + 1}",
-    ISBN_13: "#{987654321 - index}",
-    # edition: "#{index}",
-    title: "hello #{index*2}",
-    subtitle:"hello world#{index*2}",
-    description:"hello world#{index*2}",
-    cover_image: "http://via.placeholder.com/120x150",
-    amazon_price: index*5 + 22.5,
-    list_price: index*5 + 22.5*2,
-    self_link:'https://www.googleapis.com/books/v1/volumes/uDxbDgAAQBAJ')
-}
+development_response = RestClient::Request.execute(
+  method: :get,
+  url: "https://www.googleapis.com/books/v1/volumes?q=development",
+  )
+computer_response= RestClient::Request.execute(
+  method: :get,
+  url: "https://www.googleapis.com/books/v1/volumes?q=computer",
+  )
+ruby_response= RestClient::Request.execute(
+  method: :get,
+  url: "https://www.googleapis.com/books/v1/volumes?q=ruby",
+  )
+python_response= RestClient::Request.execute(
+  method: :get,
+  url: "https://www.googleapis.com/books/v1/volumes?q=python",
+)
+ohio_response= RestClient::Request.execute(
+  method: :get,
+  url: "https://www.googleapis.com/books/v1/volumes?q=ohio",
+)
+teamwork_response= RestClient::Request.execute(
+  method: :get,
+  url: "https://www.googleapis.com/books/v1/volumes?q=teamwork",
+)
+responses=JSON.parse(development_response)['items']
+responses+=JSON.parse(computer_response)['items']
+responses+=JSON.parse(ruby_response)['items']
+responses+=JSON.parse(python_response)['items']
+responses+=JSON.parse(ohio_response)['items']
+responses+=JSON.parse(teamwork_response)['items']
+puts responses
+responses.each do |response|
+  @book = Book.where(self_link: response['selfLink']).first_or_create do |book|
+    book.title=response['volumeInfo']['title']
+    book.subtitle=response['volumeInfo']['subtitle']
+    book.description=response['volumeInfo']['description']
+    book.publisher=response['volumeInfo']['publisher']
+    book.publication_date=response['volumeInfo']['publishedDate']
+    if response['volumeInfo']['authors'] then book.author=response['volumeInfo']['authors'].join(', ') end
+    if response['saleInfo']['listPrice'] then book.list_price=response['saleInfo']['listPrice']['amount'] end
+  end
+  puts @book
+  if response['volumeInfo']['industryIdentifiers']
+      response['volumeInfo']['industryIdentifiers'].each do |isbn_type|
+        if isbn_type['type']=='ISBN_13'
+          @book['ISBN_13']=isbn_type['identifier']
+        elsif isbn_type['type']=='ISBN_10'
+          @book['ISBN_10']=isbn_type['identifier']
+        end
+      end
+  end
+  if response['volumeInfo']['imageLinks']
+      if response['volumeInfo']['imageLinks']['thumbnail']
+        @book['cover_image']=response['volumeInfo']['imageLinks']['thumbnail']
+      elsif response['volumeInfo']['imageLinks']['smallThumbnail']
+        @book['cover_image']=response['volumeInfo']['imageLinks']['smallThumbnail']
+      end
+  end
+  @book.save
+end
+
+
 
 2.times { |index|
   Post.create!(

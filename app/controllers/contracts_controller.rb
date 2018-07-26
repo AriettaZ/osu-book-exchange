@@ -166,13 +166,14 @@ class ContractsController < ApplicationController
           format.html { redirect_to order_url(@order), notice: 'Contract was confirmed and an order was successfully placed.' }
 
         else
-          unsigned_user = User.find(@contract.unsigned_user_id)
-          if @contract.unsigned_user_id == @contract.buyer_id
-            signed_user = User.find(@contract.seller_id)
-          else
-            signed_user = User.find(@contract.buyer_id)
+          if @contract.unsigned_user_id != nil
+            unsigned_user = User.find(@contract.unsigned_user_id)
+            if @contract.unsigned_user_id == @contract.buyer_id
+              signed_user = User.find(@contract.seller_id)
+            else
+              signed_user = User.find(@contract.buyer_id)
+            end
           end
-
           # If the contract is declined, then post is active(1) and an email is sent to users.
           if @contract.status == "declined"
             post.status = 1
@@ -198,7 +199,7 @@ class ContractsController < ApplicationController
           elsif @contract.status == "deleted"
             post.status = 1
             post.save
-            format.html { redirect_to profile_mycontract_url, notice: 'The contract was successfully declined.' }
+            format.html { redirect_to profile_mycontract_url, notice: 'The contract was successfully deleted.' }
           end
         end
       else

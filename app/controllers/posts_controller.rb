@@ -52,13 +52,16 @@ end
 
 # GET /posts/1/seller_edit
 def edit_offer
+  @book = @post.book
 end
 # GET /posts/1/seller_edit
 def edit_request
+  @book = @post.book
 end
 
 # GET /posts/1/seller_edit
 def edit
+  @book = @post.book
 end
 
 # POST /posts
@@ -82,12 +85,13 @@ def create
       if response['saleInfo']['listPrice'] then book.list_price=response['saleInfo']['listPrice']['amount'] end
     end
     puts @book
-    # new_book={}
-    # new_book['self_link']=post_params[:book]['self_link']
     if response['volumeInfo']['industryIdentifiers']
         response['volumeInfo']['industryIdentifiers'].each do |isbn_type|
-          type=isbn_type['type']
-          @book[type]=isbn_type['identifier']
+          if isbn_type['type']=='ISBN_13'
+            @book['ISBN_13']=isbn_type['identifier']
+          elsif isbn_type['type']=='ISBN_10'
+            @book['ISBN_10']=isbn_type['identifier']
+          end
         end
     end
     if response['volumeInfo']['imageLinks']
@@ -97,36 +101,30 @@ def create
           @book['cover_image']=response['volumeInfo']['imageLinks']['smallThumbnail']
         end
     end
-    if response['volumeInfo']['industryIdentifiers']
-        response['volumeInfo']['industryIdentifiers'].each do |isbn_type|
-          type=isbn_type['type']
-          @book[type]=isbn_type['identifier']
+    if @book.save
+    # @posts.book_id=@book.id
+      @post = current_user.posts.new(post_params.merge({book: @book}))
+
+        respond_to do |format|
+          if @post.save
+              if params[:images]
+                  params[:images]['actual_product_image'].each do |image|
+                    @image = @post.images.create!(:actual_product_image => image)
+                  end
+              end
+              format.html { redirect_to @post, notice: 'Post was successfully created.' }
+              format.json { render :show, status: :created, location: @post }
+          else
+              if post_params['post_type']=='offer'
+                format.html { render :new_offer }
+                format.json { render json: @order.errors, status: :unprocessable_entity }
+              else
+                format.html { render :new_request }
+                format.json { render json: @order.errors, status: :unprocessable_entity }
+              end
+          end
         end
     end
-      if @book.save
-      # @posts.book_id=@book.id
-        @post = current_user.posts.new(post_params.merge({book: @book}))
-
-          respond_to do |format|
-            if @post.save
-                if params[:images]
-                    params[:images]['actual_product_image'].each do |image|
-                      @image = @post.images.create!(:actual_product_image => image)
-                    end
-                end
-                format.html { redirect_to @post, notice: 'Post was successfully created.' }
-                format.json { render :show, status: :created, location: @post }
-            else
-                if post_params['post_type']=='offer'
-                  format.html { render :new_offer }
-                  format.json { render json: @order.errors, status: :unprocessable_entity }
-                else
-                  format.html { render :new_request }
-                  format.json { render json: @order.errors, status: :unprocessable_entity }
-                end
-            end
-          end
-      end
   else
       if post_params['post_type']=="offer"
         redirect_to posts_new_offer_path, notice:"Need Book Information"
@@ -141,56 +139,25 @@ end
 def update
   puts "post_params"
   puts post_params
-  if post_params[:book]
-    @book = Book.where(self_link: post_params[:book]['self_link']).first_or_create
-    # puts @book.id
-    # new_book={}
-    # new_book['self_link']=post_params[:book]['self_link']
-    response = RestClient::Request.execute(
-      method: :get,
-      url: post_params[:book]['self_link'],
-      )
-    response=JSON.parse(response)
-    @book['title']=response['volumeInfo']['title']
-    if response['volumeInfo']['industryIdentifiers']
-        response['volumeInfo']['industryIdentifiers'].each do |isbn_type|
-          type=isbn_type['type']
-          puts type
-          puts isbn_type['identifier']
-          @book[type]=isbn_type['identifier']
+
+  respond_to do |format|
+    if @post.update(post_params)
+        if params[:images]
+            params[:images]['actual_product_image'].each do |image|
+              @image = @post.images.create!(:actual_product_image => image)
+            end
+        end
+        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
+        format.json { render :show, status: :created, location: @post }
+    else
+        if post_params['post_type']=='offer'
+          format.html { render :edit_offer}
+          format.json { render json: @order.errors, status: :unprocessable_entity }
+        else
+          format.html { render :edit_request }
+          format.json { render json: @order.errors, status: :unprocessable_entity }
         end
     end
-    @book['cover_image']=response['volumeInfo']['imageLinks']['thumbnail']
-      if @book.save
-      # @posts.book_id=@book.id
-        @post = current_user.posts.new(post_params.merge({book: @book}))
-
-          respond_to do |format|
-            if @post.update(post_params)
-                if params[:images]
-                    params[:images]['actual_product_image'].each do |image|
-                      @image = @post.images.create!(:actual_product_image => image)
-                    end
-                end
-                format.html { redirect_to @post, notice: 'Post was successfully updated.' }
-                format.json { render :show, status: :created, location: @post }
-            else
-                if post_params['post_type']=='offer'
-                  format.html { render :edit_offer }
-                  format.json { render json: @order.errors, status: :unprocessable_entity }
-                else
-                  format.html { render :edit_request }
-                  format.json { render json: @order.errors, status: :unprocessable_entity }
-                end
-            end
-          end
-      end
-  else
-      if post_params['post_type']=="offer"
-        redirect_to posts_new_offer_path, notice:"Need Book Information"
-      else
-        redirect_to posts_new_request_path, notice:"Need Book Information"
-      end
   end
 end
 
@@ -207,7 +174,7 @@ def destroy
   end
   @post.destroy
   respond_to do |format|
-    format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
+    format.html { redirect_to root_url, notice: 'Post was successfully destroyed.' }
     format.json { head :no_content }
   end
 end
