@@ -139,6 +139,10 @@ weight:bold;
 }
 .navbar-collapse.collapse#navbarSupportedContent{
   display: inline-block !important;
+  text-align:center;
+  .dropdown-item {
+    text-align: center;
+  }
 }
 .navbar-nav .nav-item .nav-link{
   padding:15px;
@@ -231,6 +235,9 @@ button.magic-button:hover, button.magic-button:focus, button.magic-button:active
 }
 nav .dropdown-menu{
   z-index: 2000;
+  .dropdown-item {
+    background-color: $magic-white;
+  }
 }
 
 .form-control , .nice-select, .input-group-addon ,.selectpicker{
