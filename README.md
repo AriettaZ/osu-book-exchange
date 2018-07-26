@@ -29,7 +29,7 @@ rails db:setup
 ##### Run server
 rails server
 
-#####Set up email notification
+#####Set up mailer
 Store your email address and password in config/application.yml file.
 ```
 GMAIL_USERNAME: 'example@gmail.com'
@@ -39,6 +39,7 @@ Then go to app/mailers/application_mailer.rb to edit default emailer sender:
 ```
 default from: 'example@gmail.com'
 ```
+
 
 ##### Testing
 RAILS_ENV=test bundle exec rake sunspot:solr:run

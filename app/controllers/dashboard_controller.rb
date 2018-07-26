@@ -10,7 +10,8 @@ class DashboardController < ApplicationController
     @user = current_user
   end
   def mycontract
-    @contracts = Contract.where(buyer_id: current_user.id) + Contract.where(seller_id: current_user.id)
+    activeContracts = Contract.where.not(status: "deleted")
+    @contracts = activeContracts.where(buyer_id: current_user.id) + activeContracts.where(seller_id: current_user.id)
   end
 
   def myorder
@@ -61,7 +62,6 @@ class DashboardController < ApplicationController
         new_contact.post = Post.find_by_id(message.post_id)
         new_contact.book = Book.find_by_id(new_contact.post.book_id)
         @contacts.append(new_contact)
-
       end
     end
 

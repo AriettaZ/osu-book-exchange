@@ -45,8 +45,8 @@ class MessagesController < ApplicationController
               )
     # flash.now[:success] = @message.inspect
     if @message.save
-      flash[:success] = "Message sent for post id: " + params[:post_id].to_s
-      redirect_to posts_url
+      flash[:notice] = "Message sent to " + User.find_by_id(params[:talk_to]).name
+      redirect_to post_path(params[:post_id])
     else
       # Show saving errors.
       @message.errors.each do |type, text|

@@ -166,13 +166,14 @@ class ContractsController < ApplicationController
           format.html { redirect_to order_url(@order), notice: 'Contract was confirmed and an order was successfully placed.' }
 
         else
-          unsigned_user = User.find(@contract.unsigned_user_id)
-          if @contract.unsigned_user_id == @contract.buyer_id
-            signed_user = User.find(@contract.seller_id)
-          else
-            signed_user = User.find(@contract.buyer_id)
+          if @contract.unsigned_user_id != nil
+            unsigned_user = User.find(@contract.unsigned_user_id)
+            if @contract.unsigned_user_id == @contract.buyer_id
+              signed_user = User.find(@contract.seller_id)
+            else
+              signed_user = User.find(@contract.buyer_id)
+            end
           end
-
           # If the contract is declined, then post is active(1) and an email is sent to users.
           if @contract.status == "declined"
             post.status = 1
@@ -193,6 +194,12 @@ class ContractsController < ApplicationController
             DeclineExpiredContractJob.set(wait_until: @contract.expiration_time).perform_later(@contract, signed_user, unsigned_user)
             format.html { redirect_to @contract, notice: 'The contract is now waiting for confirmation/decline.' }
             format.json { render :show, status: :ok, location: @contract }
+
+          # If the contract is deleted, then post is set to active.
+          elsif @contract.status == "deleted"
+            post.status = 1
+            post.save
+            format.html { redirect_to profile_mycontract_url, notice: 'The contract was successfully deleted.' }
           end
         end
       else
@@ -206,6 +213,11 @@ class ContractsController < ApplicationController
   # DELETE /contracts/1
   # DELETE /contracts/1.json
   def destroy
+    post = Post.find(@contract.post_id)
+    if @contract.status == "waiting"
+      post.status == 1
+      post.save
+    end
     @contract.destroy
     respond_to do |format|
       format.html { redirect_to contracts_url, notice: 'Contract was successfully destroyed.' }
