@@ -31,12 +31,13 @@
   <h1>More Information from Buyer</h1>
 <p><strong>Buyer:</strong> <%= User.find_by(id: @post.user_id).name %></p>
 <% end %>
+<p><strong>Post Status:</strong> <%= @post.status.capitalize %></p>
 <p><strong>Post Date:</strong> <%= distance_of_time_in_words(@post.created_at, Time.now) %> ago</p>
 <p><strong>Course Number:</strong> <%= @post.course_number.empty?? "No Course Number Information" : @post.course_number%></p>
 <p><strong>Edition:</strong> <%= @post.edition %> th</p>
 <p><strong>Price:</strong> <%= @post.price %></p>
 <p><strong>Type:</strong> <%= @post.post_type %></p>
-<p><strong>Payment Method:</strong> <%= @post.payment_method=='inperson'? "In Person" : "Online" %>
+<p><strong>Payment Method:</strong> <%=  @post.payment_method.capitalize %></p>
 <p><strong>Condition:</strong> <%= @post.condition %></p>
 <p><strong>Description:</strong> <%= @post.description || "No Description" %></p>
 
@@ -70,6 +71,7 @@
 </div>
 <% end %>
 </div>
+<% if @post.status!='deleted' &&  @post.status!='closed' %>
 <% if current_user.is_a?(GuestUser) %>
   <%= link_to "Add Bookmark", new_user_session_path ,  class:['btn','magic-button'], role:['button'] %>
 
@@ -95,9 +97,10 @@
     <% else %>
       <%= link_to 'Edit', post_edit_request_path(@post),  class:['btn','magic-button'], role:['button']  %>
     <% end %>
-    <%= link_to 'Delete', @post, method: :delete, data: { confirm: 'Are you sure?' },class:['btn','magic-button'], role:['button']  %>
+    <!-- <%= link_to 'Delete', @post, method: :delete, data: { confirm: 'Are you sure?' },class:['btn','magic-button'], role:['button']  %> -->
+    <%= link_to 'Delete', posts_soft_delete_path(@post),method: :put, data: { confirm: 'Are you sure?' },class:['btn','magic-button'], role:['button']  %>
   <% end %>
-
+<% end %>
 <% end %>
 <%= link_to 'Back', url_for(:back),  class:['btn','magic-button'], role:['button']  %>
 </div>

@@ -27,13 +27,13 @@
         <td>#<%= post.id %></td>
         <td><%= link_to "#{post.book.title}", book_path(post.book.id)%>
         <td><%= post.user.name %></td>
-        <td><%= post.post_type %></td>
+        <td><%= post.post_type.capitalize %></td>
         <td><%= post.course_number %></td>
         <td> $<%= post.price %></td>
-        <td><%= post.condition%></td>
-        <td><%= post.payment_method %></td>
+        <td><%= post.condition %></td>
+        <td><%= post.payment_method.capitalize %></td>
         <td><%= post.description %></td>
-        <td><%= post.status %></td>
+        <td><%= post.status.capitalize %></td>
         <td><%= post.created_at %></td>
         <td><%= link_to 'Show', post %></td>
         <% if post.post_type=="offer" %>
