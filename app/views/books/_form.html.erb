@@ -21,33 +21,56 @@
     <%= form.label :title %>
     <%= form.text_area :title %>
   </div>
-
+  
+  <div class="field">
+    <%= form.label :subtitle %>
+    <%= form.text_area :subtitle %>
+  </div>
+<br />
+  <div class="field">
+    <%= form.label :author %>
+    <%= form.text_area :author %>
+  </div>
+<br />
+  <div class="field">
+    <%= form.label :publisher %>
+    <%= form.text_area :publisher %>
+  </div>
+  <br />
+  <div class="field">
+    <%= form.label :publication_date %>
+    <%= form.datetime_select :publication_date %>
+  </div>
+<br />
   <div class="field">
     <%= form.label :ISBN_10 %>
     <%= form.text_area :ISBN_10 %>
-  </div>
+  </div><br />
 
   <div class="field">
     <%= form.label :ISBN_13 %>
     <%= form.text_area :ISBN_13 %>
-  </div>
+  </div><br />
   <div class="field">
-    <%= form.label :edition %>
-    <%= form.text_area :edition %>
+    <%= form.label :description %>
+    <%= form.text_area :description %>
   </div>
-
+  <br />
   <div class="field">
     <%= form.label :self_link %>
     <%= form.text_area :self_link %>
   </div>
 
+<br />
   <div class="field">
     <%= form.label :cover_image %>
     <%= form.text_area :cover_image %>
   </div>
 
-
+<br />
   <div class="actions">
     <%= form.submit %>
   </div>
+  <br />
 <% end %>
+<script>$('.datepicker').datepicker();</script>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_25_160902) do
+ActiveRecord::Schema.define(version: 2018_07_26_052303) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.boolean "favorite"
@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(version: 2018_07_25_160902) do
     t.text "ISBN_13"
     t.text "title"
     t.text "cover_image"
-    t.decimal "amazon_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "self_link"
