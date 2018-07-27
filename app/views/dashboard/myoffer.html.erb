@@ -2,11 +2,11 @@
 <h1>My Offers</h1>
 <p>You have <strong><%= @offers.length %></strong> offer<%= "s" if @offers.length>1 %>.</p>
 
-<div id="off-btn-container" class="btn-group btn-group-toggle d-flex" role="group" aria-label="Offer Buttons" data-toggle="buttons">
-  <button id="oa-btn"class="btn btn-default w-100 active" style="padding:10px">Active Offers</button>
-  <button id="op-btn" class="btn btn-default w-100" style="padding:10px">Pending Offers</button>
-  <button id="oc-btn" class="btn btn-default w-100" style="padding:10px">Closed Offers</button>
-  <button id="od-btn" class="btn btn-default w-100" style="padding:10px">Draft Offers</button>
+<div id="off-btn-container" class="btn-group btn-group-justified" role="group" aria-label="Offer Buttons" data-toggle="buttons">
+  <a id="oa-btn" role="button" class="btn btn-default active" style="padding:10px">Active Offers</a>
+  <a id="op-btn" role="button" class="btn btn-default" style="padding:10px">Pending Offers</a>
+  <a id="oc-btn" role="button" class="btn btn-default" style="padding:10px">Closed Offers</a>
+  <a id="od-btn" role="button" class="btn btn-default" style="padding:10px">Draft Offers</a>
 </div>
 <br>
 
@@ -27,7 +27,7 @@ $("document").ready(function(){
     });
     // Change button status
     $(this).addClass( "active" )
-    $("#off-btn-container button").not(this).removeClass( "active" )
+    $("#off-btn-container a").not(this).removeClass( "active" )
   });
   $("#op-btn").click(function(){
     call_obj.url = "ajax/p_offer"
@@ -37,7 +37,7 @@ $("document").ready(function(){
     });
     // Change button status
     $(this).addClass( "active" )
-    $("#off-btn-container button").not(this).removeClass( "active" )
+    $("#off-btn-container a").not(this).removeClass( "active" )
   });
   $("#oc-btn").click(function(){
     call_obj.url = "ajax/c_offer"
@@ -47,7 +47,7 @@ $("document").ready(function(){
     });
     // Change button status
     $(this).addClass( "active" )
-    $("#off-btn-container button").not(this).removeClass( "active" )
+    $("#off-btn-container a").not(this).removeClass( "active" )
   });
   $("#od-btn").click(function(){
     call_obj.url = "ajax/d_offer"
@@ -57,7 +57,7 @@ $("document").ready(function(){
     });
     // Change button status
     $(this).addClass( "active" )
-    $("#off-btn-container button").not(this).removeClass( "active" )
+    $("#off-btn-container a").not(this).removeClass( "active" )
   });
 
 });

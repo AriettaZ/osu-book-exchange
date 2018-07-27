@@ -112,8 +112,7 @@
       <%end%>
       </div>
 
-      <div class="col col-2">
-        <div class="btn-group-vertical">
+        <div class="col col-auto btn-group-vertical">
           <% if current_user.id == contract.buyer_id %>
               <%= link_to "Message Seller", profile_messages_path(post_id: post.id, talk_to: contract.seller_id), class: "btn magic-button" %>
           <% end %>
@@ -145,7 +144,6 @@
 
           <% end %>
       </div>
-    </div>
   </div>
 
 </div>

@@ -9,7 +9,7 @@ class ContactUsController < ApplicationController
 		@message = Message.new(content: params[:content],
                            sender_id: current_user.id,
                            # receiver_id: Post.find(params[:post_id]).user.id
-                           post_id: 1,
+                           post_id: params[:talk_to]||1,
                            receiver_id: 13
               )
 
@@ -17,7 +17,7 @@ class ContactUsController < ApplicationController
 	    if @message.save
 	      # flash[:success] = "Message sent for post id: " + params[:post_id].to_s
 	      # redirect_to profile_messages_path(talk_to: params[:talk_to], post_id: params[:post_id])
-				redirect_to profile_messages_path(talk_to: 13, post_id: 1)
+				redirect_to profile_messages_path(talk_to: 13, post_id: params[:talk_to] || 1)
 	    else
 	      # Show saving errors.
 	      # @message.errors.each do |type, text|

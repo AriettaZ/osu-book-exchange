@@ -46,8 +46,8 @@ class OrdersController < ApplicationController
         contract = Contract.find(@order.contract_id)
         contract.status = 1
         contract.save
-        MagicMailer.newOrder(@order, User.find(contract.seller_id)).deliver_later
-        MagicMailer.newOrder(@order, User.find(contract.buyer_id)).deliver_later
+        MagicMailer.newOrder(@order, User.find(contract.seller_id)).deliver_now
+        MagicMailer.newOrder(@order, User.find(contract.buyer_id)).deliver_now
         CloseExpiredOrdersJob.set(wait_until: (contract.meeting_time+3.days)).perform_later(@order)
         format.html { redirect_to @order, notice: 'The contract was confirmed and an order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
@@ -69,8 +69,8 @@ class OrdersController < ApplicationController
         if @order.status == "canceled"
           post.status = 1
           post.save
-          MagicMailer.orderCanceled(@order, User.find(contract.buyer_id)).deliver_later
-          MagicMailer.orderCanceled(@order, User.find(contract.seller_id)).deliver_later
+          MagicMailer.orderCanceled(@order, User.find(contract.buyer_id)).deliver_now
+          MagicMailer.orderCanceled(@order, User.find(contract.seller_id)).deliver_now
           format.html { redirect_to @order, notice: 'Order was successfully canceled.' }
           format.json { render :show, status: :ok, location: @order }
 
@@ -78,16 +78,16 @@ class OrdersController < ApplicationController
         elsif @order.status == "problematic"
           post.status = 3
           post.save
-          MagicMailer.problematicOrder(@order, current_user).deliver_later
-          # format.html { redirect_to profile_messages_url(talk_to: 13, post_id: 0) }
-          format.html { redirect_to contact_us_url, notice: 'The MAG¡C team will contact you within 3 workdays.' }
+          MagicMailer.problematicOrder(@order, current_user).deliver_now
+          format.html { redirect_to profile_messages_url(talk_to: 13, post_id: post.id) }
+          # format.html { redirect_to contact_us_url, notice: 'The MAG¡C team will contact you within 3 workdays.' }
 
         # If order is completed, then post is closed(3) and an email is sent to users.
         elsif @order.status == "completed"
           post.status = 3
           post.save
-          MagicMailer.orderCompleted(@order, User.find(contract.seller_id)).deliver_later
-          MagicMailer.orderCompleted(@order, User.find(contract.buyer_id)).deliver_later
+          MagicMailer.orderCompleted(@order, User.find(contract.seller_id)).deliver_now
+          MagicMailer.orderCompleted(@order, User.find(contract.buyer_id)).deliver_now
           format.html { redirect_to @order, notice: 'Order was successfully completed.' }
           format.json { render :show, status: :ok, location: @order }
 
@@ -95,8 +95,8 @@ class OrdersController < ApplicationController
         else
           post.status = 3
           post.save
-          MagicMailer.orderActive(@order, User.find(contract.seller_id)).deliver_later
-          MagicMailer.orderActive(@order, User.find(contract.buyer_id)).deliver_later
+          MagicMailer.orderActive(@order, User.find(contract.seller_id)).deliver_now
+          MagicMailer.orderActive(@order, User.find(contract.buyer_id)).deliver_now
           format.html { redirect_to @order, notice: 'Order was successfully activated.' }
           format.json { render :show, status: :ok, location: @order }
         end

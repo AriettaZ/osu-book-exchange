@@ -2,11 +2,11 @@
 <h1>My Requests</h1>
 <p><strong>Total: </strong><%= @requests.length %></p>
 
-<div id="req-btn-container" class="btn-group btn-group-toggle d-flex" role="group" aria-label="Request Buttons" data-toggle="buttons">
-  <button id="ra-btn" class="btn btn-default w-100 active" style="padding:10px">Active Requests</button>
-  <button id="rp-btn" class="btn btn-default w-100" style="padding:10px">Pending Requests</button>
-  <button id="rc-btn" class="btn btn-default w-100" style="padding:10px">Closed Requests</button>
-  <button id="rd-btn" class="btn btn-default w-100" style="padding:10px">Draft Requests</button>
+<div id="req-btn-container" class="btn-group btn-group-justified" role="group" aria-label="Request Buttons" data-toggle="buttons">
+  <a id="ra-btn" role="button" class="btn btn-default active" style="padding:10px">Active Requests</a>
+  <a id="rp-btn" role="button" class="btn btn-default" style="padding:10px">Pending Requests</a>
+  <a id="rc-btn" role="button" class="btn btn-default" style="padding:10px">Closed Requests</a>
+  <a id="rd-btn" role="button" class="btn btn-default" style="padding:10px">Draft Requests</a>
 </div>
 
 <br>
@@ -28,7 +28,7 @@ $("document").ready(function(){
     });
     // Change button status
     $(this).addClass( "active" )
-    $("#req-btn-container button").not(this).removeClass( "active" )
+    $("#req-btn-container a").not(this).removeClass( "active" )
   });
   $("#rp-btn").click(function(){
     call_obj.url = "ajax/p_request"
@@ -38,7 +38,7 @@ $("document").ready(function(){
     });
     // Change button status
     $(this).addClass( "active" )
-    $("#req-btn-container button").not(this).removeClass( "active" )
+    $("#req-btn-container a").not(this).removeClass( "active" )
   });
   $("#rc-btn").click(function(){
     call_obj.url = "ajax/c_request"
@@ -48,7 +48,7 @@ $("document").ready(function(){
     });
     // Change button status
     $(this).addClass( "active" )
-    $("#req-btn-container button").not(this).removeClass( "active" )
+    $("#req-btn-container a").not(this).removeClass( "active" )
   });
   $("#rd-btn").click(function(){
     call_obj.url = "ajax/d_request"
@@ -58,7 +58,7 @@ $("document").ready(function(){
     });
     // Change button status
     $(this).addClass( "active" )
-    $("#req-btn-container button").not(this).removeClass( "active" )
+    $("#req-btn-container a").not(this).removeClass( "active" )
   });
 
 });
