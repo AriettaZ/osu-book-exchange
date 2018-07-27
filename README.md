@@ -85,13 +85,14 @@ locked.
 
 ### Data Storage
 
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/ER%20Diagram.png" width="400">
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/ER%20Diagram.png" width="700">
 
 
 ***
 
 ### Workflow
 
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/ce376ae5dbc95d292a38e7617d471717bb97abb5/app/assets/images/workflow.png" width="700">
 
 ***
 
@@ -102,7 +103,7 @@ locked.
 - Log out
 - Forget password
 
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/sign_up_form.png" width="400">
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/sign_up_form.png" width="700">
 
 #### Authorization
 - Admin Management Center: posts, orders, books and contracts data tables
@@ -110,7 +111,7 @@ locked.
 
 Records of all post for admin user:
 
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/admin_post_page.png" width="400" alt="admin post record">
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/admin_post_page.png" width="700" alt="admin post record">
 
 #### Automated Jobs
 - Periodically update the database and notify users by email
@@ -120,24 +121,27 @@ Records of all post for admin user:
 
 Contract expire and email notification:
 
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/expired_contract.png" width="400" alt="expired contract">
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/expired_contract.png" width="700" alt="expired contract">
 
 #### Live Book Search
 - Pass isbn or title query to search and retrieve Google Books API
 - Examples on *Offer Book* and *Request Book* pages
 
 Search Book by Title:
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/title_book_search.png" width="400" alt="expired contract">
+
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/title_book_search.png" width="700" alt="expired contract">
 
 Search Book by ISBN:
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/isbn_book_search.png" width="400" alt="expired contract">
+
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/isbn_book_search.png" width="700" alt="expired contract">
 
 #### Post Search and Filter
 - Handle database indexing and partial matches using Sunspot
 - Examples on *Home*, *About OSU Book Exchange* and *Search Post* Pages
 
 Search and filter Post
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/post_search_page.png" width="400" alt="expired contract">
+
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/post_search_page.png" width="700" alt="expired contract">
 
 ### Live Messaging
 - Instant messaging between buyer and seller/ users and admin using Ajax
@@ -183,3 +187,4 @@ Search and filter Post
   * Admin pages
   * Google Book API
   * ER diagram
+  * README
