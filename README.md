@@ -30,6 +30,7 @@ Automated mailing updates users on the status of their orders.
 * Gail
   * Contracts controller and views
   * Orders controller and views
+  * Dashboard - My Contracts & My Orders
   * Active Job
   * Mailer helper
   * Routes diagram

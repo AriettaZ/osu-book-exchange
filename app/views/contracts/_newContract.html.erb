@@ -15,25 +15,25 @@
   <div class="row">
     <div class="field col">
       <%= form.label :meeting_time %>
-      <%= form.datetime_field :meeting_time, min: DateTime.now.strftime("%Y-%m-%d %H:%M"), class: "form-control meeting-time", :type=>"datetime-local" %>
+      <%= form.text_field :meeting_time, onkeypress: "return false;", class: "form-control meeting-time" %>
     </div>
 
     <div class="field col">
       <%= form.label :expiration_time %>
-      <%= form.datetime_field :expiration_time, min: DateTime.now.strftime("%Y-%m-%d %H:%M"), class: "form-control expiration-time" %>
+      <%= form.text_field :expiration_time, onkeypress: "return false;", class: "form-control expiration-time" %>
     </div>
   </div>
 
   <br />
   <div class="row">
-    <div class="field col input-group mb-3">
-        <%= form.label :meeting_address_first %>
-        <%= form.text_area :meeting_address_first %>
+    <div class="field col">
+        <%= form.label "Meeting address line 1" %>
+        <%= form.text_field :meeting_address_first, class: "form-control" %>
     </div>
 
-    <div class="field col input-group mb-3">
-      <%= form.label :meeting_address_second %>
-      <%= form.text_area :meeting_address_second  %>
+    <div class="field col">
+      <%= form.label "Meeting address line 2" %>
+      <%= form.text_field :meeting_address_second, class: "form-control"  %>
     </div>
   </div>
 
@@ -134,6 +134,36 @@ $("document").ready(function(){
   });
 });
 
-$('.meeting-time').datetimepicker();
-$('.expiration-time').datetimepicker();
+var logic = function( currentDateTime ){
+  var now = new Date();
+  var h = now.getHours();
+  var m = now.getMinutes();
+  var time = h + ":" + m;
+  // 'this' is jquery object datetimepicker
+
+  if(currentDateTime.getFullYear() == now.getFullYear() &&
+    currentDateTime.getMonth() == now.getMonth() &&
+    currentDateTime.getDate() == now.getDate()){
+    this.setOptions({
+      minTime: time
+    });
+  } else {
+    this.setOptions({
+      minTime: "00:00"
+    });
+  }
+};
+
+$('.meeting-time').datetimepicker({
+  minDate: 0,
+  onChangeDateTime:logic,
+  onShow:logic,
+  step: 10,
+});
+$('.expiration-time').datetimepicker({
+  minDate: 0,
+  onChangeDateTime: logic,
+  onShow: logic,
+  step: 10,
+});
 </script>
