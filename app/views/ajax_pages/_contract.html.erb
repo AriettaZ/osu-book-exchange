@@ -1,7 +1,7 @@
 <!-- Author: Gail Chen
 Created: 7/24
 Edit: N/A
-Description: Creates a list of orders of for each status. -->
+Description: Creates a list of contract for the selected status after the ajax request. -->
 
 <% if status == "unsigned"%>
   <%contract_arr = @contracts.select{|contract| contract.status == "waiting" && contract.unsigned_user_id == current_user.id}%>

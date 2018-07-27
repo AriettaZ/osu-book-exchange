@@ -1,3 +1,8 @@
+# Author: Gail Chen
+# Created: 7/23
+# Edit: 7/24 Gail added contractExpired
+# Description: Preview emails.
+
 # Preview all emails at http://localhost:3000/rails/mailers/magic_mailer
 class MagicMailerPreview < ActionMailer::Preview
 

@@ -1,7 +1,7 @@
 # Author: Gail Chen
 # Created: 7/23
 # Edit: N/A
-# Description: send emails to users when the status of their contracts and orders changed or messages sent
+# Description: send emails to users when the status of their contracts and orders changed
 class MagicMailer < ApplicationMailer
 
   # Send an email to the user who started the contract.
@@ -12,7 +12,7 @@ class MagicMailer < ApplicationMailer
     mail to: @signed_user.email, subject: "New Contract##{@contract.id} Created -- OSU Book Exchange"
   end
 
-  # Send an email to the user that needs to confirm/decline a contract.
+  # Send an email to the user that needs to confirm/decline a new contract.
   def unsignedContract(contract, signed_user, unsigned_user)
     @contract = contract
     @signed_user = signed_user
@@ -21,6 +21,7 @@ class MagicMailer < ApplicationMailer
     mail to: @unsigned_user.email, subject: "New Contract##{@contract.id} to Sign -- OSU Book Exchange"
   end
 
+  # Send an email to the user that started the contract when the contract is declined.
   def contractDeclined(contract, user, declinedBy)
     @contract = contract
     @user = user
@@ -29,6 +30,7 @@ class MagicMailer < ApplicationMailer
     mail to: @user.email, subject: "Contract##{@contract.id} Declined -- OSU Book Exchange"
   end
 
+  # Send an email to user when the contract is expired.
   def contractExpired(contract, user)
     @contract = contract
     @user = user
@@ -75,14 +77,6 @@ class MagicMailer < ApplicationMailer
 
     mail to: @user.email, subject: "Order##{@order.id} Canceled -- OSU Book Exchange"
   end
-
-  # Send an email to users if the user contact the Magic team.
-  # def contact_us(message, user)
-  #   @message = user
-  #   @user = user
-  #
-  #   mail to: "osu.magic.team@gmail.com", subject: "User Contacts Us -- OSU Book Exchange"
-  # end
 
   # Send an email to the message receiver
   def newMessage(message)

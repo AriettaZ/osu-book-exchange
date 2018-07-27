@@ -6,7 +6,7 @@
 ### 4. [Functionality](#functionality)
 * **[Authentication](#authentication)**
 * **[Authorization](#authorization)**
-* **[Automated Jobs](#automated-jobs)**
+* **[Automated Jobs & Mailer](#automated-jobs-&-mailer)**
 * **[Live Book Search](#live-book-search)**
 * **[Post Search and Filter](#post-search-and-filter)**
 * **[Live Messaging](#live-messaging)**
@@ -139,11 +139,11 @@ Example post records table for admin user:
 
 <img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/admin_post_page.png" width="900" alt="admin post record">
 
-### Automated Jobs
+#### Automated Jobs & Mailer
 - Periodically update the database and notify users by email
-- i.e. Order's status will change to *completed* after 3 days of the meeting day if user hasn't marked it as *completed*
-- i.e. Contract will expire after the date set by user
-- i.e. User will receive email notifications on post/contract/order changes
+- i.e. Order's status will be changed to *completed* after 3 days of the meeting day if user hasn't marked it as *completed*
+- i.e. Contract's status will be changed to *declined* when it is expired and has status "waiting"
+- i.e. User will receive email notifications on contract/order status changes
 
 Example Contract expire and email notification:
 
@@ -201,9 +201,10 @@ Search and filter Post
 * Gail
   * Contracts controller and views
   * Orders controller and views
+  * Dashboard - My Contracts & My Orders
   * Active Job
   * Mailer helper
-  * Routes diagram
+  * Workflow / State Change Diagram
 * Channing
   * Bookmarks model
   * Dashboard and about HTML and CSS
