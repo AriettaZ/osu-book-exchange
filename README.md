@@ -87,18 +87,36 @@ rails test:models
 Note that all other sunspot:solr processes must be killed or the database will be
 locked.
 
+##### Accounts
+- User account
+  - Sign up on register page for a user account
+  - Or use test account
+    - username: user@osu.edu
+    - password: password
+- Admin account
+ - username: admin@osu.edu
+ - password: password
+
 ***
 
 ### Data Storage
+The team uses SQLite for data storage.
+#### Models:
+- Bookmarks
+- Books
+- Users
+- Contracts
+- Images
+- Orders
+- Posts
 
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/ER%20Diagram.png" width="800">
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/ER%20Diagram.png" width="900">
 
 
 ***
 
 ### Workflow
-
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/ce376ae5dbc95d292a38e7617d471717bb97abb5/app/assets/images/workflow.png" width="800">
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/ce376ae5dbc95d292a38e7617d471717bb97abb5/app/assets/images/workflow.png" width="900">
 
 ***
 
@@ -109,17 +127,17 @@ locked.
 - Log out
 - Forget password
 
-Sign up Page:
+Example sign up Page:
 
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/sign_up_form.png" width="800">
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/sign_up_form.png" width="900">
 
 ### Authorization
 - Admin Management Center: posts, orders, books and contracts data tables
 - Besides admin, only the creator of post/order/contract can edit/delete
 
-Records of all post for admin user:
+Example post records table for admin user:
 
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/admin_post_page.png" width="800" alt="admin post record">
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/admin_post_page.png" width="900" alt="admin post record">
 
 ### Automated Jobs
 - Periodically update the database and notify users by email
@@ -127,21 +145,22 @@ Records of all post for admin user:
 - i.e. Contract will expire after the date set by user
 - i.e. User will receive email notifications on post/contract/order changes
 
-Contract expire and email notification:
+Example Contract expire and email notification:
 
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/expired_contract.png" width="800" alt="expired contract">
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/expired_contract.png" width="900" alt="expired contract">
 
 ### Live Book Search
 - Pass isbn or title query to search and retrieve Google Books API
 - Examples on *Offer Book* and *Request Book* pages
 
-Search Book by Title:
+Example search book by title result:
 
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/title_book_search.png" width="800" alt="expired contract">
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/title_book_search.png" width="900" alt="expired contract">
 
-Search Book by ISBN:
 
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/isbn_book_search.png" width="800" alt="expired contract">
+Example search book by ISBN result:
+
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/isbn_book_search.png" width="900" alt="expired contract">
 
 ### Post Search and Filter
 - Handle database indexing and partial matches using Sunspot
@@ -149,20 +168,26 @@ Search Book by ISBN:
 
 Search and filter Post
 
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/post_search_page.png" width="800" alt="expired contract">
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/post_search_page.png" width="900" alt="expired contract">
 
-### Live Messaging
+### Real time Messaging
 - Instant messaging between buyer and seller/ users and admin using Ajax
 - Examples on *my messages* page under profile, *start an conversation* form accessed from posts and *chat with admin* on contact us page
+
 
 ***
 
 ### Team
 <img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/6631528842598_.pic.jpg" width="400">
-* Overall Project Manager: Mike Lin
-* Coding Manager: Gail Chen
-* Testing Manager: Channing Jacobs
-* Documentation: Ariel Zhu
+
+| Role|Team Member|
+| ------------- |-------------|
+| Overall Project Manager| Mike Lin |
+|Coding Manager| Gail Chen |
+|Testing Manager| Channing Jacobs |
+|Documentation Manager| Ariel Zhu |
+
+*Contact Us: osu.magic.team@gmail.com*
 
 ***
 
