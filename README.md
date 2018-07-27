@@ -83,47 +83,70 @@ locked.
 
 ***
 
+### Data Storage
+
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/ER%20Diagram.png" width="400">
+
+
+***
+
 ### Workflow
 
 
 ***
 
 ### Functionality
-##### Authentication
+#### Authentication
 - Register
 - Login
 - Log out
 - Forget password
 
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/sign_up_form.png" width="400">
 
-
-##### Authorization
+#### Authorization
 - Admin Management Center: posts, orders, books and contracts data tables
 - Besides admin, only the creator of post/order/contract can edit/delete
 
-##### Automated Jobs
+Records of all post for admin user:
+
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/admin_post_page.png" width="400" alt="admin post record">
+
+#### Automated Jobs
 - Periodically update the database and notify users by email
 - i.e. Order's status will change to *completed* after 3 days of the meeting day if user hasn't marked it as *completed*
 - i.e. Contract will expire after the date set by user
 - i.e. User will receive email notifications on post/contract/order changes
 
+Contract expire and email notification:
 
-##### Live Book Search
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/expired_contract.png" width="400" alt="expired contract">
+
+#### Live Book Search
 - Pass isbn or title query to search and retrieve Google Books API
 - Examples on *Offer Book* and *Request Book* pages
 
-##### Post Search and Filter
+Search Book by Title:
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/title_book_search.png" width="400" alt="expired contract">
+
+Search Book by ISBN:
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/isbn_book_search.png" width="400" alt="expired contract">
+
+#### Post Search and Filter
 - Handle database indexing and partial matches using Sunspot
 - Examples on *Home*, *About OSU Book Exchange* and *Search Post* Pages
 
+Search and filter Post
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/post_search_page.png" width="400" alt="expired contract">
 
-#### Messaging
+### Live Messaging
 - Instant messaging between buyer and seller/ users and admin using Ajax
 - Examples on *my messages* page under profile, *start an conversation* form accessed from posts and *chat with admin* on contact us page
 
 ***
 
 ### Team
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/6631528842598_.pic.jpg" width="400">
 * Overall Project Manager: Mike Lin
 * Coding Manager: Gail Chen
 * Testing Manager: Channing Jacobs
