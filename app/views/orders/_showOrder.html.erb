@@ -125,7 +125,7 @@
 
     <!-- The seller/buyer can report problems at any time. -->
     <% if current_user.id == contract.buyer_id || current_user.id == contract.seller_id %>
-        <%= link_to "Report Problems", order_path(order, order: {status: :problematic}), :method => :put, data: { confirm: 'Are you sure?' }, class: "btn magic-button" %>
+        <%= link_to "Report Problems", order_path(order, order: {status: :problematic}, post_id: post.id), :method => :put, data: { confirm: 'Are you sure?' }, class: "btn magic-button" %>
     <% end %>
 
 

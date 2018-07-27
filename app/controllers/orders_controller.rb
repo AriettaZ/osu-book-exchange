@@ -80,7 +80,7 @@ class OrdersController < ApplicationController
           post.save
           MagicMailer.problematicOrder(@order, current_user).deliver_later
           # format.html { redirect_to profile_messages_url(talk_to: 13, post_id: 0) }
-          format.html { redirect_to contact_us_url, notice: 'The MAG¡C team will contact you within 3 workdays.' }
+          format.html { redirect_to contact_us_url(post_id: params[:post_id]), notice: 'The MAG¡C team will contact you within 3 workdays.' }
 
         # If order is completed, then post is closed(3) and an email is sent to users.
         elsif @order.status == "completed"
