@@ -33,7 +33,7 @@ Automated mailing updates users on the status of their orders.
   * Dashboard - My Contracts & My Orders
   * Active Job
   * Mailer helper
-  * Routes diagram
+  * Workflow / State Change Diagram
 * Channing
   * Bookmarks model
   * Dashboard and about HTML and CSS
