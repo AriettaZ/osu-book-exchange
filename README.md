@@ -121,7 +121,7 @@ Records of all post for admin user:
 
 Contract expire and email notification:
 
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/expired_contract.png" width="700" alt="expired contract">
+<img src="app/assets/images/expired_contract.png" width="700" alt="expired contract">
 
 #### Live Book Search
 - Pass isbn or title query to search and retrieve Google Books API
