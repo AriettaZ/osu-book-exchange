@@ -1,9 +1,15 @@
 # Project 6
 ### Ruby on Rails Project
 ### 1. [Overview](#overview)
-### 2. [Setup](#setup)
+### 2. [Set Up](#set-up)
 ### 3. [Workflow](#workflow)
 ### 4. [Functionality](#functionality)
+* **[Authentication](#authentication)**
+* **[Authorization](#authorization)**
+* **[Automated Jobs](#automated-jobs)**
+* **[Live Book Search](#live-book-search)**
+* **[Post Search and Filter](#post-search-and-filter)**
+* **[Live Messaging](#live-messaging)**
 ### 5. [Team](#team)
 ### 6. [Individual Contributions](#individual-contributions)
 
@@ -26,7 +32,7 @@ Automated mailing updates users on the status of their orders.
 
 ***
 
-### Setup
+### Set Up
 
 #### Setting it all up!
 Follow the installation setup for the Textbook Exchange server.
@@ -85,35 +91,37 @@ locked.
 
 ### Data Storage
 
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/ER%20Diagram.png" width="700">
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/ER%20Diagram.png" width="800">
 
 
 ***
 
 ### Workflow
 
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/ce376ae5dbc95d292a38e7617d471717bb97abb5/app/assets/images/workflow.png" width="700">
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/ce376ae5dbc95d292a38e7617d471717bb97abb5/app/assets/images/workflow.png" width="800">
 
 ***
 
 ### Functionality
-#### Authentication
-- Register
+### Authentication
+- Sign up
 - Login
 - Log out
 - Forget password
 
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/sign_up_form.png" width="700">
+Sign up Page:
 
-#### Authorization
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/sign_up_form.png" width="800">
+
+### Authorization
 - Admin Management Center: posts, orders, books and contracts data tables
 - Besides admin, only the creator of post/order/contract can edit/delete
 
 Records of all post for admin user:
 
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/admin_post_page.png" width="700" alt="admin post record">
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/admin_post_page.png" width="800" alt="admin post record">
 
-#### Automated Jobs
+### Automated Jobs
 - Periodically update the database and notify users by email
 - i.e. Order's status will change to *completed* after 3 days of the meeting day if user hasn't marked it as *completed*
 - i.e. Contract will expire after the date set by user
@@ -121,27 +129,27 @@ Records of all post for admin user:
 
 Contract expire and email notification:
 
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/expired_contract.png" width="700" alt="expired contract">
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/expired_contract.png" width="800" alt="expired contract">
 
-#### Live Book Search
+### Live Book Search
 - Pass isbn or title query to search and retrieve Google Books API
 - Examples on *Offer Book* and *Request Book* pages
 
 Search Book by Title:
 
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/title_book_search.png" width="700" alt="expired contract">
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/title_book_search.png" width="800" alt="expired contract">
 
 Search Book by ISBN:
 
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/isbn_book_search.png" width="700" alt="expired contract">
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/isbn_book_search.png" width="800" alt="expired contract">
 
-#### Post Search and Filter
+### Post Search and Filter
 - Handle database indexing and partial matches using Sunspot
 - Examples on *Home*, *About OSU Book Exchange* and *Search Post* Pages
 
 Search and filter Post
 
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/post_search_page.png" width="700" alt="expired contract">
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/post_search_page.png" width="800" alt="expired contract">
 
 ### Live Messaging
 - Instant messaging between buyer and seller/ users and admin using Ajax
