@@ -1,3 +1,4 @@
+# Gail 7/19 added validation
 # Channing 7/25, updated regular expression
 class Contract < ApplicationRecord
   belongs_to :seller, :class_name => 'User', :foreign_key => 'seller_id'
