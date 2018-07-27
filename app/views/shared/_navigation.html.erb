@@ -1,0 +1,69 @@
+<nav class="navbar navbar-expand-lg navbar-default" role="navigation">
+  <div class="navbar-header">
+    <%= link_to "OSU Book Exchange", root_path, class:["nav-link","navbar-brand"] %>
+    <!-- <i class="fas fa-book-open"></i> -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="navbar-toggler-icon fa fa-home fa-2x" style="margin-top:5px; font-size:30px;"></i>
+    </button>
+  </div>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="nav navbar-nav navbar-right  mr-auto">
+
+      <!-- Links that everybody can see -->
+      <li  class="nav-item">
+         <a class="nav-link" href="<%= root_path %>">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li  class="nav-item">
+        <%= link_to "Search Posts", search_path(search_for: "Title", offer_request:"both", query: "", edition: "all", condition: "all", high_price: "", low_price: ""), class:"nav-link" %>
+      </li>
+      <li  class="nav-item">
+        <%= link_to "Offer Book", posts_new_offer_path, class:"nav-link" %>
+      </li>
+      <li  class="nav-item">
+        <%= link_to "Request Book", posts_new_request_path, class:"nav-link" %>
+      </li>
+      <!-- Links for admin user -->
+      <% if current_user.has_roles?(:site_admin) %>
+      <li class="nav-item dropdown">
+       <a class="nav-link dropdown-toggle" href="<%= posts_admin_index_path %>" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         Admin
+       </a>
+       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+         <%= link_to "Posts", posts_admin_index_path, class:"dropdown-item" %>
+          <%= link_to "Orders", orders_path, class:"dropdown-item" %>
+          <%= link_to "Books", books_path, class:"dropdown-item" %>
+          <%= link_to "Contracts", contracts_path, class:"dropdown-item" %>
+       </div>
+     </li>
+    <%  end %>
+
+        <% if current_user.is_a?(GuestUser) %>
+        <li  class="nav-item">
+          <%= link_to "Login", new_user_session_path, class:"nav-link" %>
+        </li>
+        <li  class="nav-item">
+          <%= link_to "Register", new_user_registration_path, class:"nav-link" %>
+        </li>
+        <% else %>
+
+        <li class="nav-item dropdown">
+           <a class="nav-link dropdown-toggle" href="<%= profile_path %>" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             Profile
+           </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <%= link_to "Account Information", account_information_path, class:"dropdown-item" %>
+             <%= link_to "My Orders", profile_myorder_path, class:"dropdown-item" %>
+             <%= link_to "My Contracts", profile_mycontract_path, class:"dropdown-item" %>
+             <%= link_to "My Requests", profile_myrequest_path, class:"dropdown-item" %>
+             <%= link_to "My Offers", profile_myoffer_path, class:"dropdown-item" %>
+             <%= link_to "My Messages", profile_contacts_path, class:"dropdown-item" %>
+             <%= link_to "My Bookmarks", profile_bookmarks_path, class:"dropdown-item" %>
+          </div>
+        </li>
+        <li  class="nav-item">
+          <%= link_to "Logout", destroy_user_session_path, class:"nav-link", method: 'delete' %>
+        </li>
+        <% end %>
+      </ul>
+    </div><!--/navbar-colapse-->
+  </nav><!--/navbar-->

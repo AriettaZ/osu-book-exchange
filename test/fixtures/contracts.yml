@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# one:
+#   meeting_time: 2018-07-17 21:40:03
+#   meeting_address_first: MyText
+#   meeting_address_second: MyText
+#   final_payment_method: 1
+#   final_price: 9.99
+#   expiration_time: 2018-07-17 21:40:03
+#   status: 1
+#
+# two:
+#   meeting_time: 2018-07-17 21:40:03
+#   meeting_address_first: MyText
+#   meeting_address_second: MyText
+#   final_payment_method: 1
+#   final_price: 9.99
+#   expiration_time: 2018-07-17 21:40:03
+#   status: 1

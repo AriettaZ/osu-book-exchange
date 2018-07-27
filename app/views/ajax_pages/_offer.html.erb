@@ -1,0 +1,48 @@
+<%offer_arr = @offers.select{|offer| offer.status == type}%>
+<%offer_arr.sort_by! {|offer| offer.updated_at} %>
+<%offer_arr.reverse! %>
+
+<% if offer_arr.length == 0 %>
+  <div style="text-align:center" class="nodata"><h3>You have no <%=type%> offers.</h3></div>
+<% else %>
+
+<table id='<%=table_name%>' class="offer_table display" style="margin-left:auto;margin-right:auto">
+  <thead>
+    <tr>
+      <th style="padding:30px"> Book Image </th>
+      <th style="padding:30px"> Book Title </th>
+      <th style="padding:30px"> ISBN </th>
+      <th style="padding:30px"> Price </th>
+      <th style="padding:30px"> Condition </th>
+      <th style="padding:30px"> Date Posted </th>
+      <th style="padding:30px"> Edit </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% offer_arr.each do |offer| %>
+    <tr>
+      <td style="padding:30px"> <%=image_tag(offer.book.cover_image)%> </td>
+      <td style="padding:30px"> <%=offer.book.title%> </td>
+      <td style="padding:30px">
+        <%if !offer.book.ISBN_10.nil?%>
+          <%= offer.book.ISBN_10.to_s %>
+        <% elsif !offer.book.ISBN_13.nil?%>
+          <%= offer.book.ISBN_13.to_s %>
+        <% else %>
+          <%= "No known ISBN" %>
+        <% end %>
+      </td>
+      <td style="padding:30px"> <%=number_to_currency(offer.price.to_s)%> </td>
+      <td style="padding:30px"> <%=offer.condition%> </td>
+      <td style="padding:30px"> <%=offer.updated_at.strftime("%Y-%m-%d")%> </td>
+      <td style="padding:30px"> <%= link_to "Edit", post_edit_offer_url(offer.id) %> </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<script>
+$(document).ready(function(){
+$('.offer_table').DataTable();
+});
+</script>
+<% end %>

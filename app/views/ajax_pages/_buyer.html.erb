@@ -1,0 +1,13 @@
+<!-- Author: Gail Chen
+Created: 7/24
+Edit: N/A
+Description: When the admin is creating a contract, update the options of buyers
+after a post is selected using the ajax request. -->
+
+<%= label_tag "Buyer ID" %>
+
+<% if @buyers.length > 1%>
+  <%= collection_select :contract, :buyer_id, @buyers, :id, :id, prompt: "--select--" %>
+<% else %>
+  <%= collection_select :contract, :buyer_id, @buyers, :id, :id%>
+<% end %>

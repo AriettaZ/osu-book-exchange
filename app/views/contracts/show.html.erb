@@ -1,0 +1,12 @@
+<!-- Author: Gail Chen
+Created: 7/18
+Edit: N/A
+Description: Show the contract details. -->
+
+<h1>Contract #<%=@contract.id%></h1>
+
+<%= render 'showContract', contract: @contract, editFrom: "show", showFrom: @showFrom %>
+
+<% if current_user.has_roles?(:site_admin)%>
+<%= link_to 'Back', contracts_path, class: "btn magic-button" %>
+<% end %>

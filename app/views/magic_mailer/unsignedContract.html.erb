@@ -1,0 +1,9 @@
+Hello <%=@unsigned_user.name%>,
+<br/>
+<br/>
+<%=@signed_user.name%> has created a new contract for your <%= link_to "post", Post.find(@contract.post_id)%>.
+<%= render "contract_info", contract: @contract%>
+<br/>
+  Please sign in to visit <%= link_to "My Contracts", profile_mycontract_url %> to confirm and place an order, or decline this contract.
+
+<br/>

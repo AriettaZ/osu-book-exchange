@@ -1,0 +1,107 @@
+// Place all the styles related to the search controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.basic-search{
+    max-width: 630px;
+    margin: 0px auto;
+}
+
+.search-for-container{
+    display: inline-block;
+    vertical-align: -80%;
+}
+
+.search-for{
+    width: 80px;
+    height: 40px;
+}
+
+.offer-request-container{
+    display: inline-block;
+    vertical-align: -80%;
+}
+
+.offer-request{
+    height: 40px;
+    width: 150px;
+}
+
+.search-query-container{
+    display: inline-block;
+}
+
+.search-query{
+    width: 300px;
+    height: 38px;
+    border: 1px solid black;
+    padding-left: 10px;
+}
+
+.search-query-container:focus{
+    outline: none;
+}
+
+.submit-button{
+    display: inline-block;
+    color: white;
+    height: 38px;
+    width: 80px;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: rgba(43, 10, 36, 1.000);
+    text-align: center;
+    line-height: 38px;
+}
+
+.submit-button:hover{
+    text-decoration: none;
+    color: black;
+    background-color: rgba(233, 72, 20, 1.000);
+}
+
+.submit-button:active{
+    font-weight: bold;
+}
+
+
+.filter{
+    max-width: 640px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.filter-message{
+    font-size: 18px;
+}
+
+.edition-container{
+    display: inline-block;
+    vertical-align: -80%;
+    margin-left: 10px;
+    width: 114px;
+}
+
+.edition{
+    width: 114px;
+}
+
+.condition-container{
+    display: inline-block;
+    vertical-align: -80%;
+}
+
+.condition{
+    width: 162px;
+}
+.smallThumbnail{
+  max-width: 80px;
+}
+.price-filter{
+    width: 120px;
+    height: 38px;
+    border: 1px solid black;
+    padding-left: 10px;
+    margin: 0px 5px;
+}

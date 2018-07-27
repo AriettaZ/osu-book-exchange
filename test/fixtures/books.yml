@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# one:
+#   ISBN_10: MyText
+#   ISBN_13: MyText
+#   edition: MyText
+#   title: MyText
+#   cover_image: MyText
+#   amazon_price: 9.99
+#
+# two:
+#   ISBN_10: MyText
+#   ISBN_13: MyText
+#   edition: MyText
+#   title: MyText
+#   cover_image: MyText
+#   amazon_price: 9.99

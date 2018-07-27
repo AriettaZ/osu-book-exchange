@@ -1,0 +1,12 @@
+Hello <%=@user.name%>,
+<br/>
+<br/>
+We are sorry to inform you that <%=@declinedBy.name%> declined the contract you created.
+Please contact <%=@declinedBy.name%> if you are still interested in getting this book.
+Contact us if you have any questions.
+
+<%= render "contract_info", contract: @contract%>
+
+<br/>
+To see details of this contract, please sign in to visit <%= link_to "My Contracts", profile_mycontract_url%>.
+<br/>

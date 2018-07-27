@@ -1,0 +1,10 @@
+<!-- Author: Gail Chen
+Created: 7/18
+Edit: N/A
+Description: A form to create a new order -->
+
+<h1>New Order</h1>
+
+<%= render 'newOrder', order: @order, edit: false %>
+<br/>
+<%= link_to 'Back', url_for(:back), class: "btn magic-button" %>

@@ -1,0 +1,29 @@
+<!-- Author: Gail Chen
+Created: 7/24
+Edit: N/A
+Description: Creates a list of contract for the selected status after the ajax request. -->
+
+<% if status == "unsigned"%>
+  <%contract_arr = @contracts.select{|contract| contract.status == "waiting" && contract.unsigned_user_id == current_user.id}%>
+<% elsif status == "waiting"%>
+  <%contract_arr = @contracts.select{|contract| contract.status == "waiting" && contract.unsigned_user_id != current_user.id}%>
+<% else %>
+  <%contract_arr = @contracts.select{|contract| contract.status == status}%>
+<% end %>
+
+<%contract_arr.sort_by! {|contract| contract.updated_at} %>
+<%contract_arr.reverse! %>
+
+<div id='<%=list_name%>'>
+  <% if contract_arr.length == 0 %>
+      <div style="text-align:center" class="nodata"><h3>You have no <%=status%> contracts.</h3></div>
+  <% else %>
+    <% contract_arr.each do |contract| %>
+        <div class="data border">
+          <h4>Contract #<%= contract.id %></h4>
+          <%= render "contracts/showContract", contract: contract, editFrom: "profile", showFrom: "mycontract" %>
+        </div>
+        <br/>
+    <% end %>
+  <% end %>
+</div>

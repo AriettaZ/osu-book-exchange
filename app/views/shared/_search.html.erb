@@ -1,0 +1,62 @@
+<%= stylesheet_link_tag "search" %>
+
+<%= form_tag(search_path, :method=>"get", :id=>"search-form") do %>
+
+<div class="basic-search">
+
+	<div class="offer-request-container">
+		<%= select_tag "search_for", options_for_select(['Title','ISBN'],@search_for), :class=>"search-for submit_by_enter" %>
+
+	</div>
+
+	<div class="offer-request-container">
+		<%= select_tag "offer_request", options_for_select([['offer and request','both'],['offer only','offer'],['request only','request']],@post_type), :class=>"offer-request submit_by_enter" %>
+	</div>
+
+	<div class="search-query-container">
+		<%= search_field_tag(:query, @search_field || "", :class=>"search-query", autocomplete:"off")  %>
+	</div>
+
+	<%= link_to "Search", "",:class=>"submit-button", :onclick=>"$('#search-form').submit()"%>
+</div>
+
+<div class="filter">
+
+	<span class="filter-message">Filter: </span>
+	<div class="edition-container">
+		<% default_editions = [['--edition--',:all]] %>
+		<%= select_tag :edition, options_for_select(@editions || default_editions, @edition), :class=>"edition submit_by_enter" %>
+	</div>
+
+	<div class="condition-container">
+		<%= select_tag(:condition, options_for_select(@conditions || [['--condition--',:all],['New'],['Used - Like New'],['Used - Good'],['Used - Acceptable'],['Used - poor','Unacceptable']], @condition), :class=>"condition submit_by_enter") %>
+	</div>
+	<%= number_field_tag(:low_price, @low_price, min:0, max:2000, class:"price-filter submit_by_enter", placeholder:"Lowest Price", autocomplete:"off", maxlength:15 )%><span class="filter-message"> to </span><%= number_field_tag(:high_price, @high_price, min:0, max:2000, class:"price-filter submit_by_enter", placeholder:"Highest Price", autocomplete:"off" ,maxlength:15 ) %>
+
+</div>
+<script>
+	 $(document).ready(function(){
+		$(".search-for").niceSelect();
+		$(".offer-request").niceSelect();
+		$(".edition").niceSelect();
+		$(".condition").niceSelect();
+		// Prevent Enter to submit the form
+		$('.search-query').on("keydown",function(event){
+			if(event.which==13){
+				event.preventDefault();
+				$('#search-form').submit()
+			}
+		})
+
+		$('.submit_by_enter').on("keydown",function(event){
+			$(this).find('.list').hide()
+			if(event.which==13){
+				$(this).blur()
+				event.preventDefault();
+				$('#search-form').submit()
+			}
+		})
+
+	})
+</script>
+<% end %>

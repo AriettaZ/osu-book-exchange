@@ -1,0 +1,9 @@
+<% provide(:title, "Create New Message") %>
+<%= stylesheet_link_tag "new_message" %>
+
+<h1>Send message to <%= @talk_to_name %></h1>
+
+<%= form_for @message, url: messages_url(post_id: params[:post_id], talk_to: params[:talk_to]) do |f| %>
+  <%= f.text_area :content, size: "60x12", placeholder: "Sent message can be view at \"profile → My Message\"" %>
+  <%= f.submit "Send", :id=>"user-chat-submit"%>
+<% end %>

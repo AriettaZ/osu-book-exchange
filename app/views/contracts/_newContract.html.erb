@@ -1,0 +1,174 @@
+<!-- Author: Gail Chen
+Created: 7/18
+Edit: N/A
+Description: A form shared by creating and editing a contract -->
+
+<%= form_with(model: contract, local: true) do |form| %>
+  <% if contract.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(contract.errors.count, "error") %> prohibited this contract from being saved:</h2>
+
+      <ul>
+      <% contract.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <br />
+  <div class="row">
+    <div class="field col">
+      <%= form.label :meeting_time %>
+      <%= form.text_field :meeting_time, onkeypress: "return false;", class: "form-control meeting-time" %>
+    </div>
+
+    <div class="field col">
+      <%= form.label :expiration_time %>
+      <%= form.text_field :expiration_time, onkeypress: "return false;", class: "form-control expiration-time" %>
+    </div>
+  </div>
+
+  <br />
+  <div class="row">
+    <div class="field col">
+        <%= form.label "Meeting address line 1" %>
+        <%= form.text_field :meeting_address_first, class: "form-control" %>
+    </div>
+
+    <div class="field col">
+      <%= form.label "Meeting address line 2" %>
+      <%= form.text_field :meeting_address_second, class: "form-control"  %>
+    </div>
+  </div>
+
+  <br />
+  <div class="field">
+    <%= form.label :final_payment_method %>
+
+    <%= form.select :final_payment_method, Contract.final_payment_methods.keys.to_a %>
+
+  </div>
+
+  <br />
+    <%= form.label :final_price %>
+    <div class="input-group">
+        <span class="input-group-addon">$</span>
+      <%= form.text_field :final_price, placeholder: "Price" %>
+  </div>
+  <br />
+
+
+  <% if createdby == "user" %>
+    <%= form.hidden_field :post_id %>
+    <%= form.hidden_field :seller_id %>
+    <%= form.hidden_field :buyer_id %>
+    <%= form.hidden_field :unsigned_user_id %>
+  <% else %>
+    <div class="row">
+      <div class="field col post">
+        <label for="contract_post_id">Post#</label>
+        <%= form.collection_select :post_id, Post.where(status: "active"), :id, :id, prompt: "--select--"%>
+      </div>
+
+
+    <div class="field col" id="buyer">
+        <%= label_tag "Buyer ID" %>
+        <%= form.collection_select :seller_id, User.where(id: 0), :id, :id, prompt: "--select--" %>
+    </div>
+
+    <div class="field col" id="seller">
+      <%= label_tag "Seller ID" %>
+      <%= form.collection_select :seller_id, User.where(id: 0), :id, :id, prompt: "--select--" %>
+    </div>
+
+    <div class="field col" id="unsigned">
+        <%= label_tag "Unsigned User ID" %>
+        <%= form.collection_select :seller_id, User.where(id: 0), :id, :id, prompt: "--select--" %>
+    </div>
+
+    </div>
+    <br />
+    <div class="field">
+      <%= form.label :status %>
+      <%= form.select :status, Contract.statuses.keys.to_a %>
+    </div>
+  <% end %>
+
+	<%= hidden_field_tag :createdby, createdby  %>
+	<%= hidden_field_tag :editFrom, editFrom  %>
+<br />
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<script>
+$("document").ready(function(){
+  $('option[value="online"]').attr("disabled","disabled");
+  $('[type=submit]').addClass("btn magic-button");
+  $("#contract_post_id").change(function(){
+    var post_id = parseInt($("#contract_post_id option:selected").val(), 10);
+    $.ajax({
+      url: "ajax/buyer",
+      dataType: "html",
+      method: "GET",
+      data: {"post_id": post_id}
+    }).done(function(data){
+      $("#buyer").html(data);
+      $("#contract_buyer_id").addClass("form-control");
+    }),
+    $.ajax({
+      url: "ajax/seller",
+      dataType: "html",
+      method: "GET",
+      data: {"post_id": post_id}
+    }).done(function(data){
+      $("#seller").html(data);
+      $("#contract_seller_id").addClass("form-control");
+    }),
+    $.ajax({
+      url: "ajax/unsigned",
+      dataType: "html",
+      method: "GET",
+      data: {"post_id": post_id}
+    }).done(function(data){
+      $("#unsigned").html(data);
+      $("#contract_unsigned_user_id").addClass("form-control");
+    });
+  });
+});
+
+var logic = function( currentDateTime ){
+  var now = new Date();
+  var h = now.getHours();
+  var m = now.getMinutes();
+  var time = h + ":" + m;
+  // 'this' is jquery object datetimepicker
+
+  if(currentDateTime.getFullYear() == now.getFullYear() &&
+    currentDateTime.getMonth() == now.getMonth() &&
+    currentDateTime.getDate() == now.getDate()){
+    this.setOptions({
+      minTime: time
+    });
+  } else {
+    this.setOptions({
+      minTime: "00:00"
+    });
+  }
+};
+
+$('.meeting-time').datetimepicker({
+  minDate: 0,
+  onChangeDateTime:logic,
+  onShow:logic,
+  step: 10,
+});
+$('.expiration-time').datetimepicker({
+  minDate: 0,
+  onChangeDateTime: logic,
+  onShow: logic,
+  step: 10,
+});
+</script>

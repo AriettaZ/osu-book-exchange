@@ -1,0 +1,49 @@
+<%= render "shared/search" %>
+<h1>Search Result</h1>
+<h4><%= @msg %></h4>
+<table id="post_index_table" class="display">
+  <thead>
+    <tr>
+      <th class="text-center">Post Type</th>
+      <th class="text-center">Title</th>
+      <th class="text-center">Edition</th>
+      <th class="text-center">Course Number</th>
+      <th class="text-center">Price</th>
+      <th class="text-center">Condition</th>
+      <th class="text-center">Seller</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <td class="text-center"><%= post.post_type %></td>
+        <td class="text-center"><%= link_to "#{post.book.title}", post %>
+        <td class="text-center"><%= post.edition %></td>
+        <td class="text-center"><%= post.course_number %></td>
+        <td class="text-center"> $<%= post.price %></td>
+        <td class="text-center"><%= post.condition%></td>
+        <td class="text-center"><%= post.user.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<script>
+$('#post_index_table').dataTable( {
+  "language": {
+    "search": "Search in results:"
+  },
+  "bLengthChange": false,
+  "autoWidth": true,
+  "columnDefs": [
+    { "width": "5%", "targets": 0 },
+    { "width": "25%", "targets": 1 },
+    { "width": "5%", "targets": 2 },
+    { "width": "10%", "targets": 3 },
+    { "width": "10%", "targets": 4 },
+    { "width": "20%", "targets": 5 },
+  ]
+} );
+</script>

@@ -1,0 +1,11 @@
+Hello <%=@user.name%>,
+<br/>
+<br/>
+We are sorry to inform you that your order #<%=@order.id%> was canceled. Please contact
+the other user if you are still interested in exchanging this book. Contact us if you have any questions.
+
+<%= render 'order_info', order: @order%>
+
+<br/>
+To see details of this order, please sign in to visit <%= link_to "My Orders", profile_myorder_url%>.
+<br/>

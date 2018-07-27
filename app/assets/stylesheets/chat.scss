@@ -1,0 +1,98 @@
+$magic-orange: #e94814;
+.messages-container{
+    height: 50vh;
+    overflow: scroll;
+}
+
+.message-row{
+    min-height: 50px;
+    clear: both;
+    overflow: hidden;
+}
+
+.showed-message{
+    display: inline-block;
+    margin-bottom: 10px;
+    max-width: 70%;
+}
+
+.message-time{
+    font-size: 11px;
+    font-family: arial;
+    text-align: right;
+}
+
+.message-content{
+    padding: 5px 10px;
+    border-radius: 10px;
+    display: inline-block;
+    text-align: left;
+}
+
+.from-me{
+    float: right;
+    margin-right: 15px;
+}
+
+.from-me .message-content{
+    background-color: rgba(43, 10, 36, 0.8);
+    color: white;
+    float: right;
+}
+
+.from-partner{
+    float: left;
+}
+
+.from-partner .message-content{
+    background-color: rgba(235, 235, 235, 1.000);
+    float: left;
+}
+
+.from-partner .message-time{
+    text-align:left;
+}
+
+#user-chat-input{
+    display: inline-block;
+    width: 80%;
+    height: 30px;
+}
+
+#user-chat-submit{
+    display: inline-block;
+    width: 19%;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background-color: rgba(0, 132, 255, 1.000);
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+#user-chat-submit:hover{
+    background-color: rgba(0, 132, 255, 0.700);
+}
+
+.message-actions{
+    display: inline-block;
+    margin-right: 30px;
+    text-align: center;
+    height: 30px;
+    width: 150px;
+    line-height: 30px;
+    background-color: rgba(0, 132, 255, 1.000);
+    border-radius: 10px;
+        color: white;
+    cursor: pointer;
+}
+
+.message-actions:active{
+    font-weight: bolder;
+}
+
+.message-actions:hover{
+    cursor: pointer;
+    background-color: rgba(0, 132, 255, 0.700);
+}

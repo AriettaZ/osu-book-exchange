@@ -1,0 +1,104 @@
+<div class="post_form">
+<h1>Editing Request Post</h1>
+
+<%= form_with(model: @post, local: true) do |form| %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="container-fluid">
+    <div class="book_show">
+    <p>
+      <%= image_tag @book.cover_image unless @book.cover_image.nil? %>
+      <h1 class="book_title"><%= @book.title %></h1>
+      <h4 class="book_subtitle"><%= @book.subtitle %></h4>
+      <p class="book_authors"><em><%= if @book.author then "By #{ @book.author }    " end %> </em></p>
+      <p  class="book_publisher"> <%= if @book.publisher then "Published by #{@book.publisher}" end%> </p>
+      <p class="book_isbn_13"><%= if @book.ISBN_13 then "ISBN 13: #{@book.ISBN_13}    " end %></p>
+      <p class="book_isbn_10"><%= if @book.ISBN_10 then "ISBN 10: #{@book.ISBN_10}" end %></p>
+      <p class="book_publication"><%= if @book.publication_date then "Publicated Date: #{@book.publication_date}    " end %></p>
+      <p class="list_price"><%= if @book.list_price then " List Price: $#{@book.list_price}" end %></p>
+    </p>
+
+    </div>
+    <br />
+    <div class="field" style="clear:both">
+      <label for="post_type">Post Type</label>
+      <input type="text"  name="post[post_type]" id="post_post_type" class="form-control"  placeholder="Price" value="request" readonly/>
+    </div>
+    <br />
+    <div class="field">
+      <div class="input-group mb-3">
+        <label for="post_course_number">Course Number(Optional field for textbook)</label>
+        <textarea class="form-control" rows="1" id="post_course_number" value="<%= @post.course_number  if  @post.course_number%>" name="post[course_number]"aria-label="Course Number" aria-describedby="Course Number"></textarea>
+      </div>
+    </div>
+    <div class="field">
+      <div class="input-group mb-3">
+        <label for="post_edition">Edition(Optional field for textbook)</label>
+        <input class="form-control" type="number" step="1" rows="1" value=1 id="post_edition" value="<%= @post.edition %>" name="post[edition]"aria-label="Edition" aria-describedby="Edition"></textarea>
+      </div>
+    </div>
+
+    <label for="post_price">Price</label>
+    <div class="input-group">
+      <span class="input-group-addon">$</span>
+        <input type="text"  name="post[price]" id="post_price" value="<%= @post.price %>"  class="form-control" placeholder="Price"/>
+    </div>
+    <br />
+
+    <div class="field">
+      <label for="post_condition">Book Condition</label>
+      <select class="form-control" name="post[condition]" id="post_condition" value="<%= @post.condition %>">
+        <option value="New" <%= "selected" if @post.condition== "New" %>>New</option>
+        <option value="Used - Like New" <%= "selected" if @post.condition== "Used - Like New" %>>Used - Like New</option>
+        <option value="Used - Very Good" <%= "selected" if @post.condition== "Used - Very Good" %>>Used - Very Good</option>
+        <option value="Used - Good" <%= "selected" if @post.condition== "Used - Good" %>>Used - Good</option>
+        <option value="Used - Acceptable" <%= "selected" if @post.condition== "Used - Acceptable" %>>Used - Acceptable</option>
+        <option value="Unacceptable" <%= "selected" if @post.condition== "Unacceptable" %>>Unacceptable</option>
+      </select>
+    </div>
+    <br />
+    <div class="field">
+      <label for="post_condition">Payment Method</label>
+      <select class="form-control" name="post[payment_method]" value="<%= @post.payment_method %>" id="post_payment_method">
+        <option value="inperson">In Person</option>
+        <option value="online" disabled>Online</option>
+      </select>
+    </div>
+    <br />
+    <div class="field">
+      <div class="input-group mb-3">
+        <label for="post_description">Description(Optional Field)</label>
+        <textarea class="form-control" rows="5" id="post_description" name="post[description]"aria-label="Description" aria-describedby="Description"><%= @post.description %></textarea>
+      </div>
+    </div>
+    <br />
+    <div class="field">
+      <div class="input-group mb-3">
+        <label for="post_status">Save or Publish</label>
+        <select class="form-control" name="post[status]" id="post_status">
+          <option value="draft">Save as a draft</option>
+          <option value="active">Publish</option>
+        </select>
+      </div>
+    </div>
+    <br />
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+    <% end %>
+    </div>
+<br/>
+<%= link_to 'Show Post', @post, class:["btn","magic-button"] %>
+<%= link_to 'Delete', posts_soft_delete_path(@post),method: :put, data: { confirm: 'Are you sure?' },class:['btn','magic-button'], role:['button']  %>
+<%= link_to 'Back', url_for(:back) , class:["btn","magic-button"] %>
+  </div>

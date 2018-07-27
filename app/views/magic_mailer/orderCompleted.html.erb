@@ -1,0 +1,10 @@
+Hello <%=@user.name%>,
+<br/>
+<br/>
+Your order #<%=@order.id%> is completed! Hope you enjoyed this experience.
+
+<%= render 'order_info', order: @order%>
+
+<br/>
+To see details of this order, please sign in to visit <%= link_to "My Orders", profile_myorder_url%>.
+<br/>

@@ -1,0 +1,81 @@
+<!-- Author: Gail Chen
+Created: 7/18
+Edit: N/A
+Description: A form shared by creating and editing a order -->
+
+<%= form_with(model: order, local: true) do |form| %>
+  <% if order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% order.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.select :status, Order.statuses.keys.to_a %>
+  </div>
+  <br/>
+
+  <!-- User creates an order. -->
+  <% if @createdby == "user" %>
+    <%= form.hidden_field :contract_id %>
+    <br/>
+    <div class="actions" id="user_submit">
+      <%= form.submit %>
+    </div>
+
+  <!-- Admin creates an order. -->
+  <%else%>
+    <div class="field">
+      <%= label_tag "Contract ID" %>
+      <% if edit == true %>
+        <%= form.collection_select :contract_id, Contract.where(id: order.contract_id), :id, :id %>
+      <% else %>
+        <%= form.collection_select :contract_id, Contract.where(status: "waiting"), :id, :id, prompt: "--select--" %>
+      <% end %>
+    </div>
+
+    <br/>
+    <div id="selected_contract"></div>
+
+    <br/>
+    <div class="actions" id="admin_submit">
+      <%= form.submit %>
+    </div>
+
+  <%end%>
+
+
+<% end %>
+<script>
+$("document").ready(function(){
+  $('[type="submit"]').addClass("btn magic-button");
+  // Automatically creates an order if the user confirmed the contract.
+  if ($('[type="submit"]').parent().is("#user_submit")){
+    $('[type="submit"]').click();
+  }
+  $("#order_contract_id").change(function(){
+    var contract_id = parseInt($("#order_contract_id option:selected").val(), 10);
+    if (!isNaN(contract_id)){
+      $.ajax({
+        url: "ajax/selected_contract",
+        dataType: "html",
+        method: "GET",
+        data: {"contract_id": contract_id}
+      }).done(function(data){
+        $("#selected_contract").addClass("data border");
+        $("#selected_contract").html(data);
+      });
+    } else {
+      $("#selected_contract").empty();
+      $("#selected_contract").removeClass("data border");
+    }
+  });
+});
+</script>

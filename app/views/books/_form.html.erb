@@ -1,0 +1,76 @@
+<!-- <%= form_tag(search_book_path, :method => "get", id: "search-form") do %>
+  <%= text_field_tag :keyword, params[:keyword], placeholder: "Search Books", class: 'form-control' %>
+  <span class="input-group-btn">
+    <%= submit_tag "Search", class: 'btn btn-default' %>
+  </span>
+<% end %> -->
+<%= form_with(model: book, local: true) do |form| %>
+  <% if book.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(book.errors.count, "error") %> prohibited this book from being saved:</h2>
+
+      <ul>
+      <% book.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_area :title %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :subtitle %>
+    <%= form.text_area :subtitle %>
+  </div>
+<br />
+  <div class="field">
+    <%= form.label :author %>
+    <%= form.text_area :author %>
+  </div>
+<br />
+  <div class="field">
+    <%= form.label :publisher %>
+    <%= form.text_area :publisher %>
+  </div>
+  <br />
+  <div class="field">
+    <%= form.label :publication_date %>
+    <%= form.datetime_select :publication_date %>
+  </div>
+<br />
+  <div class="field">
+    <%= form.label :ISBN_10 %>
+    <%= form.text_area :ISBN_10 %>
+  </div><br />
+
+  <div class="field">
+    <%= form.label :ISBN_13 %>
+    <%= form.text_area :ISBN_13 %>
+  </div><br />
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+  <br />
+  <div class="field">
+    <%= form.label :self_link %>
+    <%= form.text_area :self_link %>
+  </div>
+
+<br />
+  <div class="field">
+    <%= form.label :cover_image %>
+    <%= form.text_area :cover_image %>
+  </div>
+
+<br />
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+  <br />
+<% end %>
+<script>$('.datepicker').datepicker();</script>

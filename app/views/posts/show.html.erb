@@ -1,0 +1,107 @@
+<!-- <p id="notice"><%= notice %></p> -->
+<% flash.each do |message_type, message| %>
+  <% if message == "Bookmark Created"%>
+    <div class="alert alert-success" role="alert"><%= message %></div>
+  <% end %>
+  <% if message == "Already Bookmarked"%>
+    <div class="alert alert-warning" role="alert"><%= message %></div>
+  <% end %>
+<% end %>
+<div class="book_show">
+<p>
+  <%= image_tag @book.cover_image unless @book.cover_image.nil? %>
+  <h1 class="book_title"><%= @book.title %></h1>
+  <h4 class="book_subtitle"><%= @book.subtitle %></h4>
+  <%= button_to "Add Bookmark", :controller => :bookmarks, :action => 'create', params: {post_id: @post.id}, :method => :post %>
+  <p class="book_authors"><em><%= if @book.author then "By #{ @book.author }    " end %> </em></p>
+  <p  class="book_publisher"> <%= if @book.publisher then "Published by #{@book.publisher}" end%> </p>
+  <p class="book_isbn_13"><%= if @book.ISBN_13 then "ISBN 13: #{@book.ISBN_13}    " end %></p>
+  <p class="book_isbn_10"><%= if @book.ISBN_10 then "ISBN 10: #{@book.ISBN_10}" end %></p>
+  <p class="book_publication"><%= if @book.publication_date then "Publicated Date: #{@book.publication_date}    " end %></p>
+  <p class="list_price"><%= if @book.list_price then " List Price: $#{@book.list_price}" end %></p>
+</p>
+<p class="book_description"><%= if @book.description then @book.description.html_safe end %></p>
+
+</div>
+<div class="user_information" style="clear:both">
+<% if @post.post_type=="offer" %>
+<h1>More Information from Seller</h1>
+<p><strong>Seller:</strong> <%= User.find_by(id: @post.user_id).name %></p>
+<% else %>
+  <h1>More Information from Buyer</h1>
+<p><strong>Buyer:</strong> <%= User.find_by(id: @post.user_id).name %></p>
+<% end %>
+<p><strong>Post Status:</strong> <%= @post.status.capitalize %></p>
+<p><strong>Post Date:</strong> <%= distance_of_time_in_words(@post.created_at, Time.now) %> ago</p>
+<p><strong>Course Number:</strong> <%= @post.course_number.empty?? "No Course Number Information" : @post.course_number%></p>
+<p><strong>Edition:</strong> <%= @post.edition %> </p>
+<p><strong>Price:</strong> <%= @post.price %></p>
+<p><strong>Type:</strong> <%= @post.post_type %></p>
+<p><strong>Payment Method:</strong> <%= @post.payment_method=='inperson'? "In Person" : "Online" %>
+<p><strong>Condition:</strong> <%= @post.condition %></p>
+<p><strong>Description:</strong> <%= @post.description || "No Description" %></p>
+
+
+<% if @images.length>0 %>
+<h2>Actual Product Pictures</h2>
+
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <% @images.each_with_index do |picture,index| %>
+      <% puts index, picture.actual_product_image_url %>
+      <li data-target="#carouselExampleIndicators" data-slide-to="<%= index %>"></li>
+      <% end %>
+  </ol>
+  <div class="carousel-inner">
+      <% @images.each_with_index do |picture , index| %>
+        <% puts index, picture.actual_product_image_url %>
+      <div class="carousel-item">
+        <img class="d-block w-100" src="<%= picture.actual_product_image_url %>" alt="<%= index %> slide">
+      </div>
+    <% end %>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+<% end %>
+</div>
+<% if @post.status!='deleted' &&  @post.status!='closed' %>
+<% if current_user.is_a?(GuestUser) %>
+  <%= link_to "Add Bookmark", new_user_session_path ,  class:['btn','magic-button'], role:['button'] %>
+
+  <% if @post.status == "active"|| @post.status == "pending"%>
+    <%= link_to 'Contact Seller', new_user_session_path, class:['btn','magic-button'], role:['button']  %>
+  <% end %>
+  <% if @post.status == "active" %>
+    <%= link_to 'Start a Contract',new_user_session_path , class:['btn','magic-button'], role:['button']%>
+  <% end %>
+
+<% else %>
+  <% if current_user.id!=@post.user_id %>
+    <% if (@post.status == "active"|| @post.status == "pending")%>
+      <%= link_to 'Contact Seller',  new_message_path(post_id: @post.id, talk_to: @post.user_id), class:['btn','magic-button'], role:['button']  %>
+    <% end %>
+    <% if @post.status == "active" && current_user.id!=@post.user_id %>
+      <%= link_to 'Start a Contract', new_contract_path(post_id: @post.id, sender_id: current_user.id, receiver_id: @post.user_id), class:['btn','magic-button'], role:['button'] %>
+    <% end %>
+
+  <% else  %>
+    <% if @post.post_type=="offer" %>
+      <%= link_to 'Edit', post_edit_offer_path(@post),  class:['btn','magic-button'], role:['button']  %>
+    <% else %>
+      <%= link_to 'Edit', post_edit_request_path(@post),  class:['btn','magic-button'], role:['button']  %>
+    <% end %>
+    <!-- <%= link_to 'Delete', @post, method: :delete, data: { confirm: 'Are you sure?' },class:['btn','magic-button'], role:['button']  %> -->
+    <%= link_to 'Delete', posts_soft_delete_path(@post),method: :put, data: { confirm: 'Are you sure?' },class:['btn','magic-button'], role:['button']  %>
+  <% end %>
+<% end %>
+<% end %>
+<%= link_to 'Back', url_for(:back),  class:['btn','magic-button'], role:['button']  %>
+</div>
+<hr>

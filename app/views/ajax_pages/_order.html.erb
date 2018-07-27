@@ -1,0 +1,22 @@
+<!-- Author: Gail Chen
+Created: 7/24
+Edit: N/A
+Description: Creates a list of orders of for the selected status after the ajax request. -->
+
+<%order_arr = @orders.select{|order| order.status == status}%>
+<%order_arr.sort_by! {|order| order.updated_at} %>
+<%order_arr.reverse! %>
+
+<div id='<%=list_name%>'>
+  <% if order_arr.length == 0 %>
+      <div style="text-align:center" class="nodata"><h3>You have no <%=status%> orders.</h3></div>
+  <% else %>
+    <% order_arr.each do |order| %>
+        <div class="data border">
+          <h4>Order #<%= order.id %></h4>
+          <%= render "orders/showOrder", order: order %>
+        </div>
+        <br/>
+    <% end %>
+  <% end %>
+</div>

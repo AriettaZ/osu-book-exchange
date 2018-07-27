@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MAGCProject6</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name="turbolinks-cache-control" content="no-cache">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'dropzone/dropzone' %>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.js"></script>
+      <!-- <%= javascript_include_tag  'dropzone.js' %> -->
+  </head>
+
+  <body>
+    <%= render "shared/navigation", location: "top" %>
+    <div class="main">
+      <% if flash[:notice] -%>
+        <div class="alert alert-warning" role="alert"><%= notice %></div>
+      <% end %>
+      <% if flash[:alert] -%>
+        <div class="alert alert-danger" role="alert"><%= alert %></div>
+      <% end %>
+    <%= yield %>
+    <%= source_helper %>
+    </div>
+    <div id="footer-buffer" style="height:100px"></div>
+    <%= render "shared/footer" , location: "bottom"%>
+  <script type="text/javascript">
+  $(document).ready(function(){
+    setTimeout(function(){
+      $('#contract_index_table').DataTable();
+      $('#order_index_table').DataTable();
+      $('#book_index_table').DataTable();
+      $('#post_index_table').DataTable();
+    }, 0);
+      $('.selectpicker').selectpicker();
+      $(".carousel-inner div:first-child").addClass( "active" )
+      $(".carousel-inner div:first-child").first().addClass( "active" )
+      $(".carousel-indicators li:first-child").first().addClass( "active" )
+        $("div.bs-searchbox input").last().bind("keyup", function() {
+          // $('.selectpicker').selectpicker('render');
+          $("div.bs-searchbox input").last().addClass("loading"); // show the spinner
+          // var form = $("#live-search-form"); // grab the form wrapping the search bar.
+
+          var url = "https://www.googleapis.com/books/v1/volumes?" // live_search action.
+          // alert(url)
+          var formData ={}; // grab the data in the form
+          formData['q']=$("div.bs-searchbox input").last().val()
+          console.log(formData)
+          $.get(url, formData, function(data){ // perform an AJAX get
+            $("div.bs-searchbox input").last().removeClass("loading"); // hide the spinner
+            $("#post_book_self_link").empty();
+            $.each(data['items'], function( index, value ) {
+           // $('#live-search-form').append($('<a href="#">'+value['volumeInfo']['title']);
+              if (typeof value['volumeInfo']['industryIdentifiers'] != 'undefined'){
+                if (value['volumeInfo']['industryIdentifiers'].length==1){
+                  $('#post_book_self_link').append($('<option data-tokens="'+value['volumeInfo']['industryIdentifiers'][0]['identifier']+ '" value="'+ value['selfLink']+'" data-subtext="'+value['volumeInfo']['industryIdentifiers'][0]['type']+': '+value['volumeInfo']['industryIdentifiers'][0]['identifier']+'">'+value['volumeInfo']['title']+'</option>'));
+                  console.log( index + ": " + value['volumeInfo']['title'] );
+                }else if (value['volumeInfo']['industryIdentifiers'].length==2) {
+                  $('#post_book_self_link').append($('<option data-tokens="'+value['volumeInfo']['industryIdentifiers'][0]['identifier']+ ' '+value['volumeInfo']['industryIdentifiers'][1]['identifier']+'" value="'+ value['selfLink']+'" data-subtext="'+value['volumeInfo']['industryIdentifiers'][0]['type']+': '+value['volumeInfo']['industryIdentifiers'][0]['identifier']+'">'+value['volumeInfo']['title']+'</option>'));
+                  console.log( index + ": " + value['volumeInfo']['title'] );
+                }
+
+              }
+             });
+           }).done(function(){
+                 $('.selectpicker').selectpicker('refresh');
+          });
+
+      });
+      $("select, :text, textarea").addClass("form-control")
+      });
+      var filledHeight = $(window).height()-($('nav').height()+$('.main').height()+100+$('.footer').height())
+      if(filledHeight>0){
+        $(".footer").css({
+          marginTop: $(window).height()-($('nav').height()+$('.main').height()+100+$('.footer').height())
+        })
+      }
+  </script>
+  </body>
+</html>

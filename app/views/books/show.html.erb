@@ -1,0 +1,17 @@
+<!-- <p id="notice"><%= notice %></p> -->
+<div class="book_show">
+<p>
+  <%= image_tag @book.cover_image unless @book.cover_image.nil? %>
+  <h1 class="book_title"><%= @book.title %></h1>
+  <h4 class="book_subtitle"><%= @book.subtitle %></h4>
+  <p class="book_authors"><em><%= if @book.author then "By #{ @book.author }    " end %> </em></p>
+  <p  class="book_publisher"> <%= if @book.publisher then "Published by #{@book.publisher}" end%> </p>
+  <p class="book_isbn_13"><%= if @book.ISBN_13 then "ISBN 13: #{@book.ISBN_13}    " end %></p>
+  <p class="book_isbn_10"><%= if @book.ISBN_10 then "ISBN 10: #{@book.ISBN_10}" end %></p>
+  <p class="book_publication"><%= if @book.publication_date then "Publicated Date: #{@book.publication_date}    " end %></p>
+  <p class="list_price"><%= if @book.list_price then " List Price: $#{@book.list_price}" end %></p>
+</p>
+<p class="book_description"><%= if @book.description then @book.description.html_safe end %></p>
+<%= link_to 'Edit', edit_book_path(@book),class: "btn magic-button" %> <%= link_to 'Back', url_for(:back),class: "btn magic-button" %>
+
+</div>

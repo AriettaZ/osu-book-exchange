@@ -1,0 +1,11 @@
+Hello <%=@receiver.name%>,
+<br/>
+<br/>
+<%=@sender.name%> sent you a new message:
+<br/>
+<br/>
+"<%=@content%>"
+<br/>
+<br/>
+Please sign in to visit <%= link_to "My Messages", profile_messages_url%> to reply this message.
+<br/>
