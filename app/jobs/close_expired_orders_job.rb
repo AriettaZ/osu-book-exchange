@@ -10,8 +10,8 @@ class CloseExpiredOrdersJob < ApplicationJob
     if @order.status == "active"
       @order.status = 2
       @order.save
-      MagicMailer.orderCompleted(@order, User.find(contract.seller_id)).deliver_later
-      MagicMailer.orderCompleted(@order, User.find(contract.buyer_id)).deliver_later
+      MagicMailer.orderCompleted(@order, User.find(contract.seller_id)).deliver_now
+      MagicMailer.orderCompleted(@order, User.find(contract.buyer_id)).deliver_now
     end
   end
 end

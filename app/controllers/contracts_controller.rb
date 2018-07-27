@@ -110,8 +110,8 @@ class ContractsController < ApplicationController
           post.status = 2
           post.save
           @contract.save
-          MagicMailer.newContract(@contract, signed_user, unsigned_user).deliver_later
-          MagicMailer.unsignedContract(@contract, signed_user, unsigned_user).deliver_later
+          MagicMailer.newContract(@contract, signed_user, unsigned_user).deliver_now
+          MagicMailer.unsignedContract(@contract, signed_user, unsigned_user).deliver_now
           DeclineExpiredContractJob.set(wait_until: @contract.expiration_time).perform_later(@contract, signed_user, unsigned_user)
           format.html { redirect_to @contract, notice: 'A contract was successfully created.' }
           format.json { render :show, status: :created, location: @contract }
@@ -123,8 +123,8 @@ class ContractsController < ApplicationController
           post.save
           @contract.save
           @order = Order.create(contract_id: @contract.id)
-          MagicMailer.newOrder(@order, User.find(@contract.seller_id)).deliver_later
-          MagicMailer.newOrder(@order, User.find(@contract.buyer_id)).deliver_later
+          MagicMailer.newOrder(@order, User.find(@contract.seller_id)).deliver_now
+          MagicMailer.newOrder(@order, User.find(@contract.buyer_id)).deliver_now
           CloseExpiredOrdersJob.set(wait_until: (@contract.meeting_time+3.days)).perform_later(@order)
           format.html { redirect_to order_url(@order), notice: 'Contract was confirmed and an order was successfully placed.' }
 
@@ -134,7 +134,7 @@ class ContractsController < ApplicationController
           @contract.unsigned_user_id = nil
           post.save
           @contract.save
-          MagicMailer.contractDeclined(@contract, signed_user, unsigned_user).deliver_later
+          MagicMailer.contractDeclined(@contract, signed_user, unsigned_user).deliver_now
           format.html { redirect_to @contract, notice: 'An contract was successfully declined.' }
           format.json { render :show, status: :created, location: @contract }
         end
@@ -160,8 +160,8 @@ class ContractsController < ApplicationController
           @contract.save
           post.save
           @order = Order.create(contract_id: @contract.id)
-          MagicMailer.newOrder(@order, User.find(@contract.seller_id)).deliver_later
-          MagicMailer.newOrder(@order, User.find(@contract.buyer_id)).deliver_later
+          MagicMailer.newOrder(@order, User.find(@contract.seller_id)).deliver_now
+          MagicMailer.newOrder(@order, User.find(@contract.buyer_id)).deliver_now
           CloseExpiredOrdersJob.set(wait_until: (@contract.meeting_time+3.days)).perform_later(@order)
           format.html { redirect_to order_url(@order), notice: 'Contract was confirmed and an order was successfully placed.' }
 
@@ -180,7 +180,7 @@ class ContractsController < ApplicationController
             @contract.unsigned_user_id = nil
             post.save
             @contract.save
-            MagicMailer.contractDeclined(@contract, signed_user, unsigned_user).deliver_later
+            MagicMailer.contractDeclined(@contract, signed_user, unsigned_user).deliver_now
             format.html { redirect_to @contract, notice: 'The contract was successfully declined.' }
             format.json { render :show, status: :ok, location: @contract }
 
@@ -188,8 +188,8 @@ class ContractsController < ApplicationController
           elsif @contract.status == "waiting"
             post.status = 2
             post.save
-            MagicMailer.newContract(@contract, signed_user, unsigned_user).deliver_later
-            MagicMailer.unsignedContract(@contract, signed_user, unsigned_user).deliver_later
+            MagicMailer.newContract(@contract, signed_user, unsigned_user).deliver_now
+            MagicMailer.unsignedContract(@contract, signed_user, unsigned_user).deliver_now
 
             DeclineExpiredContractJob.set(wait_until: @contract.expiration_time).perform_later(@contract, signed_user, unsigned_user)
             format.html { redirect_to @contract, notice: 'The contract is now waiting for confirmation/decline.' }
