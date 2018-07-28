@@ -2,23 +2,23 @@ require 'test_helper'
 
 class MessagesControllerTest < ActionDispatch::IntegrationTest
   test "should get list" do
-    get messages_list_url
-    assert_response :success
+    get '/profile/messages'
+    assert_response :redirect
   end
 
   test "should get show" do
-    get messages_show_url
-    assert_response :success
+    get '/profile/messages'
+    assert_response :redirect
   end
 
   test "should get new" do
-    get messages_new_url
-    assert_response :success
+    get '/profile/messages'
+    assert_response :redirect
   end
 
   test "should get create" do
-    get messages_create_url
-    assert_response :success
+    get new_message_url
+    assert_response :redirect
   end
 
 end

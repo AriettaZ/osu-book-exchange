@@ -3,7 +3,7 @@ require 'test_helper'
 class PostTest < ActiveSupport::TestCase
   # setup runs before every single test
   setup do
-    @book = Book.new(title: "book_title")
+    @book = Book.new(title: "book_title", author: "Author")
     @user = User.new(email: "e@m", name: "C", password: "123456")
     @post = Post.new(book: @book, user: @user, condition: "New", post_type: "offer", payment_method: "inperson", price: 500, status: "closed")
   end
