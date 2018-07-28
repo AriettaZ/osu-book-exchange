@@ -27,14 +27,24 @@ class OrdersController < ApplicationController
 
   # GET /orders/new
   def new
-    @order = Order.new
-    if @createdby == "user"
-      @order.contract_id = params[:contract_id]
+    if !current_user.has_roles?(:site_admin) && current_user.id != contract.buyer_id && current_user.id != contract.seller_id
+      flash[:notice] = "Sorry, you don't have access to this order."
+      redirect_to profile_mycontract_path
+    else
+      @order = Order.new
+      if @createdby == "user"
+        @order.contract_id = params[:contract_id]
+      end
     end
   end
 
   # GET /orders/1/edit
   def edit
+    contract = Contract.find(@order.contract_id)
+    if !current_user.has_roles?(:site_admin) && current_user.id != contract.buyer_id && current_user.id != contract.seller_id
+      flash[:notice] = "Sorry, you don't have access to this order."
+      redirect_to profile_mycontract_path
+    end
   end
 
   # POST /orders

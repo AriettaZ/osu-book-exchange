@@ -75,20 +75,25 @@ class ContractsController < ApplicationController
 
   # GET /contracts/1/edit
   def edit
-    @editFrom = params[:editFrom]
-    # Contract can only be edited when it is waiting for someone to confirm or decline
-    if @contract.status == "waiting"
-      # Admin can edit more infos
-      if current_user.has_roles?(:site_admin)
-        @createdby = "admin"
-      else
-        @createdby = "user"
-      end
-
-    # elsif !current_user.has_roles?(:site_admin)
+    if !current_user.has_roles?(:site_admin) && current_user.id != @contract.buyer_id && current_user.id != @contract.seller_id
+      flash[:notice] = "Sorry, you don't have access to edit this order."
+      redirect_to root_path
     else
-      flash[:notice] = "Sorry, this contract cannot be edited because it is #{@contract.status} already."
-      redirect_to contracts_url(@contracts)
+      @editFrom = params[:editFrom]
+      # Contract can only be edited when it is waiting for someone to confirm or decline
+      if @contract.status == "waiting"
+        # Admin can edit more infos
+        if current_user.has_roles?(:site_admin)
+          @createdby = "admin"
+        else
+          @createdby = "user"
+        end
+
+      # elsif !current_user.has_roles?(:site_admin)
+      else
+        flash[:notice] = "Sorry, this contract cannot be edited because it is #{@contract.status} already."
+        redirect_to contracts_url(@contracts)
+      end
     end
   end
 
