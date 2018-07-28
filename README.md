@@ -100,9 +100,10 @@ locked.
   - Or use test account
     - username: user@osu.edu
     - password: password
+    
 - Admin account
- - username: admin@osu.edu
- - password: password
+  - username: admin@osu.edu
+  - password: password
 
 ***
 
