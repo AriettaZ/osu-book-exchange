@@ -65,7 +65,19 @@
 
 1.times { |index|
   user = User.new
-  user.email = "test@test"
+  user.email = "admin@osu.edu"
+  user.major= "CSE"
+  user.name = "ADMIN"
+  user.phone= "8888888888"
+  user.password = 'password'
+  user.password_confirmation = 'password'
+  user.role=:site_admin
+  user.save!
+}
+
+1.times { |index|
+  user = User.new
+  user.email = "test@osu.edu"
   user.major= "CSE"
   user.name = "TEST"
   user.phone= "8888888888"
@@ -142,37 +154,26 @@ end
   Post.create!(
     post_type: 0,
     course_number: "cse3901",
-    price: 100,
-    condition: 0,
+    price: 20,
+    condition: 3,
     payment_method: 0,
     description: "a brand new book #{index}",
     status: 1,
     book_id: Book.find(index+1).id,
     user_id: User.find_by(email: "chen.6627@osu.edu").id)
 }
+
 2.times { |index|
   Post.create!(
     post_type: 0,
     course_number: "cse3901",
-    price: 100,
-    condition: 0,
+    price: 30,
+    condition: 4,
     payment_method: 0,
     description: "a brand new book #{index}",
     status: 1,
     book_id: Book.find(index+1).id,
     user_id: User.find_by(email: "test@test").id)
-}
-2.times { |index|
-  Post.create!(
-    post_type: 0,
-    course_number: "cse3901",
-    price: 100,
-    condition: 0,
-    payment_method: 0,
-    description: "a brand new book #{index}",
-    status: 1,
-    book_id: Book.find(index+1).id,
-    user_id: User.find_by(email: "jacobs.951@osu.edu").id)
 }
 
 2.times { |index|
@@ -180,7 +181,21 @@ end
     post_type: 0,
     course_number: "cse3901",
     price: 100,
-    condition: 0,
+    condition: 2,
+    payment_method: 0,
+    description: "a brand new book #{index}",
+    status: 1,
+    book_id: Book.find(index+1).id,
+    user_id: User.find_by(email: "jacobs.951@osu.edu").id)
+}
+
+
+2.times { |index|
+  Post.create!(
+    post_type: 0,
+    course_number: "cse3901",
+    price: 100,
+    condition: 3,
     payment_method: 0,
     description: "a brand new book #{index}",
     status: 1,
@@ -191,8 +206,8 @@ end
   Post.create!(
     post_type: 0,
     course_number: "cse3901",
-    price: 100,
-    condition: 0,
+    price: 13,
+    condition: 4,
     payment_method: 0,
     description: "a brand new book #{index}",
     status: 1,
@@ -211,7 +226,91 @@ end
     book_id: Book.find(index+1).id,
     user_id: User.find(index+1).id)
 }
+10.times { |index|
+  Post.create!(
+    post_type: 0,
+    course_number: "cse3901",
+    price: index+100,
+    condition: index/2,
+    payment_method: 0,
+    description: "a brand new book #{index}",
+    status: 1,
+    book_id: Book.find(index+21).id,
+    user_id: User.find(index+1).id)
+}
+10.times { |index|
+  Post.create!(
+    post_type: 0,
+    course_number: "cse3901",
+    price: index+100,
+    condition: index/2,
+    payment_method: 0,
+    description: "a brand new book #{index}",
+    status: 1,
+    book_id: Book.find(index+11).id,
+    user_id: User.find(index+1).id)
+}
+10.times { |index|
+  Post.create!(
+    post_type: 0,
+    course_number: "cse3901",
+    price: index+100,
+    condition: index/2,
+    payment_method: 0,
+    description: "a brand new book #{index}",
+    status: 1,
+    book_id: Book.find(index+31).id,
+    user_id: User.find(index+1).id)
+}
+10.times { |index|
+  Post.create!(
+    post_type: 0,
+    course_number: "cse3901",
+    price: index+100,
+    condition: index/2,
+    payment_method: 0,
+    description: "a brand new book #{index}",
+    status: 1,
+    book_id: Book.find(index+41).id,
+    user_id: User.find(index+1).id)
+}
+10.times { |index|
+  Post.create!(
+    post_type: 0,
+    course_number: "cse3901",
+    price: index+100,
+    condition: index/2,
+    payment_method: 0,
+    description: "a brand new book #{index}",
+    status: 1,
+    book_id: Book.find(index+51).id,
+    user_id: User.find(index+1).id)
+  }
 
+10.times { |index|
+  Post.create!(
+    post_type: 0,
+    course_number: "cse3901",
+    price: index+100,
+    condition: index/2,
+    payment_method: 0,
+    description: "a brand new book #{index}",
+    status: 1,
+    book_id: Book.find(index+30).id,
+    user_id: User.find(email: "admin@osu.edu").id)
+}
+10.times { |index|
+  Post.create!(
+    post_type: 0,
+    course_number: "cse3901",
+    price: index+100,
+    condition: index/2,
+    payment_method: 0,
+    description: "a brand new book #{index}",
+    status: 1,
+    book_id: Book.find(index+40).id,
+    user_id: User.find(email: "test@osu.edu").id)
+}
 5.times { |index|
   Contract.create!(
     meeting_time: DateTime.new(2018,9,28,4,5),
@@ -225,12 +324,12 @@ end
     buyer_id: User.find(index+1).id,
     unsigned_user_id: User.find(index+1).id,
     post_id: Post.find(index+1).id)
-  post = Post.find(index+1)
-  post.status = 2
-  post.save
+    post = Post.find(index+1)
+    post.status = 2
+    post.save
 }
 
-3.times { |index|
+10.times { |index|
   Contract.create!(
     meeting_time: DateTime.new(2018,10,23,4,5),
     meeting_address_first: "address#{index}",
@@ -239,14 +338,56 @@ end
     final_price: "#{index+200.1}",
     expiration_time: DateTime.new(2018,10,13,4+index,5),
     status: 1,
-    seller_id: Post.find(index+6).user_id,
-    buyer_id: User.find(index+6).id,
+    seller_id: Post.find(index+1).user_id,
+    buyer_id: User.find(index+1).id,
     unsigned_user_id: nil,
-    post_id: Post.find(index+6).id)
+    post_id: Post.find(index+1).id)
   Order.create!(
       status: 0,
-      contract_id: Contract.find(index+6).id)
-  post = Post.find(Post.find(index+6).id)
+      contract_id: Contract.find(index+1).id)
+  post = Post.find(Post.find(index+1).id)
+  post.status = 3
+  post.save
+}
+
+10.times { |index|
+  Contract.create!(
+    meeting_time: DateTime.new(2018,10,23,4,5),
+    meeting_address_first: "address#{index}",
+    meeting_address_second: "address#{index+100}",
+    final_payment_method: 1,
+    final_price: "#{index+200.1}",
+    expiration_time: DateTime.new(2018,10,13,4+index,5),
+    status: 2,
+    seller_id: Post.find_by(email:"admin@osu.edu").user_id,
+    buyer_id: User.find(index+11).id,
+    unsigned_user_id: nil,
+    post_id: Post.find(index+11).id)
+  Order.create!(
+      status: 0,
+      contract_id: Contract.find(index+11).id)
+  post = Post.find(Post.find(index+11).id)
+  post.status = 3
+  post.save
+}
+
+10.times { |index|
+  Contract.create!(
+    meeting_time: DateTime.new(2018,10,23,4,5),
+    meeting_address_first: "address#{index}",
+    meeting_address_second: "address#{index+100}",
+    final_payment_method: 1,
+    final_price: "#{index+200.1}",
+    expiration_time: DateTime.new(2018,10,13,4+index,5),
+    status: 3,
+    seller_id: Post.find_by(index+21).user_id,
+    buyer_id: User.find(index+1).id,
+    unsigned_user_id: nil,
+    post_id: Post.find(index+21).id)
+  Order.create!(
+      status: 0,
+      contract_id: Contract.find(index+21).id)
+  post = Post.find(Post.find(index+31).id)
   post.status = 3
   post.save
 }
