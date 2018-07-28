@@ -30,7 +30,7 @@ class BookmarkTest < ActiveSupport::TestCase
 
   test "bookmark should be unique" do
     user = User.create(name: "Channing Jacobs", email: "e@m", password: "123456")
-    book = Book.create(title: "My Title", ISBN_13: "978-3-16-148410-0", edition: "1st")
+    book = Book.create(title: "My Title", ISBN_13: "978-3-16-148410-0", author: "Author")
     post = Post.create(user: user, price: 0, post_type: "offer", book: book)
     @bookmark = Bookmark.new(user: user, post: post, favorite: true)
     assert @bookmark.valid?, @bookmark.errors.full_messages

@@ -251,7 +251,7 @@ end
   post.save
 }
 
-image_data= File.open(File.join(Rails.root, "/app/assets/images/6631528842598_.pic.jpg"))
+image_data= File.open(File.join(Rails.root, "/app/assets/images/magic_logo.jpg"))
 10.times { |index|
   Image.create!(
     actual_product_image: image_data,

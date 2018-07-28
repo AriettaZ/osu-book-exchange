@@ -1,11 +1,20 @@
 require 'test_helper'
 
 class BookTest < ActiveSupport::TestCase
-  #book model has no validations
+
   test "should have title" do
     @book = Book.new
+    @book.author = "Author Name"
     assert_not @book.save, "Book saved without title."
-    @book.title = "New title"
+    @book.title = "New Title"
     assert @book.save, "Book failed to save with title."
+  end
+
+  test "should have author" do
+    @book = Book.new
+    @book.title = "New Title"
+    assert_not @book.save, "Book saved without authors."
+    @book.author = "Author Name"
+    assert @book.save, "Book failed to save with authors."
   end
 end

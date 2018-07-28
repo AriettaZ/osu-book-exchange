@@ -2,7 +2,7 @@ require 'test_helper'
 
 class MessageTest < ActiveSupport::TestCase
   setup do
-    @book = Book.create(title: "book_title")
+    @book = Book.create(title: "book_title", author: "Author")
     @user = User.create(email: "e@m", name: "C", password: "123456")
     @post = Post.create(book: @book, user: @user, condition: "New", post_type: "offer", payment_method: "inperson", price: 500, status: "closed")
     @user1 = User.create(email: "e@m", name: "C", password: "123456")
