@@ -1,15 +1,14 @@
-# Project 6
-### Ruby on Rails Project
+# Project 6 Ruby on Rails Project
 ### 1. [Overview](#overview)
 ### 2. [Set Up](#set-up)
 ### 3. [Workflow](#workflow)
 ### 4. [Functionality](#functionality)
 * **[Authentication](#authentication)**
 * **[Authorization](#authorization)**
-* **[Automated Jobs & Mailer](#automated-jobs-&-mailer)**
+* **[Automated Jobs & Mailer](#automated-jobs--mailer)**
 * **[Live Book Search](#live-book-search)**
 * **[Post Search and Filter](#post-search-and-filter)**
-* **[Live Messaging](#live-messaging)**
+* **[Realtime Messaging](#realtime-messaging)**
 ### 5. [Team](#team)
 ### 6. [Individual Contributions](#individual-contributions)
 
@@ -155,12 +154,12 @@ Example Contract expire and email notification:
 
 Example search book by title result:
 
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/title_book_search.png" width="900" alt="expired contract">
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/title_book_search.png" width="900" alt="by title">
 
 
 Example search book by ISBN result:
 
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/isbn_book_search.png" width="900" alt="expired contract">
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/isbn_book_search.png" width="900" alt="by isbn">
 
 ### Post Search and Filter
 - Handle database indexing and partial matches using Sunspot
@@ -168,12 +167,13 @@ Example search book by ISBN result:
 
 Search and filter Post
 
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/post_search_page.png" width="900" alt="expired contract">
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/post_search_page.png" width="900" alt="post search and filter">
 
-### Real time Messaging
+### Realtime Messaging
 - Instant messaging between buyer and seller/ users and admin using Ajax
 - Examples on *my messages* page under profile, *start an conversation* form accessed from posts and *chat with admin* on contact us page
 
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/adc44c5b6d920a36c1330c2a02c9dc7b447ad5f4/app/assets/images/messaging_system.png"  width="900" alt="expired contract">
 
 ***
 
