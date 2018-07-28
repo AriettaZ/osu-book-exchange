@@ -12,6 +12,7 @@ class AjaxPagesController < ApplicationController
   before_action :unsigned_setup, only: [:unsigned]
   before_action :selected_contract_setup, only: [:selected_contract]
 
+  # params should be used with AJAX to combine calls
   # offer tables for dashboard
   def a_offer
     render partial: "offer", locals: {type: "active", table_name: "a-off-table"}

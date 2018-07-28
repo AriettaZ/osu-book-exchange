@@ -7,5 +7,5 @@ class Book < ApplicationRecord
   	text :ISBN_10
   end
   validates_presence_of :title
-  validates_presence_of :author
+  # validates_presence_of :author
 end

@@ -1,5 +1,5 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
+# 
 # one:
 #   meeting_time: 2018-07-17 21:40:03
 #   meeting_address_first: MyText
@@ -8,6 +8,10 @@
 #   final_price: 9.99
 #   expiration_time: 2018-07-17 21:40:03
 #   status: 1
+#   seller_id: 1
+#   buyer_id: 1
+#   post: post_one
+#   unsigned_user_id: 1
 #
 # two:
 #   meeting_time: 2018-07-17 21:40:03

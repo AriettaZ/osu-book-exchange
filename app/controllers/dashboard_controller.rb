@@ -7,18 +7,21 @@ class DashboardController < ApplicationController
   before_action :authenticate_user!
   require_relative '../helpers/contact'
 
-  # GET routes
+  # Below are GET routes for loading user profile data
   def main
     @user = current_user
   end
+
   def account_information
     @user = current_user
   end
+
   def mycontract
     activeContracts = Contract.where.not(status: "deleted")
     @contracts = activeContracts.where(buyer_id: current_user.id) + activeContracts.where(seller_id: current_user.id)
   end
 
+  # Set up orders for display to user
   def myorder
     @contracts = Contract.where(buyer_id: current_user.id) + Contract.where(seller_id: current_user.id)
     if @contracts.empty?
@@ -31,10 +34,12 @@ class DashboardController < ApplicationController
     end
   end
 
+  # Get all orders from this user
   def myrequest
     @requests = current_user.posts.where(post_type: "request")
   end
 
+  # Get all requests from this user
   def myoffer
     @offers = current_user.posts.where(post_type: "offer")
   end

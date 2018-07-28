@@ -1,3 +1,4 @@
+# Created by Ariel
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :edit_offer, :edit_request, :update,:soft_delete, :destroy, :toggle_status]
   access all: [:show,:new_offer,:new_request,:index], user: :all, site_admin: :all

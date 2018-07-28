@@ -2,18 +2,19 @@ require 'test_helper'
 
 class PagesControllerTest < ActionDispatch::IntegrationTest
   test "should get home" do
-    get pages_home_url
+    get root_url
     assert_response :success
   end
 
   test "should get about" do
-    get pages_about_url
+    #get pages_about_url
+    get '/about'
     assert_response :success
   end
 
   test "should get contact" do
-    get pages_contact_url
-    assert_response :success
+    get '/profile/contacts'
+    assert_response :redirect
   end
 
 end
