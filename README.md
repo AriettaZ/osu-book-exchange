@@ -1,12 +1,11 @@
-# Project 6
-### Ruby on Rails Project
+# Project 6 Ruby on Rails Project
 ### 1. [Overview](#overview)
 ### 2. [Set Up](#set-up)
 ### 3. [Workflow](#workflow)
 ### 4. [Functionality](#functionality)
 * **[Authentication](#authentication)**
 * **[Authorization](#authorization)**
-* **[Automated Jobs & Mailer](#automated-jobs-&-mailer)**
+* **[Automated Jobs & Mailer](#automated-jobs--mailer)**
 * **[Live Book Search](#live-book-search)**
 * **[Post Search and Filter](#post-search-and-filter)**
 * **[Live Messaging](#live-messaging)**
@@ -174,7 +173,7 @@ Search and filter Post
 - Instant messaging between buyer and seller/ users and admin using Ajax
 - Examples on *my messages* page under profile, *start an conversation* form accessed from posts and *chat with admin* on contact us page
 
-<img src="messaging_system.png"  width="900" alt="expired contract">
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/adc44c5b6d920a36c1330c2a02c9dc7b447ad5f4/app/assets/images/messaging_system.png"  width="900" alt="expired contract">
 ***
 
 ### Team
