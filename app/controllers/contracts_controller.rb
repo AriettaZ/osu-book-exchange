@@ -13,7 +13,7 @@ class ContractsController < ApplicationController
   # GET /contracts.json
   # Show all undeleted contracts
   def index
-    @contracts = Contract.all
+    @contracts = Contract.where.not(status: "deleted")
   end
 
   # GET /contracts/1
