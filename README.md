@@ -50,6 +50,11 @@ sudo apt-get install oracle-java8-installer
 Make sure to restart your computer or the next steps may fail.
 
 ##### Step Three: Set up sunspot solr
+If there is a solr folder, delete this folder by
+```
+rm -rvf solr
+```
+Then set up the sunspot solr
 ```
 rails generate sunspot_rails:install
 bundle exec rake sunspot:solr:start
@@ -59,12 +64,8 @@ bundle exec rake sunspot:solr:start
 rails db:migrate
 rails db:setup
 ```
-##### Step Five: Run server
-```
-rails server
-```
 
-##### Optional Step: Set up the mailer
+##### Step Five: Set up the mailer
 Store your email address and password in config/application.yml file.
 ```
 GMAIL_USERNAME: 'example@gmail.com'
@@ -76,6 +77,13 @@ default from: 'example@gmail.com'
 ```
 
 Some features like email notifications will not work unless the mailer has been configured.
+
+##### Step Six: Run server
+```
+rake sunspot:solr:reindex
+rails server
+```
+Our website is deployed already. Please visit https://osu-book-exchange.herokuapp.com.
 
 ##### Testing
 To test models, run the following commands.
