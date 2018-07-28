@@ -155,12 +155,12 @@ Example Contract expire and email notification:
 
 Example search book by title result:
 
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/title_book_search.png" width="900" alt="expired contract">
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/title_book_search.png" width="900" alt="by title">
 
 
 Example search book by ISBN result:
 
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/isbn_book_search.png" width="900" alt="expired contract">
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/isbn_book_search.png" width="900" alt="by isbn">
 
 ### Post Search and Filter
 - Handle database indexing and partial matches using Sunspot
@@ -168,13 +168,13 @@ Example search book by ISBN result:
 
 Search and filter Post
 
-<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/post_search_page.png" width="900" alt="expired contract">
+<img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/post_search_page.png" width="900" alt="post search and filter">
 
 ### Real time Messaging
 - Instant messaging between buyer and seller/ users and admin using Ajax
 - Examples on *my messages* page under profile, *start an conversation* form accessed from posts and *chat with admin* on contact us page
 
-
+<img src="messaging_system.png"  width="900" alt="expired contract">
 ***
 
 ### Team

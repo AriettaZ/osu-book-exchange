@@ -84,3 +84,4 @@ gem 'rest-client'
 gem 'rack-test', '~> 1.1.0'
 gem "figaro"
 gem 'validates_timeliness', '~> 5.0.0.alpha2'
+gem 'popper_js','~>1.14.3'

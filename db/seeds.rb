@@ -347,7 +347,42 @@ end
     book_id: Book.find(index+30).id,
     user_id: index+1)
 }
-
+10.times { |index|
+  Post.create!(
+    post_type: 1,
+    course_number: "cse3901",
+    price: index+10.1,
+    condition: index/2,
+    payment_method: 0,
+    description: "a brand new book #{index}",
+    status: 1,
+    book_id: Book.find(index+30).id,
+    user_id: User.find_by(email:"test@osu.edu").id)
+}
+10.times { |index|
+  Post.create!(
+    post_type: 0,
+    course_number: "cse3901",
+    price: index+1.1,
+    condition: index/2,
+    payment_method: 0,
+    description: "a brand new book #{index}",
+    status: 1,
+    book_id: Book.find(index+40).id,
+    user_id: User.find_by(email:"test@osu.edu").id)
+}
+10.times { |index|
+  Post.create!(
+    post_type: 0,
+    course_number: "cse3901",
+    price: index+1,
+    condition: index/2,
+    payment_method: 0,
+    description: "a brand new book #{index}",
+    status: 1,
+    book_id: Book.find(index+50).id,
+    user_id: User.find_by(email:"test@osu.edu").id)
+}
 10.times { |index|
   Post.create!(
     post_type: 1,
@@ -364,13 +399,30 @@ end
   Post.create!(
     post_type: 1,
     course_number: "cse3901",
-    price: index+100,
+    price: index+14,
     condition: index/2,
     payment_method: 0,
     description: "a brand new book #{index}",
     status: 3,
     book_id: Book.find(index+30).id,
     user_id: index+1)
+}
+5.times { |index|
+  Contract.create!(
+    meeting_time: DateTime.new(2018,9,28,4,5),
+    meeting_address_first: "address#{index}",
+    meeting_address_second: "address#{index+100}",
+    final_payment_method: 0,
+    final_price: "#{index+200.1}",
+    expiration_time: DateTime.new(2018,9,28,4+index,5),
+    status: 0,
+    seller_id: Post.find(index+1).user_id,
+    buyer_id: User.find_by(email:"test@osu.edu").id,
+    unsigned_user_id: User.find(index+1).id,
+    post_id: Post.find(index+1).id)
+    post = Post.find(index+1)
+    post.status = 2
+    post.save
 }
 5.times { |index|
   Contract.create!(
@@ -389,7 +441,6 @@ end
     post.status = 2
     post.save
 }
-
 10.times { |index|
   Contract.create!(
     meeting_time: DateTime.new(2018,10,23,4,5),
@@ -475,22 +526,22 @@ end
 }
 
 image_data1= File.open(File.join(Rails.root, "/app/assets/images/magic_logo.jpg"))
-10.times { |index|
+100.times { |index|
   Image.create!(
     actual_product_image: image_data1,
     post_id: Post.find(index+1).id)
 }
 image_data2= File.open(File.join(Rails.root, "/app/assets/images/magic-solid.1 copy.png"))
-20.times { |index|
+100.times { |index|
   Image.create!(
     actual_product_image: image_data2,
     post_id: Post.find(index+1).id)
 }
 
-14.times { |index|
+50.times { |index|
   Image.create!(
     actual_product_image: image_data1,
-    post_id: Post.find_by(user_id:"#{1+index}").id)
+    post_id: Post.find(index+1).id)
 }
 
 10.times { |index|

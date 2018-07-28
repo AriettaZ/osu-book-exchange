@@ -147,10 +147,10 @@ weight:bold;
 .navbar-nav .nav-item .nav-link{
   padding:15px;
 }
-.actual_product_image{
-  max-width: 300px;
-  max-height: 300px;
-  margin: 10px;
+.carousel-item img{
+  max-height: 400px;
+  width:auto;
+  margin:auto;
 }
 #carouselExampleIndicators{
   margin: 5em auto;
