@@ -295,6 +295,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   sprockets-rails
+  sunspot
   sunspot_rails
   sunspot_solr
   turbolinks (~> 5)

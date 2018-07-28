@@ -71,7 +71,7 @@ gem 'devise'
 gem 'momentjs-rails'
 gem 'sunspot_rails'
 gem 'sunspot_solr' # optional pre-packaged Solr distribution for use in development. Please find a section below explaining other options for running Solr in production
-
+gem 'sunspot', :require => 'sunspot'
 gem 'petergate', '~> 1.7'
 gem 'bootstrap', '~> 4.1.1'
 gem 'sprockets-rails'

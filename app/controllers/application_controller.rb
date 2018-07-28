@@ -1,8 +1,11 @@
 class ApplicationController < ActionController::Base
-  devise_parameter_sanitizer.permit(:sign_up,keys:[:name])
-  devise_parameter_sanitizer.permit(:account_update,keys:[:name])
-  devise_parameter_sanitizer.permit(:sign_up,keys:[:major])
-  devise_parameter_sanitizer.permit(:account_update,keys:[:major])
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up,keys:[:name])
+    devise_parameter_sanitizer.permit(:account_update,keys:[:name])
+    devise_parameter_sanitizer.permit(:sign_up,keys:[:major])
+    devise_parameter_sanitizer.permit(:account_update,keys:[:major])
+  end
   def current_user
     super || guest_user
   end
