@@ -8,7 +8,7 @@
 * **[Automated Jobs & Mailer](#automated-jobs--mailer)**
 * **[Live Book Search](#live-book-search)**
 * **[Post Search and Filter](#post-search-and-filter)**
-* **[Live Messaging](#live-messaging)**
+* **[Realtime Messaging](#realtime-messaging)**
 ### 5. [Team](#team)
 ### 6. [Individual Contributions](#individual-contributions)
 
@@ -169,7 +169,7 @@ Search and filter Post
 
 <img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/a33314b306c6f996a6d1428b33db1edf4a88ae5b/app/assets/images/post_search_page.png" width="900" alt="post search and filter">
 
-### Real time Messaging
+### Realtime Messaging
 - Instant messaging between buyer and seller/ users and admin using Ajax
 - Examples on *my messages* page under profile, *start an conversation* form accessed from posts and *chat with admin* on contact us page
 
