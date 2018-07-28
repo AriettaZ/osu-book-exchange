@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.where.not(status: "deleted")
+    @orders = Order.all
   end
 
   # GET /orders/1
