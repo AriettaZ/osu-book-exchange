@@ -174,6 +174,7 @@ Search and filter Post
 - Examples on *my messages* page under profile, *start an conversation* form accessed from posts and *chat with admin* on contact us page
 
 <img src="https://github.com/cse3901-osu-2018su/MAG-C-Project-6/blob/adc44c5b6d920a36c1330c2a02c9dc7b447ad5f4/app/assets/images/messaging_system.png"  width="900" alt="expired contract">
+
 ***
 
 ### Team
