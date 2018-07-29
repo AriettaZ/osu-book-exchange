@@ -13,3 +13,11 @@
 # user1:
 #
 # user2:
+
+# admin:
+#   email: "jacobs.951@osu.edu"
+#   major: "CSE"
+#   name : "Channing Jacobs"
+#   phone: "8888888888"
+#   encrypted_password: <%= User.new.send(:password_digest, 'password') %>
+#   roles: site_admin

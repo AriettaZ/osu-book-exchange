@@ -1,3 +1,8 @@
+<!-- Author: Mike
+Created At: 7/24
+Edit: N/A
+Description: Rendered html for Messages page initialization  -->
+
 <%= stylesheet_link_tag "chat" %>
 
 <%= link_to "< My Conversations", profile_contacts_path, :class=>"message-actions" %>
@@ -30,6 +35,7 @@
 </div>
 
 <form>
+	<!-- Show message field -->
 	<input type="text" name="" id="user-chat-input" placeholder="Enter your message here." autocomplete="off" maxlength=500/>
 	<div id="user-chat-submit">Send</div>
 </form>
@@ -52,6 +58,7 @@
 				url: window.location.href+"&last_msg_time="+$('.showed-message').last().find('.created-time').val(),
 
 			}).done(function(data){
+					// Update current message box
 					$('.showed-message').last().after(data)
 					$('.showed-message').last().animate({
 						opacity: 1,
@@ -92,7 +99,7 @@
 						"last_msg_time": $('.showed-message').last().find('.created-time').val()
 					}
 				}).done(function(data){
-
+					// Update current message box
 					$('.showed-message').last().after(data)
 					$('.messages-container').animate({
 						scrollTop: $('.messages-container')[0].scrollHeight
@@ -106,6 +113,7 @@
 				})
 
 			}else{
+				// Prevent black message
 				$('#user-chat-input').attr("placeholder", "Can't send Blank message.")
 			}
 		})

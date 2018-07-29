@@ -2,7 +2,7 @@ require 'test_helper'
 
 class OrderTest < ActiveSupport::TestCase
   setup do
-    @book = Book.create(title: "book_title")
+    @book = Book.create(title: "book_title", author: "Author")
     @user1 = User.create(email: "e@m", name: "C", password: "123456")
     @user2 = User.create(email: "m@e", name: "J", password: "654321")
     @post = Post.create(book: @book, user: @user1, condition: "New", post_type: "offer", payment_method: "inperson", price: 500)

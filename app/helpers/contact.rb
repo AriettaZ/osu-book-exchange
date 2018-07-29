@@ -1,3 +1,7 @@
+# Author: Mike
+# Created: 7/19
+# Description: Contact class to temperarily store information for contacts
+
 class Contact
 
   def initialize(partnerId, partner, postId, latest_message_time)

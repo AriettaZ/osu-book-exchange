@@ -1,7 +1,15 @@
+# Author: Mike
+# Created: 7/19
+# Description: Perform search for Book and Posts
+
 class SearchController < ApplicationController
 
+	# Author: Mike
+	# Created: 7/19
+	# Description: GET route for search with all conditions and filters
 	def search
 
+		# Prevent user input of large number
 		if params[:low_price].length>15 || params[:low_price].to_i <0 || params[:low_price].to_i > 10000 then
 		  	flash[:notice] = "Filter price must be in range $0 - $10,000"
 		  	redirect_to search_path(search_for: params[:search_for], offer_request: params[:offer_request], edition: params[:edition], condition: params[:condition], low_price: 0, high_price: params[:high_price])
@@ -12,13 +20,17 @@ class SearchController < ApplicationController
 		  	return
 		 end
 
-		  books = book_search
-		  post_refine_search books.results
-		  if params[:edition]!='all' then
-		  	edition_update books.results
-		  end
+		 # Perform book search first
+		 books = book_search
+		 # Then user the result from book search, refine result with posts
+		 post_refine_search books.results
+		 # Update edition options if params[:edition] is not 'all'
+		 if params[:edition]!='all' then
+		 	edition_update books.results
+		 end
 	end
 
+	# Search titles/ISBN in the book
 	def book_search
 		Book.search do
 			# Match title or ISBN
@@ -32,6 +44,7 @@ class SearchController < ApplicationController
 		end
 	end
 
+	# Refine results to post_type, condition, edition, prices in Post
 	def post_refine_search(books)
 		@posts = []
 		@editions = [['--edition--',:all]] if params[:edition]=="all"
@@ -73,10 +86,12 @@ class SearchController < ApplicationController
 	    		end
 	    	end.results.each do
 	      		|post|
+	      		# Reject results if post status is closed, draft or deleted
 	      		if post.status != "closed" && post.status != "draft" && post.status != "deleted" then
 	      			@posts.append(post)
 	      		end
 
+	      		# Update condition options
 	      		if params[:condition]=="all" then
 		      		unless @conditions.include? post.condition then
 		      			if post.condition!="Unacceptable"
@@ -87,6 +102,7 @@ class SearchController < ApplicationController
 		      		end
 		      	end
 
+		      	# Update edition options
 		      	if params[:edition]=="all" then
 	    			unless @editions.include? post.edition then
 		      			@editions.append(post.edition)
@@ -95,6 +111,7 @@ class SearchController < ApplicationController
 	    	end
 	  	end
 
+	  	# Define parameters
 	  	@posts.uniq!
 	  	@post_type = params[:offer_request]
 	  	@search_for = params[:search_for]
@@ -104,12 +121,11 @@ class SearchController < ApplicationController
 	  	@msg = "Find "+@posts.length.to_s+" Posts in total"
 	  	@low_price = params[:low_price]
 	  	@high_price = params[:high_price]
-	  	# @msg = params
 	end
 
+	# Update editions options if the user-choice edition is not "all"
 	def edition_update (books)
 		@editions = [['--edition--',:all]]
-
 		books.each do
 	    	|book|
 	    	Post.search do
@@ -139,6 +155,7 @@ class SearchController < ApplicationController
 	    			with(:price).less_than(params[:high_price].to_f+1)
 	    		end
 	    	end.results.each do |post|
+	    		# Update edition
 	    		if post.status!= "closed" && post.status != "draft" && post.status != "deleted" then
 	    			unless @editions.include? post.edition then
 		      			@editions.append(post.edition)

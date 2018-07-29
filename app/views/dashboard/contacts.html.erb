@@ -1,3 +1,8 @@
+<!-- Author: Mike
+Created At: 7/24
+Edit: N/A
+Description: Rendered html for conversation page  -->
+
 <%= stylesheet_link_tag "contact_list" %>
 
 <div>
@@ -11,9 +16,9 @@
 			<%= form_tag(profile_messages_path(), :method=>"get") do %>
 				<%= hidden_field_tag(:talk_to, contact.partner_id) %>
 				<%= hidden_field_tag(:post_id, contact.post_id) %>
-			
+
 				<div class="contact-info">
-				
+
 				<a onclick="$(this).closest('form').submit()">
 					<div class="contact-info-container">
 						<div class="contact-info-content">Conversation With: <%= contact.partner.name %></div>
@@ -27,6 +32,6 @@
 				</a>
 				</div>
 			<% end %>
-		<% end %>	
+		<% end %>
 	</div>
 </div>

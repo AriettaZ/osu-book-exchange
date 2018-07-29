@@ -1,11 +1,18 @@
+# Author: Mike
+# Created at: 7/22
+# Edit: N/A
+# Description: This controller execute the only contact_us routes for contact_us page.
+
 class ContactUsController < ApplicationController
 	def contact_us
 
+		# If guest, then render guest page
 		if current_user.is_a?(GuestUser) then
 			render "pages/guest_contact"
 			return
 		end
 
+		# Send messae to administrater
 		@message = Message.new(content: params[:content],
                            sender_id: current_user.id,
                            # receiver_id: Post.find(params[:post_id]).user.id
@@ -13,17 +20,11 @@ class ContactUsController < ApplicationController
                            receiver_id: 13
               )
 
-	    # flash.now[:success] = @message.inspect
+		# If message correctly sent, redirect to profile-messages routes
 	    if @message.save
-	      # flash[:success] = "Message sent for post id: " + params[:post_id].to_s
-	      # redirect_to profile_messages_path(talk_to: params[:talk_to], post_id: params[:post_id])
-				redirect_to profile_messages_path(talk_to: 13, post_id: params[:talk_to] || 1)
+			redirect_to profile_messages_path(talk_to: 13, post_id: params[:talk_to] || 1)
 	    else
-	      # Show saving errors.
-	      # @message.errors.each do |type, text|
-	      #   flash.now[:success] = type.to_s.capitalize + " " + text
-	      # end
-	      redirect_to new_user_session_path
+	     	redirect_to root_path
 	    end
 	end
 end
